@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace summer_client
+namespace project
 {
     public partial class WelcomeForm : Form
     {

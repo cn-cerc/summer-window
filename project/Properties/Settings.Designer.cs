@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace summer_client.Properties
+namespace project.Properties
 {
 
 

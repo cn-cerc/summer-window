@@ -1,4 +1,4 @@
-﻿namespace summer_client
+﻿namespace project
 {
     partial class MainForm
     {
@@ -35,7 +35,7 @@
             this.closeTabContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.前进ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.后退ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.myTabControl = new summer_client.MyTabControl();
+            this.myTabControl = new project.MyTabControl();
             this.tabContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 

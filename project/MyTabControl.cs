@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
-using summer_client.Properties;
+using project.Properties;
 
-namespace summer_client
+namespace project
 {
    public class MyTabControl : TabControl
     {

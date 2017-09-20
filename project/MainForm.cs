@@ -12,7 +12,7 @@ using CefSharp.WinForms.Internals;
 using CefSharp;
 
 
-namespace summer_client
+namespace project
 {
     public partial class MainForm : Form
     {

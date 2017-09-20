@@ -9,8 +9,8 @@
     <ProjectGuid>{7F0462E6-4BF9-430C-ABDF-AD7A414D6342}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>summer_client</RootNamespace>
-    <AssemblyName>summer-client</AssemblyName>
+    <RootNamespace>project</RootNamespace>
+    <AssemblyName>project</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

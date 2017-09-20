@@ -1,4 +1,4 @@
-﻿namespace summer_client
+﻿namespace project
 {
     partial class WelcomeForm
     {
@@ -40,7 +40,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::summer_client.Properties.Resources.Welcome;
+            this.BackgroundImage = global::project.Properties.Resources.Welcome;
             this.ClientSize = new System.Drawing.Size(960, 450);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "WelcomeForm";
