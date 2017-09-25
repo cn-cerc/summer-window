@@ -112,7 +112,7 @@
             this.btnPage1.Name = "btnPage1";
             this.btnPage1.Size = new System.Drawing.Size(116, 24);
             this.btnPage1.TabIndex = 0;
-            this.btnPage1.Text = "TabPage1";
+            this.btnPage1.Text = "Sheet1";
             this.btnPage1.UseVisualStyleBackColor = true;
             this.btnPage1.Click += new System.EventHandler(this.page1_Click);
             // 
@@ -134,6 +134,7 @@
             this.webBrowser1.Size = new System.Drawing.Size(655, 276);
             this.webBrowser1.TabIndex = 3;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
             // 
             // FrmMain
             // 

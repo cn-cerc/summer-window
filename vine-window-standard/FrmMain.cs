@@ -98,6 +98,11 @@ namespace vine_window_standard
         private void webBrowser1_NewWindow(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
+            WebBrowser wb = (WebBrowser)sender;
+            string url = wb.Document.ActiveElement.GetAttribute("href");
+
+            String target = wb.Document.ActiveElement.GetAttribute("target");
+            createWindow(url);
         }
 
         private void page1_Click(object sender, EventArgs e)
@@ -106,6 +111,11 @@ namespace vine_window_standard
         }
 
         private void page2_Click(object sender, EventArgs e)
+        {
+            createWindow("https://m.knowall.cn");
+        }
+
+        private void createWindow(String url)
         {
             Button last = buttons[buttons.Count - 1];
 
@@ -118,24 +128,13 @@ namespace vine_window_standard
             button.Height = last.Height;
             button.Width = last.Width;
             buttons.Add(button);
-            button.Text = String.Format("TabSheet{0:G}", buttons.Count);
+            button.Text = String.Format("Sheet{0:G}", buttons.Count);
             btnNew.Left = button.Left + button.Width + 10;
 
             pageControl.addItem();
             pageControl.browser.NewWindow += this.webBrowser1_NewWindow;
             pageControl.browser.DocumentCompleted += this.webBrowser1_DocumentCompleted;
-            switch (pageControl.Count)
-            {
-                case 2:
-                    pageControl.browser.Url = new Uri("http://www.baidu.com");
-                    break;
-                case 3:
-                    pageControl.browser.Url = new Uri("http://www.china.com");
-                    break;
-                default:
-                    pageControl.browser.Url = new Uri("http://www.sina.com.cn");
-                    break;
-            }
+            pageControl.browser.Url = new Uri(url);
         }
 
         private void btnSystemButtonClick(object sender, EventArgs e)
