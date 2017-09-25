@@ -19,7 +19,6 @@ namespace vine_window_standard
         PageControl pageControl;
         List<Button> buttons = new List<Button>();
 
-
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
         [DllImport("user32.dll")]
@@ -31,7 +30,7 @@ namespace vine_window_standard
         {
             InitializeComponent();
             this.Width = 1360;
-            this.Height = 700;
+            this.Height = 768;
 
             //让WebBrowser以ie9模式运行，用于支持html5
 
@@ -39,7 +38,7 @@ namespace vine_window_standard
             String appName = System.IO.Path.GetFileName(Application.ExecutablePath).ToLower();
             fixWebBrowserVersion(appName, ieMinVersion);
 
-            webBrowser1.Url = new Uri(String.Format("https://m.knowall.cn?CLIENTID={0:G}", "jasonpc"));
+            webBrowser1.Url = new Uri(String.Format("{0:G}?CLIENTID={1:G}", MyApp.HOME_URL, "jasonpc"));
 
             //调整初始化窗口
             fixWindowSize();
@@ -101,7 +100,8 @@ namespace vine_window_standard
             WebBrowser wb = (WebBrowser)sender;
             string url = wb.Document.ActiveElement.GetAttribute("href");
 
-            String target = wb.Document.ActiveElement.GetAttribute("target");
+            //String target = wb.Document.ActiveElement.GetAttribute("target");
+            //buttons[pageControl.Index].Text = target;
             createWindow(url);
         }
 
@@ -112,7 +112,7 @@ namespace vine_window_standard
 
         private void page2_Click(object sender, EventArgs e)
         {
-            createWindow("https://m.knowall.cn");
+            createWindow(MyApp.getFormUrl("WebDefault"));
         }
 
         private void createWindow(String url)
