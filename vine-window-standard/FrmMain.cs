@@ -17,7 +17,7 @@ namespace vine_window_standard
     {
         private static Int32 ieMinVersion = 11001;
         PageControl pageControl;
-        List<Button> buttons = new List<Button>();
+        TitleControl titles;
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
@@ -45,9 +45,16 @@ namespace vine_window_standard
             this.FormBorderStyle = FormBorderStyle.None;
 
             //初始化
-            pageControl = new PageControl(this, this.panel2);
+            pageControl = new PageControl(this, this.plBody);
             pageControl.AddItem(webBrowser1);
-            buttons.Add(btnPage1);
+            titles = new TitleControl(this.plTitle);
+            titles.BackColor = lblFirstTitle.BackColor;
+            titles.GoClick = goPageClick;
+            titles.CloseClick = closePageClick;
+            lblFirstTitle.Click += goPageClick;
+            titles.AddItem(btnPage);
+
+            btnNew.Click += this.newPageClick;
         }
 
         private void fixWindowSize()
@@ -105,55 +112,49 @@ namespace vine_window_standard
             createWindow(url);
         }
 
-        private void page1_Click(object sender, EventArgs e)
+        private void goPageClick(object sender, EventArgs e)
         {
-            pageControl.Index = buttons.IndexOf((Button)sender);
+            if(sender is Label)
+            {
+                Label label = (Label)sender;
+                pageControl.Index = titles.IndexOf(label.Parent);
+            }else
+            {
+                pageControl.Index = titles.IndexOf((Control)sender);
+            }
         }
 
-        private void page2_Click(object sender, EventArgs e)
+        private void newPageClick(object sender, EventArgs e)
         {
             createWindow(MyApp.getFormUrl("WebDefault"));
         }
 
         private void createWindow(String url)
         {
-            Button last = buttons[buttons.Count - 1];
-
-            Button button = new Button();
-            button.Parent = this.panel1;
-            button.Visible = true;
-            button.Top = last.Top;
-            button.Left = last.Left + last.Width + 10;
-            button.Click += page1_Click;
-            button.Height = last.Height;
-            button.Width = last.Width;
-            buttons.Add(button);
-            button.Text = String.Format("Sheet{0:G}", buttons.Count);
+            Control button = titles.AddItem();
+            button.Click += goPageClick;
             btnNew.Left = button.Left + button.Width + 10;
-
             pageControl.addItem();
             pageControl.browser.NewWindow += this.webBrowser1_NewWindow;
             pageControl.browser.DocumentCompleted += this.webBrowser1_DocumentCompleted;
             pageControl.browser.Url = new Uri(url);
         }
 
+        private void closePageClick(object sender, EventArgs e)
+        {
+            Control item = (Control)((Control)sender).Tag;
+            int index = titles.IndexOf(item);
+            pageControl.Index = index - 1;
+            titles.Remove(index);
+            pageControl.Delete(index);
+
+            Control last = titles.getItem(titles.Count - 1);
+            btnNew.Left = last.Left + last.Width + 10;
+        }
+
         private void btnSystemButtonClick(object sender, EventArgs e)
         {
-            if (sender == btnClose) //关闭当前浏览页
-            {
-                if (buttons.Count > 1)
-                {
-                    Button button = buttons[buttons.Count - 1];
-                    buttons.Remove(button);
-                    button.Dispose();
-                    pageControl.Index = buttons.Count - 1;
-                    pageControl.Delete(pageControl.Count - 1);
-
-                    Button last = buttons[buttons.Count - 1];
-                    btnNew.Left = last.Left + last.Width + 10;
-                }
-            }
-            else if (sender == btnExit) //退出系统
+            if (sender == btnExit) //退出系统
             {
                 Application.Exit();
             }
@@ -167,7 +168,7 @@ namespace vine_window_standard
         {
             WebBrowser browser = (WebBrowser)sender;
             var index = pageControl.Items.IndexOf(browser);
-            buttons[index].Text = browser.DocumentTitle;
+            titles.setTitle(index, browser.DocumentTitle);
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -179,5 +180,6 @@ namespace vine_window_standard
                 SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+
     }
 }
