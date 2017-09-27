@@ -146,9 +146,10 @@ namespace vine_window_standard
         {
             Control item = (Control)((Control)sender).Tag;
             int index = titles.IndexOf(item);
-            pageControl.Index = index - 1;
             titles.Remove(index);
             pageControl.Delete(index);
+            pageControl.Index = index - 1;
+            titles.Index = index - 1;
 
             Control last = titles.getItem(titles.Count - 1);
             btnNew.Left = last.Left + last.Width + 10;
