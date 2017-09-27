@@ -40,7 +40,7 @@
             this.pictureBox1.Image = global::vine_window_standard.Properties.Resources.welcome;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(784, 561);
+            this.pictureBox1.Size = new System.Drawing.Size(784, 421);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -56,7 +56,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 421);
             this.Controls.Add(this.pictureBox1);
             this.Name = "FrmWelcome";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
