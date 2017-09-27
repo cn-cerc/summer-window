@@ -34,16 +34,16 @@ namespace vine_window_standard
             {
                 for (int i = 0; i < items.Count; i++)
                 {
-                    if (i != value)
+                    if (i == value)
                     {
-                        items[i].Visible = false;
+                        items[i].Visible = true;
                     }
                 }
                 for (int i = 0; i < items.Count; i++)
                 {
-                    if (i == value)
+                    if (i != value)
                     {
-                        items[i].Visible = true;
+                        items[i].Visible = false;
                     }
                 }
                 this.index = value;
