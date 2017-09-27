@@ -16,7 +16,7 @@ namespace vine_window_standard
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain());
+            Application.Run(new FrmWelcome());
         }
     }
 }
