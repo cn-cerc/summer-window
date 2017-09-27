@@ -30,20 +30,21 @@
         {
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.plHead = new System.Windows.Forms.Panel();
+            this.plTitle = new System.Windows.Forms.Panel();
+            this.btnPage = new System.Windows.Forms.Panel();
+            this.lblFirstTitle = new System.Windows.Forms.Label();
+            this.btnNew = new System.Windows.Forms.Button();
             this.plSystem = new System.Windows.Forms.Panel();
+            this.btnMax = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.plBody = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.plTitle = new System.Windows.Forms.Panel();
-            this.btnNew = new System.Windows.Forms.Button();
-            this.btnPage = new System.Windows.Forms.Panel();
-            this.lblFirstTitle = new System.Windows.Forms.Label();
             this.plHead.SuspendLayout();
-            this.plSystem.SuspendLayout();
-            this.plBody.SuspendLayout();
             this.plTitle.SuspendLayout();
             this.btnPage.SuspendLayout();
+            this.plSystem.SuspendLayout();
+            this.plBody.SuspendLayout();
             this.SuspendLayout();
             // 
             // plHead
@@ -56,10 +57,52 @@
             this.plHead.Name = "plHead";
             this.plHead.Size = new System.Drawing.Size(655, 35);
             this.plHead.TabIndex = 0;
-            this.plHead.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            // 
+            // plTitle
+            // 
+            this.plTitle.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.plTitle.Controls.Add(this.btnPage);
+            this.plTitle.Controls.Add(this.btnNew);
+            this.plTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plTitle.Location = new System.Drawing.Point(0, 0);
+            this.plTitle.Name = "plTitle";
+            this.plTitle.Size = new System.Drawing.Size(557, 35);
+            this.plTitle.TabIndex = 3;
+            this.plTitle.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.plTitle_MouseDoubleClick);
+            this.plTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.plTitle_MouseMove);
+            // 
+            // btnPage
+            // 
+            this.btnPage.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnPage.Controls.Add(this.lblFirstTitle);
+            this.btnPage.Location = new System.Drawing.Point(4, 5);
+            this.btnPage.Name = "btnPage";
+            this.btnPage.Size = new System.Drawing.Size(119, 24);
+            this.btnPage.TabIndex = 4;
+            // 
+            // lblFirstTitle
+            // 
+            this.lblFirstTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblFirstTitle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFirstTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblFirstTitle.Name = "lblFirstTitle";
+            this.lblFirstTitle.Size = new System.Drawing.Size(119, 24);
+            this.lblFirstTitle.TabIndex = 2;
+            this.lblFirstTitle.Text = "label1";
+            this.lblFirstTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(129, 5);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(24, 24);
+            this.btnNew.TabIndex = 3;
+            this.btnNew.Text = "+";
+            this.btnNew.UseVisualStyleBackColor = true;
             // 
             // plSystem
             // 
+            this.plSystem.Controls.Add(this.btnMax);
             this.plSystem.Controls.Add(this.btnMin);
             this.plSystem.Controls.Add(this.btnExit);
             this.plSystem.Dock = System.Windows.Forms.DockStyle.Right;
@@ -67,11 +110,21 @@
             this.plSystem.Name = "plSystem";
             this.plSystem.Size = new System.Drawing.Size(98, 35);
             this.plSystem.TabIndex = 2;
-            this.plSystem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            this.plSystem.MouseMove += new System.Windows.Forms.MouseEventHandler(this.plTitle_MouseMove);
+            // 
+            // btnMax
+            // 
+            this.btnMax.Location = new System.Drawing.Point(39, 5);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(24, 24);
+            this.btnMax.TabIndex = 7;
+            this.btnMax.Text = "=";
+            this.btnMax.UseVisualStyleBackColor = true;
+            this.btnMax.Click += new System.EventHandler(this.btnSystemButtonClick);
             // 
             // btnMin
             // 
-            this.btnMin.Location = new System.Drawing.Point(35, 5);
+            this.btnMin.Location = new System.Drawing.Point(11, 5);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(24, 24);
             this.btnMin.TabIndex = 6;
@@ -109,47 +162,6 @@
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
             // 
-            // plTitle
-            // 
-            this.plTitle.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.plTitle.Controls.Add(this.btnPage);
-            this.plTitle.Controls.Add(this.btnNew);
-            this.plTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.plTitle.Location = new System.Drawing.Point(0, 0);
-            this.plTitle.Name = "plTitle";
-            this.plTitle.Size = new System.Drawing.Size(557, 35);
-            this.plTitle.TabIndex = 3;
-            this.plTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
-            // 
-            // btnNew
-            // 
-            this.btnNew.Location = new System.Drawing.Point(129, 5);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(24, 24);
-            this.btnNew.TabIndex = 3;
-            this.btnNew.Text = "+";
-            this.btnNew.UseVisualStyleBackColor = true;
-            // 
-            // btnPage
-            // 
-            this.btnPage.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnPage.Controls.Add(this.lblFirstTitle);
-            this.btnPage.Location = new System.Drawing.Point(4, 5);
-            this.btnPage.Name = "btnPage";
-            this.btnPage.Size = new System.Drawing.Size(119, 24);
-            this.btnPage.TabIndex = 4;
-            // 
-            // lblFirstTitle
-            // 
-            this.lblFirstTitle.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblFirstTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblFirstTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblFirstTitle.Name = "lblFirstTitle";
-            this.lblFirstTitle.Size = new System.Drawing.Size(119, 24);
-            this.lblFirstTitle.TabIndex = 2;
-            this.lblFirstTitle.Text = "label1";
-            this.lblFirstTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -161,10 +173,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "地藤标准版";
             this.plHead.ResumeLayout(false);
-            this.plSystem.ResumeLayout(false);
-            this.plBody.ResumeLayout(false);
             this.plTitle.ResumeLayout(false);
             this.btnPage.ResumeLayout(false);
+            this.plSystem.ResumeLayout(false);
+            this.plBody.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -181,6 +193,7 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Panel btnPage;
         private System.Windows.Forms.Label lblFirstTitle;
+        private System.Windows.Forms.Button btnMax;
     }
 }
 

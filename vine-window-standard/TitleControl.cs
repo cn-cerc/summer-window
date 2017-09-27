@@ -15,6 +15,7 @@ namespace vine_window_standard
         private Color backColor;
         public EventHandler CloseClick;
         public EventHandler GoClick;
+        public int index = -1;
 
         public TitleControl(Control parent)
         {
@@ -31,6 +32,7 @@ namespace vine_window_standard
             item.BackColor = backColor;
             item.Click += GoClick;
             items.Add(item);
+            Index = items.Count - 1;
         }
 
         internal Control AddItem()
@@ -97,6 +99,29 @@ namespace vine_window_standard
         {
             get { return backColor; }
             set { this.backColor = value; }
+        }
+
+        public int Index
+        {
+            get
+            {
+                return index;
+            }
+            set
+            {
+                if (index != value)
+                {
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        if(i != value)
+                        {
+                            items[i].BackColor = this.backColor;
+                        }
+                    }
+                    items[value].BackColor = Color.Blue;
+                    index = value;
+                }
+            }
         }
     }
 }

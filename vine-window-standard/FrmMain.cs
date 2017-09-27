@@ -48,7 +48,7 @@ namespace vine_window_standard
             pageControl = new PageControl(this, this.plBody);
             pageControl.AddItem(webBrowser1);
             titles = new TitleControl(this.plTitle);
-            titles.BackColor = lblFirstTitle.BackColor;
+            titles.BackColor = SystemColors.GradientActiveCaption;
             titles.GoClick = goPageClick;
             titles.CloseClick = closePageClick;
             lblFirstTitle.Click += goPageClick;
@@ -114,14 +114,16 @@ namespace vine_window_standard
 
         private void goPageClick(object sender, EventArgs e)
         {
-            if(sender is Label)
+            if (sender is Label)
             {
                 Label label = (Label)sender;
-                pageControl.Index = titles.IndexOf(label.Parent);
-            }else
-            {
-                pageControl.Index = titles.IndexOf((Control)sender);
+                titles.Index = titles.IndexOf(label.Parent);
             }
+            else
+            {
+                titles.Index = titles.IndexOf((Control)sender);
+            }
+            pageControl.Index = titles.Index;
         }
 
         private void newPageClick(object sender, EventArgs e)
@@ -162,6 +164,18 @@ namespace vine_window_standard
             {
                 this.WindowState = FormWindowState.Minimized;
             }
+            else if (sender == btnMax) //最大化
+            {
+                remaxForm();
+            }
+        }
+
+        private void remaxForm()
+        {
+            if (this.WindowState == FormWindowState.Normal)
+                this.WindowState = FormWindowState.Maximized;
+            else
+                this.WindowState = FormWindowState.Normal;
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -171,7 +185,12 @@ namespace vine_window_standard
             titles.setTitle(index, browser.DocumentTitle);
         }
 
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        private void plTitle_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            remaxForm();
+        }
+
+        private void plTitle_MouseMove(object sender, MouseEventArgs e)
         {
             //模拟点击窗体的Title
             if (e.Button == MouseButtons.Left)
@@ -180,6 +199,5 @@ namespace vine_window_standard
                 SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
-
     }
 }
