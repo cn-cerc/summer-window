@@ -52,6 +52,7 @@ namespace vine_window_standard
             titles.GoClick = goPageClick;
             titles.CloseClick = closePageClick;
             lblFirstTitle.Click += goPageClick;
+            lblFirstTitle.Text = MyApp.APP_NAME;
             titles.AddItem(btnPage);
 
             btnNew.Click += this.newPageClick;
@@ -68,21 +69,22 @@ namespace vine_window_standard
                 if (dr == DialogResult.OK)//如果点击“确定”按钮
                 {
                     System.Environment.Exit(0);
+                    return;
                 }
+            }
+
+            if (iActulaWidth >= 1360 && iActulaWidth <= 1366)
+            {
+                this.Top = 0;
+                this.Left = (iActulaWidth - 1360) / 2;
+                this.WindowState = FormWindowState.Maximized;
             }
             else
             {
-                if (iActulaWidth >= 1360 && iActulaWidth <= 1366)
-                {
-                    this.Top = 0;
-                    this.Left = (iActulaWidth - 1360) / 2;
-                    this.WindowState = FormWindowState.Maximized;
-                }
-                else
-                {
-                    this.MaximumSize = new Size(1366, Screen.PrimaryScreen.Bounds.Height);
-                }
+                this.MaximumSize = new Size(1366, Screen.PrimaryScreen.Bounds.Height);
             }
+
+            this.MinimumSize = new Size(800, 600);
         }
 
         private static void fixWebBrowserVersion(String appName, Int32 ieMinVer)
