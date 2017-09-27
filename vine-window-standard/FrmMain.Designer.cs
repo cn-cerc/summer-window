@@ -33,13 +33,13 @@
             this.plTitle = new System.Windows.Forms.Panel();
             this.btnPage = new System.Windows.Forms.Panel();
             this.lblFirstTitle = new System.Windows.Forms.Label();
-            this.btnNew = new System.Windows.Forms.Button();
             this.plSystem = new System.Windows.Forms.Panel();
-            this.btnMax = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
             this.plBody = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnMax = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.plHead.SuspendLayout();
             this.plTitle.SuspendLayout();
             this.btnPage.SuspendLayout();
@@ -91,15 +91,6 @@
             this.lblFirstTitle.Text = "label1";
             this.lblFirstTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnNew
-            // 
-            this.btnNew.Location = new System.Drawing.Point(129, 5);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(24, 24);
-            this.btnNew.TabIndex = 3;
-            this.btnNew.Text = "+";
-            this.btnNew.UseVisualStyleBackColor = true;
-            // 
             // plSystem
             // 
             this.plSystem.Controls.Add(this.btnMax);
@@ -112,16 +103,6 @@
             this.plSystem.TabIndex = 2;
             this.plSystem.MouseMove += new System.Windows.Forms.MouseEventHandler(this.plTitle_MouseMove);
             // 
-            // btnMax
-            // 
-            this.btnMax.Location = new System.Drawing.Point(39, 5);
-            this.btnMax.Name = "btnMax";
-            this.btnMax.Size = new System.Drawing.Size(24, 24);
-            this.btnMax.TabIndex = 7;
-            this.btnMax.Text = "=";
-            this.btnMax.UseVisualStyleBackColor = true;
-            this.btnMax.Click += new System.EventHandler(this.btnSystemButtonClick);
-            // 
             // btnMin
             // 
             this.btnMin.Location = new System.Drawing.Point(11, 5);
@@ -131,16 +112,6 @@
             this.btnMin.Text = "_";
             this.btnMin.UseVisualStyleBackColor = true;
             this.btnMin.Click += new System.EventHandler(this.btnSystemButtonClick);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(65, 5);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(24, 24);
-            this.btnExit.TabIndex = 5;
-            this.btnExit.Text = "X";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnSystemButtonClick);
             // 
             // plBody
             // 
@@ -161,6 +132,37 @@
             this.webBrowser1.TabIndex = 3;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
+            // 
+            // btnNew
+            // 
+            this.btnNew.BackColor = System.Drawing.SystemColors.Control;
+            this.btnNew.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnNew.Image = global::vine_window_standard.Properties.Resources.add;
+            this.btnNew.Location = new System.Drawing.Point(129, 5);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(24, 24);
+            this.btnNew.TabIndex = 3;
+            this.btnNew.UseVisualStyleBackColor = false;
+            // 
+            // btnMax
+            // 
+            this.btnMax.Image = global::vine_window_standard.Properties.Resources.zoom;
+            this.btnMax.Location = new System.Drawing.Point(39, 5);
+            this.btnMax.Name = "btnMax";
+            this.btnMax.Size = new System.Drawing.Size(24, 24);
+            this.btnMax.TabIndex = 7;
+            this.btnMax.UseVisualStyleBackColor = true;
+            this.btnMax.Click += new System.EventHandler(this.btnSystemButtonClick);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Image = global::vine_window_standard.Properties.Resources.exit;
+            this.btnExit.Location = new System.Drawing.Point(65, 5);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(24, 24);
+            this.btnExit.TabIndex = 5;
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnSystemButtonClick);
             // 
             // FrmMain
             // 
