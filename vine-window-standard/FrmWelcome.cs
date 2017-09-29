@@ -54,6 +54,7 @@ namespace vine_window_standard
             timer1.Enabled = false;
             Hide();
             FrmMain form = new FrmMain();
+            MyApp.HOME_URL = this.txtUrl.Text;
             form.loadUrl(this.txtUrl.Text);
             form.Show();
         }

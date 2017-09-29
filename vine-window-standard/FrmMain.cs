@@ -41,7 +41,7 @@ namespace vine_window_standard
             String appName = System.IO.Path.GetFileName(Application.ExecutablePath).ToLower();
             fixWebBrowserVersion(appName, ieMinVersion);
 
-            webBrowser1.Url = new Uri(String.Format("{0:G}?CLIENTID={1:G}", MyApp.HOME_URL, "jasonpc"));
+            webBrowser1.Url = new Uri(String.Format("{0:G}?CLIENTID={1:G}", MyApp.HOME_URL, "develop-device"));
 
             //调整初始化窗口
             this.FormBorderStyle = FormBorderStyle.None;
