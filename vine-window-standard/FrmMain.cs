@@ -26,11 +26,14 @@ namespace vine_window_standard
         [DllImport("user32.dll")]
         private extern static int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
+        internal void loadUrl(string url)
+        {
+            webBrowser1.Navigate(url);
+        }
+
         public FrmMain()
         {
             InitializeComponent();
-            this.Width = 1360;
-            this.Height = 768;
 
             //让WebBrowser以ie9模式运行，用于支持html5
 
@@ -41,8 +44,8 @@ namespace vine_window_standard
             webBrowser1.Url = new Uri(String.Format("{0:G}?CLIENTID={1:G}", MyApp.HOME_URL, "jasonpc"));
 
             //调整初始化窗口
-            fixWindowSize();
             this.FormBorderStyle = FormBorderStyle.None;
+            fixWindowSize();
 
             //初始化
             pageControl = new PageControl(this, this.plBody);
@@ -61,30 +64,48 @@ namespace vine_window_standard
         private void fixWindowSize()
         {
             int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
-            if (iActulaWidth < 1360)
+            this.MinimumSize = new Size(1000, 800);
+            switch (iActulaWidth)
             {
-                MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
-                DialogResult dr = MessageBox.Show("您的屏幕分辨率过低，地藤无法正常运行，要退出吗?", "环境检测", messButton);
+                case 1360:
+                case 1366:
+                    this.MaximumSize = new Size(iActulaWidth, Screen.PrimaryScreen.WorkingArea.Height);
+                    this.Top = 0;
+                    this.Left = 0;
+                    this.Width = iActulaWidth;
+                    this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+                    btnMax.Visible = false;
+                    break;
+                default:
+                    this.MaximumSize = new Size(1366, Screen.PrimaryScreen.WorkingArea.Height);
+                    this.Top = 0;
+                    this.Width = 1366;
+                    this.Left = (Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2;
+                    if (Screen.PrimaryScreen.WorkingArea.Height > 800)
+                        this.Height = 800;
+                    else
+                        this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+                    break;
+            }
+        }
 
-                if (dr == DialogResult.OK)//如果点击“确定”按钮
+        private void remaxForm()
+        {
+            if (Screen.PrimaryScreen.WorkingArea.Height > 800)
+            {
+                if (this.Height == 800)
                 {
-                    System.Environment.Exit(0);
-                    return;
+                    this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+                    this.Top = 0;
+                }
+                else
+                {
+                    this.Height = 800;
+                    this.Top = (Screen.PrimaryScreen.WorkingArea.Height - 800) / 2;
                 }
             }
-
-            if (iActulaWidth >= 1360 && iActulaWidth <= 1366)
-            {
-                this.Top = 0;
-                this.Left = (iActulaWidth - 1360) / 2;
-                this.WindowState = FormWindowState.Maximized;
-            }
             else
-            {
-                this.MaximumSize = new Size(1366, Screen.PrimaryScreen.Bounds.Height);
-            }
-
-            this.MinimumSize = new Size(800, 600);
+                this.Height = Screen.PrimaryScreen.WorkingArea.Height;
         }
 
         private static void fixWebBrowserVersion(String appName, Int32 ieMinVer)
@@ -171,14 +192,6 @@ namespace vine_window_standard
             {
                 remaxForm();
             }
-        }
-
-        private void remaxForm()
-        {
-            if (this.WindowState == FormWindowState.Normal)
-                this.WindowState = FormWindowState.Maximized;
-            else
-                this.WindowState = FormWindowState.Normal;
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
