@@ -32,6 +32,7 @@ namespace vine_window_standard
             btnStart.Visible = MyApp.debug;
 
             this.FormBorderStyle = FormBorderStyle.None;
+            txtUrl.Text = String.Format("http://{0:G}", Computer.getIPAddress());
 
             if (Screen.PrimaryScreen.Bounds.Width < 1360)
             {
@@ -55,7 +56,7 @@ namespace vine_window_standard
             Hide();
             FrmMain form = new FrmMain();
             MyApp.HOME_URL = this.txtUrl.Text;
-            form.loadUrl(this.txtUrl.Text);
+            form.loadUrl(String.Format("{0:G}?CLIENTID={1:G}", MyApp.HOME_URL, Computer.getClientID()));
             form.Show();
         }
 
