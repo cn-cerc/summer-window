@@ -151,7 +151,7 @@ namespace vine_window_standard
 
         private void newPageClick(object sender, EventArgs e)
         {
-            createWindow(MyApp.getFormUrl("WebDefault"));
+            createWindow(MyApp.getInstance().getFormUrl("WebDefault"));
         }
 
         private void createWindow(String url)
