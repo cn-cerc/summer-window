@@ -34,10 +34,10 @@
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.llDialog = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblReadme = new System.Windows.Forms.Label();
-            this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOk = new System.Windows.Forms.Button();
+            this.lblReadme = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.llDialog.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +58,7 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 3000;
+            this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.pictureBox1_Click);
             // 
             // txtUrl
@@ -93,24 +93,15 @@
             this.llDialog.TabIndex = 3;
             this.llDialog.Visible = false;
             // 
-            // lblTitle
+            // btnCancel
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblTitle.Location = new System.Drawing.Point(16, 18);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(70, 12);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "发现新版本";
-            // 
-            // lblReadme
-            // 
-            this.lblReadme.AutoSize = true;
-            this.lblReadme.Location = new System.Drawing.Point(16, 53);
-            this.lblReadme.Name = "lblReadme";
-            this.lblReadme.Size = new System.Drawing.Size(77, 12);
-            this.lblReadme.TabIndex = 1;
-            this.lblReadme.Text = "（更新说明）";
+            this.btnCancel.Location = new System.Drawing.Point(331, 193);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "下次更新";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOk
             // 
@@ -122,15 +113,24 @@
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // btnCancel
+            // lblReadme
             // 
-            this.btnCancel.Location = new System.Drawing.Point(331, 193);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = "下次更新";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.lblReadme.AutoSize = true;
+            this.lblReadme.Location = new System.Drawing.Point(16, 53);
+            this.lblReadme.Name = "lblReadme";
+            this.lblReadme.Size = new System.Drawing.Size(77, 12);
+            this.lblReadme.TabIndex = 1;
+            this.lblReadme.Text = "（更新说明）";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblTitle.Location = new System.Drawing.Point(16, 18);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(70, 12);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "发现新版本";
             // 
             // FrmWelcome
             // 

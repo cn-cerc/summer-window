@@ -24,10 +24,12 @@ namespace vine_window_standard
         private bool appUpdateReset = false;
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
+
         [DllImport("user32.dll")]
         private extern static bool ReleaseCapture();
         [DllImport("user32.dll")]
         private extern static int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private delegate void HttpOnResponse(WebClient client, String resp);
 
         public FrmWelcome()
         {
@@ -52,11 +54,22 @@ namespace vine_window_standard
         {
             timer1.Enabled = false;
 
-            string url = MyApp.getInstance().getFormUrl(String.Format("install.client?appcode=%s", "windows-standard"));
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.GetEncoding("utf-8");
-            string resp = client.DownloadString(url);
+            ThreadStart thread = () =>
+            {
+                string formCode = String.Format("install.client?appcode={0:G}", MyApp.AppCode);
+                string url = MyApp.getInstance().getFormUrl(formCode);
+                var client = new WebClient();
+                client.Encoding = System.Text.Encoding.GetEncoding("utf-8");
+                string resp = client.DownloadString(url);
 
+                HttpOnResponse httpResp = httpOnResponse;
+                this.Invoke(httpResp, client, resp);
+            };
+            new Thread(thread).Start();
+        }
+
+        public void httpOnResponse(WebClient client, string resp)
+        {
             try
             {
                 var json = JObject.Parse(resp);
@@ -102,11 +115,7 @@ namespace vine_window_standard
         {
             MyApp.HOME_URL = txtUrl.Text;          
             timer1.Enabled = false;
-            Hide();
-            FrmMain form = new FrmMain();
-            MyApp.HOME_URL = this.txtUrl.Text;
-            form.loadUrl(String.Format("{0:G}?CLIENTID={1:G}", MyApp.HOME_URL, Computer.getClientID()));
-            form.Show();
+            startMainForm();
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -122,7 +131,8 @@ namespace vine_window_standard
         private void btnOk_Click(object sender, EventArgs e)
         {
             //打开指定的浏览器
-            System.Diagnostics.Process.Start(MyApp.getInstance().getFormUrl("install"));
+            string url = String.Format("install?appcode={0:G}&operate={1:G}", MyApp.AppCode, "update");
+            System.Diagnostics.Process.Start(MyApp.getInstance().getFormUrl(url));
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -135,6 +145,5 @@ namespace vine_window_standard
                 startMainForm();
             }
         }
-
     }
 }
