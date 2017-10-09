@@ -19,7 +19,7 @@ namespace vine_window_standard
 {
     [System.Runtime.InteropServices.ComVisibleAttribute(true)]
 
-    public partial class FrmWelcome : Form
+    public partial class FrmStartup : Form
     {
         private bool appUpdateReset = false;
         private const int WM_NCLBUTTONDOWN = 0xA1;
@@ -31,7 +31,7 @@ namespace vine_window_standard
         private extern static int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         private delegate void HttpOnResponse(WebClient client, String resp);
 
-        public FrmWelcome()
+        public FrmStartup()
         {
             InitializeComponent();
 

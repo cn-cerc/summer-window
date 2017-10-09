@@ -1,6 +1,6 @@
 ﻿namespace vine_window_standard
 {
-    partial class FrmWelcome
+    partial class FrmStartup
     {
         /// <summary>
         /// Required designer variable.
