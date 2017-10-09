@@ -39,6 +39,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.plBody = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.btnBack = new System.Windows.Forms.Button();
             this.plHead.SuspendLayout();
             this.plTitle.SuspendLayout();
             this.btnPage.SuspendLayout();
@@ -60,6 +61,7 @@
             // plTitle
             // 
             this.plTitle.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.plTitle.Controls.Add(this.btnBack);
             this.plTitle.Controls.Add(this.btnPage);
             this.plTitle.Controls.Add(this.btnNew);
             this.plTitle.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -74,7 +76,7 @@
             // 
             this.btnPage.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnPage.Controls.Add(this.lblFirstTitle);
-            this.btnPage.Location = new System.Drawing.Point(4, 5);
+            this.btnPage.Location = new System.Drawing.Point(40, 5);
             this.btnPage.Name = "btnPage";
             this.btnPage.Size = new System.Drawing.Size(119, 24);
             this.btnPage.TabIndex = 4;
@@ -95,7 +97,7 @@
             this.btnNew.BackColor = System.Drawing.SystemColors.Control;
             this.btnNew.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnNew.Image = global::vine_window_standard.Properties.Resources.add;
-            this.btnNew.Location = new System.Drawing.Point(129, 5);
+            this.btnNew.Location = new System.Drawing.Point(167, 5);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(24, 24);
             this.btnNew.TabIndex = 3;
@@ -163,6 +165,18 @@
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
             // 
+            // btnBack
+            // 
+            this.btnBack.BackColor = System.Drawing.SystemColors.Control;
+            this.btnBack.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnBack.Location = new System.Drawing.Point(10, 5);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(24, 24);
+            this.btnBack.TabIndex = 5;
+            this.btnBack.Text = "B";
+            this.btnBack.UseVisualStyleBackColor = false;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -194,6 +208,7 @@
         private System.Windows.Forms.Panel btnPage;
         private System.Windows.Forms.Label lblFirstTitle;
         private System.Windows.Forms.Button btnMax;
+        private System.Windows.Forms.Button btnBack;
     }
 }
 

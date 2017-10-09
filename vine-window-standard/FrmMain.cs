@@ -192,5 +192,10 @@ namespace vine_window_standard
                 SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            webBrowser1.GoBack();
+        }
     }
 }
