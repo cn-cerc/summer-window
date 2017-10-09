@@ -36,23 +36,34 @@ namespace vine_window_standard
         {
             InitializeComponent();
 
-            //让WebBrowser以ie9模式运行，用于支持html5
-            fixWebBrowserVersion("vine-window-standard.vshost.exe", ieMinVersion);
-            String appName = System.IO.Path.GetFileName(Application.ExecutablePath).ToLower();
-            fixWebBrowserVersion(appName, ieMinVersion);
+            try
+            {
+                //让WebBrowser以ie9模式运行，用于支持html5
+                fixWebBrowserVersion("vine-window-standard.vshost.exe", ieMinVersion);
+                String appName = System.IO.Path.GetFileName(Application.ExecutablePath).ToLower();
+                fixWebBrowserVersion(appName, ieMinVersion);
 
-            txtUrl.Visible = MyApp.debug;
-            btnStart.Visible = MyApp.debug;
+                txtUrl.Visible = MyApp.debug;
+                btnStart.Visible = MyApp.debug;
 
-            this.FormBorderStyle = FormBorderStyle.None;
-            txtUrl.Text = String.Format("http://{0:G}", Computer.getIPAddress());
+                this.FormBorderStyle = FormBorderStyle.None;
+                txtUrl.Text = String.Format("http://{0:G}", Computer.getIPAddress());
 
-            if (Screen.PrimaryScreen.Bounds.Width < 1360)
+                if (Screen.PrimaryScreen.Bounds.Width < 1360)
+                {
+                    MessageBoxButtons messButton = MessageBoxButtons.OK;
+                    DialogResult dr = MessageBox.Show("您的屏幕分辨率低于1360，地藤无法正常运行!", "环境检测", messButton);
+                    System.Environment.Exit(0);
+                    return;
+                }
+
+                timer1.Enabled = true;
+            }
+            catch (System.Security.SecurityException ee)
             {
                 MessageBoxButtons messButton = MessageBoxButtons.OK;
-                DialogResult dr = MessageBox.Show("您的屏幕分辨率低于1360，地藤无法正常运行!", "环境检测", messButton);
+                DialogResult dr = MessageBox.Show("您当前没有操作注册表的权限，地藤无法正常运行!", "环境检测", messButton);
                 System.Environment.Exit(0);
-                return;
             }
         }
 

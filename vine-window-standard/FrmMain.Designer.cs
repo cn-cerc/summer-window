@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.plHead = new System.Windows.Forms.Panel();
             this.plTitle = new System.Windows.Forms.Panel();
             this.btnPage = new System.Windows.Forms.Panel();
@@ -40,11 +41,14 @@
             this.plBody = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.btnBack = new System.Windows.Forms.Button();
+            this.mnuTitle = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.转到首页ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.plHead.SuspendLayout();
             this.plTitle.SuspendLayout();
             this.btnPage.SuspendLayout();
             this.plSystem.SuspendLayout();
             this.plBody.SuspendLayout();
+            this.mnuTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // plHead
@@ -91,6 +95,7 @@
             this.lblFirstTitle.TabIndex = 2;
             this.lblFirstTitle.Text = "label1";
             this.lblFirstTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFirstTitle.Click += new System.EventHandler(this.lblFirstTitle_Click);
             // 
             // btnNew
             // 
@@ -177,6 +182,19 @@
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // mnuTitle
+            // 
+            this.mnuTitle.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.转到首页ToolStripMenuItem});
+            this.mnuTitle.Name = "mnuTitle";
+            this.mnuTitle.Size = new System.Drawing.Size(153, 48);
+            // 
+            // 转到首页ToolStripMenuItem
+            // 
+            this.转到首页ToolStripMenuItem.Name = "转到首页ToolStripMenuItem";
+            this.转到首页ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.转到首页ToolStripMenuItem.Text = "转到首页";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -192,6 +210,7 @@
             this.btnPage.ResumeLayout(false);
             this.plSystem.ResumeLayout(false);
             this.plBody.ResumeLayout(false);
+            this.mnuTitle.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -209,6 +228,8 @@
         private System.Windows.Forms.Label lblFirstTitle;
         private System.Windows.Forms.Button btnMax;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.ContextMenuStrip mnuTitle;
+        private System.Windows.Forms.ToolStripMenuItem 转到首页ToolStripMenuItem;
     }
 }
 

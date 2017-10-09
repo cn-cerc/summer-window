@@ -52,12 +52,10 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.pictureBox1_Click);
             // 
@@ -132,7 +130,7 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "发现新版本";
             // 
-            // FrmWelcome
+            // FrmStartup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -141,7 +139,7 @@
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "FrmWelcome";
+            this.Name = "FrmStartup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmWelcome";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -197,5 +197,11 @@ namespace vine_window_standard
         {
             webBrowser1.GoBack();
         }
+
+        private void lblFirstTitle_Click(object sender, EventArgs e)
+        {
+            var control = (Control)sender;
+            mnuTitle.Show(control, new Point(0, control.Height + 5));
+        }
     }
 }
