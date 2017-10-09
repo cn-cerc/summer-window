@@ -125,6 +125,7 @@ namespace vine_window_standard
                 {
                     btnCancel.Text = "退出";
                 }
+                llDialog.Left = (this.Width - llDialog.Width) / 2;
                 llDialog.Visible = true; ;
             }
             catch (Exception e1)

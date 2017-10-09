@@ -16,10 +16,12 @@ namespace vine_window_standard
         public EventHandler CloseClick;
         public EventHandler GoClick;
         public int index = -1;
+        private Label firstTitle;
 
-        public TitleControl(Control parent)
+        public TitleControl(Control parent, Label firstTitle)
         {
             this.parent = parent;
+            this.firstTitle = firstTitle;
         }
 
         internal int IndexOf(Control item)
@@ -40,16 +42,20 @@ namespace vine_window_standard
             Control last = items[items.Count - 1];
 
             Control item = new Panel();
+            item.BackColor = Color.FromArgb(0, 0, 0, 0);
             item.Parent = this.parent;
             item.Visible = true;
             item.Top = last.Top;
-            item.Left = last.Left + last.Width + 10;
+            item.Left = last.Left + last.Width;
             item.Height = last.Height;
             item.Width = last.Width;
             item.BackColor = this.BackColor;
             AddItem(item);
 
             Label label = new Label();
+            label.ImageList = firstTitle.ImageList;
+            label.ImageIndex = 1;
+            label.ForeColor = Color.Black;
             label.Parent = item;
             label.Dock = DockStyle.Fill;
             label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -58,6 +64,7 @@ namespace vine_window_standard
             label.Click += GoClick;
 
             //关闭按钮
+            /*
             Label button = new Label();
             button.Parent = item;
             button.Text = "X";
@@ -65,6 +72,7 @@ namespace vine_window_standard
             button.Dock = DockStyle.Right;
             button.Tag = item;
             button.Click += CloseClick;
+            */
 
             return item;
         }
@@ -115,10 +123,28 @@ namespace vine_window_standard
                     {
                         if(i != value)
                         {
-                            items[i].BackColor = this.backColor;
+                            //items[i].BackColor = this.backColor;
+                            foreach(var obj in items[i].Controls)
+                            {
+                                if(obj is Label)
+                                {
+                                    Label label = (Label)obj;
+                                    label.ImageIndex = 0;
+                                    label.ForeColor = Color.Black;
+                                }
+                            }
                         }
                     }
-                    items[value].BackColor = Color.Blue;
+                    //items[value].BackColor = Color.Blue;
+                    foreach (var obj in items[value].Controls)
+                    {
+                        if (obj is Label)
+                        {
+                            Label label = (Label)obj;
+                            label.ImageIndex = 1;
+                            label.ForeColor = Color.Black;                            
+                        }
+                    }
                     index = value;
                 }
             }

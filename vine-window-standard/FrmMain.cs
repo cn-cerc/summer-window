@@ -41,10 +41,13 @@ namespace vine_window_standard
             fixWindowSize();
 
             //初始化
+            lblFirstTitle.ImageList = ilTitle;
+            lblFirstTitle.ImageIndex = 0;
+            plTitle.BackColor = Color.FromArgb(255, 56, 154, 218);
+            plSystem.BackColor = plTitle.BackColor;
             pageControl = new PageControl(this, this.plBody);
             pageControl.AddItem(webBrowser1);
-            titles = new TitleControl(this.plTitle);
-            titles.BackColor = SystemColors.GradientActiveCaption;
+            titles = new TitleControl(this.plTitle, lblFirstTitle);
             titles.GoClick = goPageClick;
             titles.CloseClick = closePageClick;
             lblFirstTitle.Click += goPageClick;
@@ -67,7 +70,7 @@ namespace vine_window_standard
                     this.Left = 0;
                     this.Width = iActulaWidth;
                     this.Height = Screen.PrimaryScreen.WorkingArea.Height;
-                    btnMax.Visible = false;
+                    //btnMax.Visible = false;
                     break;
                 default:
                     this.MaximumSize = new Size(1366, Screen.PrimaryScreen.WorkingArea.Height);
@@ -98,7 +101,11 @@ namespace vine_window_standard
                 }
             }
             else
+            {
+                this.Left = 0;
+                this.Top = 0;
                 this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+            }
         }
 
         private void webBrowser1_NewWindow(object sender, CancelEventArgs e)
@@ -124,6 +131,10 @@ namespace vine_window_standard
                 titles.Index = titles.IndexOf((Control)sender);
             }
             pageControl.Index = titles.Index;
+
+            var control = (Control)sender;
+            mnuTitle.Items[1].Visible = titles.Index > 0;
+            mnuTitle.Show(control, new Point(4, control.Height - 5));
         }
 
         private void newPageClick(object sender, EventArgs e)
@@ -135,7 +146,7 @@ namespace vine_window_standard
         {
             Control button = titles.AddItem();
             button.Click += goPageClick;
-            btnNew.Left = button.Left + button.Width + 10;
+            btnNew.Left = button.Left + button.Width;
             pageControl.addItem();
             pageControl.browser.NewWindow += this.webBrowser1_NewWindow;
             pageControl.browser.DocumentCompleted += this.webBrowser1_DocumentCompleted;
@@ -198,10 +209,62 @@ namespace vine_window_standard
             webBrowser1.GoBack();
         }
 
-        private void lblFirstTitle_Click(object sender, EventArgs e)
+        private void mnuTitle_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            var control = (Control)sender;
-            mnuTitle.Show(control, new Point(0, control.Height + 5));
+            int it = mnuTitle.Items.IndexOf(e.ClickedItem);
+            switch (it)
+            {
+                case 0: //转到首页
+                    {
+                        string url = MyApp.getInstance().getFormUrl("WebDefault");
+                        pageControl.browser.Url = new Uri(url);
+                        break;
+                    }
+                case 1: //close
+                    {
+                        if (titles.Index == 0)
+                            break;
+                        int index = titles.Index;
+                        titles.Remove(index);
+                        pageControl.Delete(index);
+                        pageControl.Index = index - 1;
+                        titles.Index = index - 1;
+
+                        Control last = titles.getItem(titles.Count - 1);
+                        btnNew.Left = last.Left + last.Width + 10;
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
+        private void btnSetup_Click(object sender, EventArgs e)
+        {
+            var control = (Button)sender;
+            mnuSetup.Items[0].Visible = false; //暂关闭
+            mnuSetup.Show(control, new Point(-control.Width-56, control.Height + 1));
+        }
+
+        private void mnuSetup_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            int it = mnuSetup.Items.IndexOf(e.ClickedItem);
+            switch (it)
+            {
+                case 0: //设置
+                    {
+                        break;
+                    }
+                case 1: //退出
+                    {
+                        Application.Exit();
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
         }
     }
 }
