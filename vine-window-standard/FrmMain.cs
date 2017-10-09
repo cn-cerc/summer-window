@@ -15,7 +15,6 @@ namespace vine_window_standard
     [System.Runtime.InteropServices.ComVisibleAttribute(true)]
     public partial class FrmMain : Form
     {
-        private static Int32 ieMinVersion = 11001;
         PageControl pageControl;
         TitleControl titles;
 
@@ -34,12 +33,6 @@ namespace vine_window_standard
         public FrmMain()
         {
             InitializeComponent();
-
-            //让WebBrowser以ie9模式运行，用于支持html5
-
-            fixWebBrowserVersion("vine-window-standard.vshost.exe", ieMinVersion);
-            String appName = System.IO.Path.GetFileName(Application.ExecutablePath).ToLower();
-            fixWebBrowserVersion(appName, ieMinVersion);
 
             webBrowser1.Url = new Uri(String.Format("{0:G}?CLIENTID={1:G}", MyApp.HOME_URL, Computer.getClientID()));
 
@@ -106,22 +99,6 @@ namespace vine_window_standard
             }
             else
                 this.Height = Screen.PrimaryScreen.WorkingArea.Height;
-        }
-
-        private static void fixWebBrowserVersion(String appName, Int32 ieMinVer)
-        {
-            String section = "Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
-            RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
-            RegistryKey hkie = hklm.OpenSubKey(section, true);
-
-            Object val = hkie.GetValue(appName);
-            Int32 curVer = val != null ? (Int32)val : 0;
-            if (curVer <= ieMinVer)
-            {
-                hkie.SetValue(appName, ieMinVer);
-            }
-            hkie.Close();
-            hklm.Close();
         }
 
         private void webBrowser1_NewWindow(object sender, CancelEventArgs e)

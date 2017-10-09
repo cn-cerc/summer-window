@@ -21,6 +21,7 @@ namespace vine_window_standard
 
     public partial class FrmStartup : Form
     {
+        private static Int32 ieMinVersion = 11001;
         private bool appUpdateReset = false;
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
@@ -35,6 +36,11 @@ namespace vine_window_standard
         {
             InitializeComponent();
 
+            //让WebBrowser以ie9模式运行，用于支持html5
+            fixWebBrowserVersion("vine-window-standard.vshost.exe", ieMinVersion);
+            String appName = System.IO.Path.GetFileName(Application.ExecutablePath).ToLower();
+            fixWebBrowserVersion(appName, ieMinVersion);
+
             txtUrl.Visible = MyApp.debug;
             btnStart.Visible = MyApp.debug;
 
@@ -48,6 +54,22 @@ namespace vine_window_standard
                 System.Environment.Exit(0);
                 return;
             }
+        }
+
+        private static void fixWebBrowserVersion(String appName, Int32 ieMinVer)
+        {
+            String section = "Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
+            RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
+            RegistryKey hkie = hklm.OpenSubKey(section, true);
+
+            Object val = hkie.GetValue(appName);
+            Int32 curVer = val != null ? (Int32)val : 0;
+            if (curVer <= ieMinVer)
+            {
+                hkie.SetValue(appName, ieMinVer);
+            }
+            hkie.Close();
+            hklm.Close();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
