@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStartup));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
@@ -139,6 +140,7 @@
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmStartup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmWelcome";
