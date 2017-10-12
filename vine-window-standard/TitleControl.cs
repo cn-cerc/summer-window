@@ -19,6 +19,7 @@ namespace vine_window_standard
         private Label firstTitle;
         private List<ContextMenuStrip> titles = new List<ContextMenuStrip>();
         public ToolStripItemClickedEventHandler ItemClick;
+        public int OwenIndex = 0;
 
         public TitleControl(Control parent, Label firstTitle)
         {

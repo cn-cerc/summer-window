@@ -140,6 +140,7 @@ namespace vine_window_standard
             if (mnuTitle.Items.Count > 1)
                 mnuTitle.Items[1].Visible = titles.Index > 0;
             mnuTitle.Show(control, new Point(4, control.Height - 5));
+            titles.setTitle(pageControl.Index, pageControl.browser.DocumentTitle);
         }
 
         private void newPageClick(object sender, EventArgs e)
@@ -149,10 +150,12 @@ namespace vine_window_standard
 
         private void createWindow(String url)
         {
+            int owenIndex = titles.Index;
             Control button = titles.AddItem();
             ContextMenuStrip newtitle = new ContextMenuStrip();
             TitleInit(newtitle);
             titles.AddTitle(newtitle);
+            titles.OwenIndex = owenIndex;
             button.Click += goPageClick;
             btnNew.Left = button.Left + button.Width;
             pageControl.addItem();
@@ -222,10 +225,13 @@ namespace vine_window_standard
                 if (titles.Index != 0)
                 {
                     int index = titles.Index;
+                    int owenIndex = titles.OwenIndex;
+                    if (owenIndex >= titles.Count - 1)
+                        owenIndex = titles.index - 1;
                     titles.Remove(index);
                     pageControl.Delete(index);
-                    pageControl.Index = index - 1;
-                    titles.Index = index - 1;
+                    pageControl.Index = owenIndex;
+                    titles.Index = owenIndex;
 
                     Control last = titles.getItem(titles.Count - 1);
                     btnNew.Left = last.Left + last.Width + 10;
