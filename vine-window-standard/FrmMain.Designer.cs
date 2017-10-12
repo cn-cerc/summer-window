@@ -89,7 +89,7 @@
             // 
             this.btnNew.FlatAppearance.BorderSize = 0;
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNew.Image = global::vine_window_standard.Properties.Resources.首页;
+            this.btnNew.Image = global::vine_window_standard.Properties.Resources.首页_2_2x;
             this.btnNew.Location = new System.Drawing.Point(195, 3);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(39, 32);
