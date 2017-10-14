@@ -63,6 +63,16 @@ namespace vine_window_standard.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 按钮1_2x {
+            get {
+                object obj = ResourceManager.GetObject("按钮1_2x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 电脑首页_800_460 {
             get {
                 object obj = ResourceManager.GetObject("电脑首页_800_460", resourceCulture);
@@ -73,9 +83,29 @@ namespace vine_window_standard.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 背景_2x {
+            get {
+                object obj = ResourceManager.GetObject("背景_2x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 首页 {
             get {
                 object obj = ResourceManager.GetObject("首页", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap 首页_2_2x {
+            get {
+                object obj = ResourceManager.GetObject("首页_2_2x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

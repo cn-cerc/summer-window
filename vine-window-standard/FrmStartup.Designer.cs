@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStartup));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
@@ -69,6 +70,7 @@
             // 
             // llDialog
             // 
+            this.llDialog.BackgroundImage = global::vine_window_standard.Properties.Resources.背景_2x;
             this.llDialog.Controls.Add(this.btnCancel);
             this.llDialog.Controls.Add(this.btnOk);
             this.llDialog.Controls.Add(this.lblReadme);
@@ -81,6 +83,9 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Image = global::vine_window_standard.Properties.Resources.按钮1_2x;
             this.btnCancel.Location = new System.Drawing.Point(331, 193);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -91,6 +96,9 @@
             // 
             // btnOk
             // 
+            this.btnOk.FlatAppearance.BorderSize = 0;
+            this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOk.Image = global::vine_window_standard.Properties.Resources.按钮1_2x;
             this.btnOk.Location = new System.Drawing.Point(225, 193);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
@@ -102,6 +110,7 @@
             // lblReadme
             // 
             this.lblReadme.AutoSize = true;
+            this.lblReadme.BackColor = System.Drawing.Color.Transparent;
             this.lblReadme.Location = new System.Drawing.Point(16, 53);
             this.lblReadme.Name = "lblReadme";
             this.lblReadme.Size = new System.Drawing.Size(77, 12);
@@ -111,8 +120,9 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTitle.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblTitle.Location = new System.Drawing.Point(16, 18);
+            this.lblTitle.Location = new System.Drawing.Point(16, 14);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(70, 12);
             this.lblTitle.TabIndex = 0;
@@ -139,6 +149,7 @@
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmStartup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmWelcome";

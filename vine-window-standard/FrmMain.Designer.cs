@@ -34,10 +34,12 @@
             this.plTitle = new System.Windows.Forms.Panel();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
+            this.ilMenu = new System.Windows.Forms.ImageList(this.components);
             this.btnPage = new System.Windows.Forms.Panel();
             this.lblFirstTitle = new System.Windows.Forms.Label();
             this.ilTitle = new System.Windows.Forms.ImageList(this.components);
             this.plSystem = new System.Windows.Forms.Panel();
+            this.btnSetup = new System.Windows.Forms.Button();
             this.btnMax = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -46,8 +48,6 @@
             this.mnuTitle = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.转到首页ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSetup = new System.Windows.Forms.Button();
-            this.ilMenu = new System.Windows.Forms.ImageList(this.components);
             this.mnuSetup = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,7 +89,7 @@
             // 
             this.btnNew.FlatAppearance.BorderSize = 0;
             this.btnNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNew.Image = global::vine_window_standard.Properties.Resources.首页;
+            this.btnNew.Image = global::vine_window_standard.Properties.Resources.首页_2_2x;
             this.btnNew.Location = new System.Drawing.Point(195, 3);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(39, 32);
@@ -108,6 +108,16 @@
             this.btnBack.TabIndex = 5;
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // ilMenu
+            // 
+            this.ilMenu.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilMenu.ImageStream")));
+            this.ilMenu.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilMenu.Images.SetKeyName(0, "缩小@2x.png");
+            this.ilMenu.Images.SetKeyName(1, "放大@2x.png");
+            this.ilMenu.Images.SetKeyName(2, "右删除@2x.png");
+            this.ilMenu.Images.SetKeyName(3, "lightning.png");
+            this.ilMenu.Images.SetKeyName(4, "返回@2x.png");
             // 
             // btnPage
             // 
@@ -153,6 +163,19 @@
             this.plSystem.Size = new System.Drawing.Size(119, 34);
             this.plSystem.TabIndex = 2;
             this.plSystem.MouseMove += new System.Windows.Forms.MouseEventHandler(this.plTitle_MouseMove);
+            // 
+            // btnSetup
+            // 
+            this.btnSetup.FlatAppearance.BorderSize = 0;
+            this.btnSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetup.ImageIndex = 3;
+            this.btnSetup.ImageList = this.ilMenu;
+            this.btnSetup.Location = new System.Drawing.Point(6, 5);
+            this.btnSetup.Name = "btnSetup";
+            this.btnSetup.Size = new System.Drawing.Size(24, 24);
+            this.btnSetup.TabIndex = 8;
+            this.btnSetup.UseVisualStyleBackColor = true;
+            this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
             // 
             // btnMax
             // 
@@ -234,29 +257,6 @@
             this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.关闭ToolStripMenuItem.Text = "关闭";
             // 
-            // btnSetup
-            // 
-            this.btnSetup.FlatAppearance.BorderSize = 0;
-            this.btnSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSetup.ImageIndex = 3;
-            this.btnSetup.ImageList = this.ilMenu;
-            this.btnSetup.Location = new System.Drawing.Point(6, 5);
-            this.btnSetup.Name = "btnSetup";
-            this.btnSetup.Size = new System.Drawing.Size(24, 24);
-            this.btnSetup.TabIndex = 8;
-            this.btnSetup.UseVisualStyleBackColor = true;
-            this.btnSetup.Click += new System.EventHandler(this.btnSetup_Click);
-            // 
-            // ilMenu
-            // 
-            this.ilMenu.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilMenu.ImageStream")));
-            this.ilMenu.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilMenu.Images.SetKeyName(0, "缩小@2x.png");
-            this.ilMenu.Images.SetKeyName(1, "放大@2x.png");
-            this.ilMenu.Images.SetKeyName(2, "右删除@2x.png");
-            this.ilMenu.Images.SetKeyName(3, "lightning.png");
-            this.ilMenu.Images.SetKeyName(4, "返回@2x.png");
-            // 
             // mnuSetup
             // 
             this.mnuSetup.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -285,6 +285,7 @@
             this.ClientSize = new System.Drawing.Size(655, 311);
             this.Controls.Add(this.plBody);
             this.Controls.Add(this.plHead);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "地藤标准版";
