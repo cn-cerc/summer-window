@@ -53,6 +53,9 @@ namespace vine_window_standard
             lblFirstTitle.Click += goPageClick;
             lblFirstTitle.Text = MyApp.APP_NAME;
             titles.AddItem(btnPage);
+            
+            titles.ItemClick = mnuTitle_ItemClicked;
+            titles.AddTitle(mnuTitle);
 
             btnNew.Click += this.newPageClick;
         }
@@ -133,8 +136,11 @@ namespace vine_window_standard
             pageControl.Index = titles.Index;
 
             var control = (Control)sender;
-            mnuTitle.Items[1].Visible = titles.Index > 0;
+            mnuTitle = titles.gettitle(titles.index);
+            if (mnuTitle.Items.Count > 1)
+                mnuTitle.Items[1].Visible = titles.Index > 0;
             mnuTitle.Show(control, new Point(4, control.Height - 5));
+            titles.setTitle(pageControl.Index, pageControl.browser.DocumentTitle);
         }
 
         private void newPageClick(object sender, EventArgs e)
@@ -144,7 +150,12 @@ namespace vine_window_standard
 
         private void createWindow(String url)
         {
+            int owenIndex = titles.Index;
             Control button = titles.AddItem();
+            ContextMenuStrip newtitle = new ContextMenuStrip();
+            TitleInit(newtitle);
+            titles.AddTitle(newtitle);
+            titles.OwenIndex = owenIndex;
             button.Click += goPageClick;
             btnNew.Left = button.Left + button.Width;
             pageControl.addItem();
@@ -206,7 +217,26 @@ namespace vine_window_standard
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            webBrowser1.GoBack();
+            WebBrowser wb = pageControl.Items[pageControl.Index];
+            if (wb.CanGoBack == true)
+                wb.GoBack();
+            else
+            {
+                if (titles.Index != 0)
+                {
+                    int index = titles.Index;
+                    int owenIndex = titles.OwenIndex;
+                    if (owenIndex >= titles.Count - 1)
+                        owenIndex = titles.index - 1;
+                    titles.Remove(index);
+                    pageControl.Delete(index);
+                    pageControl.Index = owenIndex;
+                    titles.Index = owenIndex;
+
+                    Control last = titles.getItem(titles.Count - 1);
+                    btnNew.Left = last.Left + last.Width + 10;
+                }
+            }
         }
 
         private void mnuTitle_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -235,7 +265,12 @@ namespace vine_window_standard
                         break;
                     }
                 default:
-                    break;
+                    {
+                        string url = (string)mnuTitle.Items[it].Tag;
+                        if (url != "") 
+                            createWindow(MyApp.getInstance().getFormUrl(url));
+                        break;
+                    }
             }
         }
 
@@ -264,6 +299,50 @@ namespace vine_window_standard
                     {
                         break;
                     }
+            }
+        }
+
+        public class MnuTitle
+        {
+            public List<Data> data { get; set; }
+        }
+
+        public class Data
+        {
+            public string name { get; set; }
+            public string href { get; set; }
+        }
+
+        public void setMenuTitle(string menuItems)
+        {
+            MnuTitle jTitleList = Newtonsoft.Json.JsonConvert.DeserializeObject<MnuTitle>(menuItems);
+            ContextMenuStrip mtitle = titles.gettitle(titles.index);
+            TitleInit(mtitle);
+            foreach (var item in jTitleList.data)
+            {
+                ToolStripMenuItem mi = new ToolStripMenuItem();
+                mi.Text = item.name;
+                mi.Tag = item.href;
+                mtitle.Items.Add(mi);
+            }
+        }
+
+        public void TitleInit(ContextMenuStrip title)
+        {
+            title.Items.Clear();
+            title.Items.Add("转到首页");
+            title.Items.Add("关闭");
+        }
+
+        protected override CreateParams CreateParams
+        {
+            // 允许点击任务栏图标正常最小化或还原窗体
+            get
+            {
+                const int WS_MINIMIZEBOX = 0x00020000;
+                CreateParams cp = base.CreateParams;
+                cp.Style = cp.Style | WS_MINIMIZEBOX;   
+                return cp;
             }
         }
     }

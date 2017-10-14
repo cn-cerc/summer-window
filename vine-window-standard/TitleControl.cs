@@ -17,6 +17,9 @@ namespace vine_window_standard
         public EventHandler GoClick;
         public int index = -1;
         private Label firstTitle;
+        private List<ContextMenuStrip> titles = new List<ContextMenuStrip>();
+        public ToolStripItemClickedEventHandler ItemClick;
+        public int OwenIndex = 0;
 
         public TitleControl(Control parent, Label firstTitle)
         {
@@ -148,6 +151,20 @@ namespace vine_window_standard
                     index = value;
                 }
             }
+        }
+
+        internal void AddTitle(ContextMenuStrip item)
+        {
+            item.ItemClicked += ItemClick;
+            titles.Add(item);
+        }
+
+        public ContextMenuStrip gettitle(int index)
+        {
+            if (titles.Count > 0)
+                return titles[index];
+            else
+                return null;
         }
     }
 }
