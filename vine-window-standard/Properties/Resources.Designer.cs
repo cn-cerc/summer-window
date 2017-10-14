@@ -73,6 +73,16 @@ namespace vine_window_standard.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap 背景_2x {
+            get {
+                object obj = ResourceManager.GetObject("背景_2x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 首页 {
             get {
                 object obj = ResourceManager.GetObject("首页", resourceCulture);
@@ -85,7 +95,7 @@ namespace vine_window_standard.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap 首页_2_2x {
             get {
-                object obj = ResourceManager.GetObject("首页-2@2x", resourceCulture);
+                object obj = ResourceManager.GetObject("首页_2_2x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

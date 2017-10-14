@@ -134,6 +134,7 @@
   <ItemGroup>
     <Content Include="bitbug_favicon.ico" />
     <Content Include="Newtonsoft.Json.dll" />
+    <None Include="Resources\背景_2x.png" />
     <None Include="Resources\首页-2%402x.png" />
     <None Include="Resources\goHome.png" />
     <None Include="Resources\startup_800_460.jpg" />

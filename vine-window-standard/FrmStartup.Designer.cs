@@ -70,6 +70,7 @@
             // 
             // llDialog
             // 
+            this.llDialog.BackgroundImage = global::vine_window_standard.Properties.Resources.背景_2x;
             this.llDialog.Controls.Add(this.btnCancel);
             this.llDialog.Controls.Add(this.btnOk);
             this.llDialog.Controls.Add(this.lblReadme);
@@ -103,6 +104,7 @@
             // lblReadme
             // 
             this.lblReadme.AutoSize = true;
+            this.lblReadme.BackColor = System.Drawing.Color.Transparent;
             this.lblReadme.Location = new System.Drawing.Point(16, 53);
             this.lblReadme.Name = "lblReadme";
             this.lblReadme.Size = new System.Drawing.Size(77, 12);
@@ -112,6 +114,7 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTitle.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblTitle.Location = new System.Drawing.Point(16, 18);
             this.lblTitle.Name = "lblTitle";
