@@ -25,6 +25,7 @@ namespace vine_window_standard
         private bool appUpdateReset = false;
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
+        MyApp myApp = MyApp.getInstance();
 
         [DllImport("user32.dll")]
         private extern static bool ReleaseCapture();
@@ -89,7 +90,7 @@ namespace vine_window_standard
 
             ThreadStart thread = () =>
             {
-                string formCode = String.Format("install.client?appcode={0:G}", MyApp.AppCode);
+                string formCode = String.Format("install.client?appCode={0:G}&curVersion={1:G}", MyApp.AppCode, myApp.getCurrentVersion());
                 string url = MyApp.getInstance().getFormUrl(formCode);
                 var client = new WebClient();
                 client.Encoding = System.Text.Encoding.GetEncoding("utf-8");
@@ -147,7 +148,7 @@ namespace vine_window_standard
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MyApp.HOME_URL = txtUrl.Text;          
+            MyApp.HOME_URL = txtUrl.Text;
             timer1.Enabled = false;
             startMainForm();
         }
@@ -165,7 +166,7 @@ namespace vine_window_standard
         private void btnOk_Click(object sender, EventArgs e)
         {
             //打开指定的浏览器
-            string url = String.Format("install?appcode={0:G}&operate={1:G}", MyApp.AppCode, "update");
+            string url = String.Format("install.update?appCode={0:G}&curVersion={1:G}", MyApp.AppCode, myApp.getCurrentVersion());
             System.Diagnostics.Process.Start(MyApp.getInstance().getFormUrl(url));
         }
 
