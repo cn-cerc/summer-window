@@ -83,6 +83,9 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Image = global::vine_window_standard.Properties.Resources.按钮1_2x;
             this.btnCancel.Location = new System.Drawing.Point(331, 193);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -93,6 +96,9 @@
             // 
             // btnOk
             // 
+            this.btnOk.FlatAppearance.BorderSize = 0;
+            this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOk.Image = global::vine_window_standard.Properties.Resources.按钮1_2x;
             this.btnOk.Location = new System.Drawing.Point(225, 193);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
