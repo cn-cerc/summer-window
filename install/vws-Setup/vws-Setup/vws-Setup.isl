@@ -52,7 +52,7 @@
 	<summary>
 		<codepage>1252</codepage>
 		<title>Installation Database</title>
-		<subject></subject>
+		<subject></subject>
 		<author>##ID_STRING2##</author>
 		<keywords>Installer,MSI,Database</keywords>
 		<comments>Contact:  Your local administrator</comments>
@@ -1147,6 +1147,9 @@
 		<row><td>DIRPROPERTY3</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DIRPROPERTY4</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DIRPROPERTY5</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>DIRPROPERTY6</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>DIRPROPERTY7</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>DIRPROPERTY8</td><td>TARGETDIR</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>DesktopFolder</td><td>TARGETDIR</td><td>.:Desktop</td><td/><td>3</td><td/></row>
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
@@ -1156,7 +1159,10 @@
 		<row><td>HWASOFT2</td><td>DIRPROPERTY3</td><td>HWASOFT</td><td/><td>0</td><td/></row>
 		<row><td>HWASOFT3</td><td>DIRPROPERTY4</td><td>HWASOFT</td><td/><td>0</td><td/></row>
 		<row><td>HWASOFT4</td><td>DIRPROPERTY5</td><td>HWASOFT</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>VINE_WINDOW_STANDARD3</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>HWASOFT5</td><td>DIRPROPERTY6</td><td>HWASOFT</td><td/><td>0</td><td/></row>
+		<row><td>HWASOFT6</td><td>DIRPROPERTY7</td><td>HWASOFT</td><td/><td>0</td><td/></row>
+		<row><td>HWASOFT7</td><td>DIRPROPERTY8</td><td>HWASOFT</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>VINE_WINDOW_STANDARD6</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
@@ -1186,6 +1192,9 @@
 		<row><td>VINE_WINDOW_STANDARD1</td><td>HWASOFT2</td><td>VINE-W~1|vine-window-standard</td><td/><td>0</td><td/></row>
 		<row><td>VINE_WINDOW_STANDARD2</td><td>HWASOFT3</td><td>VINE-W~1|vine-window-standard</td><td/><td>0</td><td/></row>
 		<row><td>VINE_WINDOW_STANDARD3</td><td>HWASOFT4</td><td>VINE-W~1|vine-window-standard</td><td/><td>0</td><td/></row>
+		<row><td>VINE_WINDOW_STANDARD4</td><td>HWASOFT5</td><td>VINE-W~1|vine-window-standard</td><td/><td>0</td><td/></row>
+		<row><td>VINE_WINDOW_STANDARD5</td><td>HWASOFT6</td><td>VINE-W~1|vine-window-standard</td><td/><td>0</td><td/></row>
+		<row><td>VINE_WINDOW_STANDARD6</td><td>HWASOFT7</td><td>VINE-W~1|vine-window-standard</td><td/><td>0</td><td/></row>
 		<row><td>WindowsFolder</td><td>TARGETDIR</td><td>.:Windows</td><td/><td>0</td><td/></row>
 		<row><td>WindowsVolume</td><td>TARGETDIR</td><td>.:WinRoot</td><td/><td>0</td><td/></row>
 		<row><td>company_name</td><td>ProgramMenuFolder</td><td>深圳市~1|深圳市华软资讯科技有限公司</td><td/><td>1</td><td/></row>
@@ -3453,7 +3462,7 @@
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>2052</td><td>本安装程序的使用期到 %s 结束。安装程序现在将退出。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>2052</td><td>本安装程序内建有 InstallShield 的评估版，只能用 setup.exe 文件启动。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td/><td>0</td><td/><td>1428530133</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>2052</td><td>地藤标准版</td><td>0</td><td/><td>1428497397</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>2052</td><td>地藤</td><td>0</td><td/><td>-1121600885</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>2052</td><td>从以下服务器列表中选择要连接的数据库服务器。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>2052</td><td>从以下的编录名称列表中，选择您希望将其作为目标的数据库编录。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>2052</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>1428525973</td></row>
@@ -3746,6 +3755,10 @@
 		<row><td>ID_STRING2</td><td>2052</td><td>深圳市华软资讯科技有限公司</td><td>0</td><td/><td>1428502133</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>LAUNCH~1.EXE|Launch vine-window-standard.exe</td><td>0</td><td/><td>1428542421</td></row>
 		<row><td>ID_STRING3</td><td>2052</td><td>LAUNCH~1.EXE|Launch vine-window-standard.exe</td><td>0</td><td/><td>1428542421</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>地藤Pro</td><td>0</td><td/><td>-1121633685</td></row>
+		<row><td>ID_STRING4</td><td>2052</td><td>地藤Pro</td><td>0</td><td/><td>-1121633685</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>地藤</td><td>0</td><td/><td>-1121621365</td></row>
+		<row><td>ID_STRING5</td><td>2052</td><td>地藤</td><td>0</td><td/><td>-1121621365</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>2052</td><td>系统将不安装此功能。</td><td>0</td><td/><td>1428525973</td></row>
 	</table>
 
@@ -4307,7 +4320,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING1##</td><td/></row>
 		<row><td>AgreeToLicense</td><td>No</td><td/></row>
 		<row><td>ApplicationUsers</td><td>AllUsers</td><td/></row>
-		<row><td>DIRPROPERTY5</td><td>D:\</td><td/></row>
+		<row><td>DIRPROPERTY8</td><td>D:\</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>
 		<row><td>DWUSLINK</td><td>CE9BD78FEECC071F5EACA73869DB978F3E8C508F698CA76FCEDBF7BF895C97AFC9DCA72FD9AC</td><td/></row>
 		<row><td>DefaultUIFont</td><td>ExpressDefault</td><td/></row>
@@ -4370,8 +4383,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{3095E037-4D58-40E7-A68E-EDC5CD151B33}</td><td/></row>
-		<row><td>ProductName</td><td>地藤标准版</td><td/></row>
-		<row><td>ProductVersion</td><td>1.1.1</td><td/></row>
+		<row><td>ProductName</td><td>地藤</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
