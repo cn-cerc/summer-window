@@ -57,6 +57,13 @@ namespace vine_window_standard
                     System.Environment.Exit(0);
                     return;
                 }
+                if (checkAdobeReader() == false)
+                {
+                    MessageBoxButtons messButton = MessageBoxButtons.OK;
+                    DialogResult dr = MessageBox.Show("尚未安裝Adobe Acrobat Reader软件, 请质询客服协助安装", " 环境检测", messButton);
+                    System.Environment.Exit(0);
+                    return;
+                }
 
                 timer1.Enabled = true;
             }
@@ -179,6 +186,15 @@ namespace vine_window_standard
             {
                 startMainForm();
             }
+        }
+
+        private bool checkAdobeReader()
+        {
+            var adobePath = Registry.GetValue(@"HKEY_CLASSES_ROOT\Software\Adobe\Acrobat\Exe", string.Empty, string.Empty);
+            if (adobePath != null)
+                return true;
+            else
+                return false;
         }
     }
 }
