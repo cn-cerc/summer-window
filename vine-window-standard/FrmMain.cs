@@ -28,7 +28,6 @@ namespace vine_window_standard
         private extern static bool ReleaseCapture();
         [DllImport("user32.dll")]
         private extern static int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        private delegate void HttpOnResponse(WebClient client, String resp);
 
         internal void loadUrl(string url)
         {
@@ -332,17 +331,6 @@ namespace vine_window_standard
             }
         }
 
-        private void writeToFile(string fileName, string dataText)
-        {
-            FileStream fs = new FileStream(fileName, FileMode.Create);
-            //获得字节数组
-            byte[] data = System.Text.Encoding.Default.GetBytes(dataText);
-            //开始写入
-            fs.Write(data, 0, data.Length);
-            //清空缓冲区、关闭流
-            fs.Flush();
-            fs.Close();
-        }
         public void SetTitle(ContextMenuStrip title)
         {
             titles.setMenu(title, titles.index);

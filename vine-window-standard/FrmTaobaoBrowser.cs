@@ -35,7 +35,7 @@ namespace vine_window_standard
                 WebClient client = new WebClient();
 
                 client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                string postString = string.Format("name={0}&value={1}", "htmlText", sb.ToString());
+                string postString = string.Format("htmlType={0}&htmlText={1}", "taobao", sb.ToString());
                 byte[] postData = Encoding.UTF8.GetBytes(postString);
                 byte[] responseData = client.UploadData(url, "POST", postData);
                 string resp = Encoding.UTF8.GetString(responseData);
@@ -92,5 +92,17 @@ namespace vine_window_standard
             if (e.KeyChar == (char)Keys.Enter)
                 webBrowser1.Navigate(tbUrl.Text);
         }
+    }
+
+    public void writeToFile(string fileName, string dataText)
+    {
+        FileStream fs = new FileStream(fileName, FileMode.Create);
+        //获得字节数组
+        byte[] data = System.Text.Encoding.Default.GetBytes(dataText);
+        //开始写入
+        fs.Write(data, 0, data.Length);
+        //清空缓冲区、关闭流
+        fs.Flush();
+        fs.Close();
     }
 }
