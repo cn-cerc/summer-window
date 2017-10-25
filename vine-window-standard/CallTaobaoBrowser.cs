@@ -9,7 +9,7 @@ namespace vine_window_standard
 {
     class CallTaobaoBrowser
     {
-        public string execute(FrmMain owner, JObject json)
+        public string execute(FrmMain owner, JObject json, JObject result)
         {
             String token = (String)json.GetValue("token");
             MyApp.getInstance().setToken(token);

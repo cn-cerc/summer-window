@@ -24,14 +24,14 @@ namespace vine_window_standard
             if (classCode == "SetMenuList")
             {
                 SetMenuList obj = new SetMenuList();
-                obj.execute(owner, json);
+                obj.execute(owner, json, result);
             }
             else if (classCode == "CallTaobaoBrowser")
             {
                 CallTaobaoBrowser obj = new CallTaobaoBrowser();
-                obj.execute(owner, json);
+                obj.execute(owner, json, result);
             }
-            else if(classCode == "GetVersionName")
+            else if (classCode == "GetVersionName")
             {
                 result.Add("data", MyApp.getInstance().getCurrentVersion());
             }

@@ -10,7 +10,7 @@ namespace vine_window_standard
 {
     class SetMenuList
     {
-        internal string execute(FrmMain owner, JObject json)
+        internal string execute(FrmMain owner, JObject json, JObject result)
         {
             JArray data = (JArray)json["data"];
             ContextMenuStrip mtitle = new ContextMenuStrip();

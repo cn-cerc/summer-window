@@ -14,30 +14,59 @@ using System.Windows.Forms;
 
 namespace vine_window_standard
 {
+    [System.Runtime.InteropServices.ComVisibleAttribute(true)]
     public partial class FrmTaobaoBrowser : Form
     {
         private delegate void HttpOnResponse(WebClient client, String resp);
         public FrmTaobaoBrowser()
         {
             InitializeComponent();
-
-            webBrowser1.Navigate("https://www.taobao.com");
+            fixWindowSize();
+            this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            this.webBrowser1.Navigate("https://www.taobao.com");
+        }
+        private void fixWindowSize()
+        {
+            int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
+            this.MinimumSize = new Size(1000, 800);
+            switch (iActulaWidth)
+            {
+                case 1360:
+                case 1366:
+                    this.MaximumSize = new Size(iActulaWidth, Screen.PrimaryScreen.WorkingArea.Height);
+                    this.Top = 0;
+                    this.Left = 0;
+                    this.Width = iActulaWidth;
+                    this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+                    //btnMax.Visible = false;
+                    break;
+                default:
+                    this.MaximumSize = new Size(1366, Screen.PrimaryScreen.WorkingArea.Height);
+                    this.Top = 0;
+                    this.Width = 1366;
+                    this.Left = (Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2;
+                    if (Screen.PrimaryScreen.WorkingArea.Height > 800)
+                        this.Height = 800;
+                    else
+                        this.Height = Screen.PrimaryScreen.WorkingArea.Height;
+                    break;
+            }
         }
 
         private void btnReadTaobao_Click(object sender, EventArgs e)
         {
             StringBuilder sb = getTaobaoContext(this.webBrowser1.DocumentStream);
-
             ThreadStart thread = () =>
             {
-                string formCode = String.Format("FrmSysTaobaoOrder?sid=%s", MyApp.getInstance().getToken());
+                string formCode = String.Format("FrmTaobaoOrder?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
                 string url = MyApp.getInstance().getFormUrl(formCode);
                 WebClient client = new WebClient();
 
                 client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                string postString = string.Format("htmlType={0}&htmlText={1}", "taobao", sb.ToString());
-                byte[] postData = Encoding.UTF8.GetBytes(postString);
-                byte[] responseData = client.UploadData(url, "POST", postData);
+                System.Collections.Specialized.NameValueCollection VarPost = new System.Collections.Specialized.NameValueCollection();
+                VarPost.Add("htmlText", Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(sb.ToString())));
+                byte[] responseData = client.UploadValues(url, "POST", VarPost);
                 string resp = Encoding.UTF8.GetString(responseData);
 
                 //
@@ -53,7 +82,12 @@ namespace vine_window_standard
             try
             {
                 var json = JObject.Parse(resp);
-                MessageBox.Show("读取成功 ", "提示", MessageBoxButtons.OKCancel);
+                bool result = (bool)json["result"];
+                string message = (string)json["message"];
+                if (!result)
+                    MessageBox.Show(string.Format("读取失败 {0}", message), "提示", MessageBoxButtons.OKCancel);
+                else
+                    MessageBox.Show("读取成功 ", "提示", MessageBoxButtons.OKCancel);
             }
             catch (Exception e)
             {
@@ -90,7 +124,7 @@ namespace vine_window_standard
         private void tbUrl_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
-                webBrowser1.Navigate(tbUrl.Text);
+                this.webBrowser1.Navigate(tbUrl.Text);
         }
 
         public void writeToFile(string fileName, string dataText)
@@ -103,6 +137,19 @@ namespace vine_window_standard
             //清空缓冲区、关闭流
             fs.Flush();
             fs.Close();
+        }
+
+        private void webBrowser1_NewWindow(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            WebBrowser wb = (WebBrowser)sender;
+            string url = wb.Document.ActiveElement.GetAttribute("href");
+            this.webBrowser1.Navigate(url);
+        }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            tbUrl.Text = this.webBrowser1.Url.ToString();
         }
     }
 }

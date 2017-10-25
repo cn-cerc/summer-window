@@ -14,7 +14,7 @@ namespace vine_window_standard
         private static MyApp instance;
         public static String HOME_URL = "https://m.knowall.cn";
        // public static String HOME_URL = "http://192.168.31.247";
-        public static String FORMS = "form";
+        public static String FORMS = "forms";
         public static String SERVICES = "services";
         internal static string APP_NAME = "地藤标准版";
         public static bool debug = true;
