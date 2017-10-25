@@ -16,25 +16,31 @@ namespace vine_window_standard
             this.owner = owner;
         }
 
-        public string execute(string req)
+        public JObject execute(String classCode, String req)
         {
+            JObject result = new JObject();
+            result.Add("result", true);
             var json = JObject.Parse(req);
-            String classCode = (string)json["classCode"];
             if (classCode == "SetMenuList")
             {
                 SetMenuList obj = new SetMenuList();
-                return obj.execute(owner, json);
+                obj.execute(owner, json);
             }
             else if (classCode == "CallTaobaoBrowser")
             {
                 CallTaobaoBrowser obj = new CallTaobaoBrowser();
-                return obj.execute(owner, json);
+                obj.execute(owner, json);
+            }
+            else if(classCode == "GetVersionName")
+            {
+                result.Add("data", MyApp.getInstance().getCurrentVersion());
             }
             else
             {
-                return "classCode not find.";
+                result.GetValue("result").Replace(false);
+                result.Add("message", "classCode not find.");
             }
-            return "";
+            return result;
         }
     }
 }

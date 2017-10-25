@@ -306,10 +306,11 @@ namespace vine_window_standard
             }
         }
 
-        public String send(String req)
+        public String send(String classCode, String req)
         {
             JavaScriptProxy proxy = new JavaScriptProxy(this);
-            return proxy.execute(req);
+            JObject result = proxy.execute(classCode, req);
+            return result.ToString();
         }
 
         public void TitleInit(ContextMenuStrip title)
