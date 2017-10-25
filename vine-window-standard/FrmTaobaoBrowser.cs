@@ -92,17 +92,17 @@ namespace vine_window_standard
             if (e.KeyChar == (char)Keys.Enter)
                 webBrowser1.Navigate(tbUrl.Text);
         }
-    }
 
-    public void writeToFile(string fileName, string dataText)
-    {
-        FileStream fs = new FileStream(fileName, FileMode.Create);
-        //获得字节数组
-        byte[] data = System.Text.Encoding.Default.GetBytes(dataText);
-        //开始写入
-        fs.Write(data, 0, data.Length);
-        //清空缓冲区、关闭流
-        fs.Flush();
-        fs.Close();
+        public void writeToFile(string fileName, string dataText)
+        {
+            FileStream fs = new FileStream(fileName, FileMode.Create);
+            //获得字节数组
+            byte[] data = System.Text.Encoding.Default.GetBytes(dataText);
+            //开始写入
+            fs.Write(data, 0, data.Length);
+            //清空缓冲区、关闭流
+            fs.Flush();
+            fs.Close();
+        }
     }
 }
