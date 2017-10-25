@@ -65,7 +65,7 @@ namespace vine_window_standard
                     return;
                 }
 
-                timer1.Enabled = true;
+                //timer1.Enabled = true;
             }
             catch (System.Security.SecurityException ee)
             {

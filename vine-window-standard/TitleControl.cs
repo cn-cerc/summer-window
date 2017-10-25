@@ -166,5 +166,11 @@ namespace vine_window_standard
             else
                 return null;
         }
+
+        public void setMenu(ContextMenuStrip item, int index)
+        {
+            item.ItemClicked += ItemClick;
+            this.titles[index] = item;
+        }
     }
 }

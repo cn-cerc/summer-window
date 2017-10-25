@@ -1,12 +1,16 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,6 +28,7 @@ namespace vine_window_standard
         private extern static bool ReleaseCapture();
         [DllImport("user32.dll")]
         private extern static int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private delegate void HttpOnResponse(WebClient client, String resp);
 
         internal void loadUrl(string url)
         {
@@ -302,29 +307,10 @@ namespace vine_window_standard
             }
         }
 
-        public class MnuTitle
+        public String send(String req)
         {
-            public List<Data> data { get; set; }
-        }
-
-        public class Data
-        {
-            public string name { get; set; }
-            public string href { get; set; }
-        }
-
-        public void setMenuTitle(string menuItems)
-        {
-            MnuTitle jTitleList = Newtonsoft.Json.JsonConvert.DeserializeObject<MnuTitle>(menuItems);
-            ContextMenuStrip mtitle = titles.gettitle(titles.index);
-            TitleInit(mtitle);
-            foreach (var item in jTitleList.data)
-            {
-                ToolStripMenuItem mi = new ToolStripMenuItem();
-                mi.Text = item.name;
-                mi.Tag = item.href;
-                mtitle.Items.Add(mi);
-            }
+            JavaScriptProxy proxy = new JavaScriptProxy(this);
+            return proxy.execute(req);
         }
 
         public void TitleInit(ContextMenuStrip title)
@@ -345,5 +331,22 @@ namespace vine_window_standard
                 return cp;
             }
         }
+
+        private void writeToFile(string fileName, string dataText)
+        {
+            FileStream fs = new FileStream(fileName, FileMode.Create);
+            //获得字节数组
+            byte[] data = System.Text.Encoding.Default.GetBytes(dataText);
+            //开始写入
+            fs.Write(data, 0, data.Length);
+            //清空缓冲区、关闭流
+            fs.Flush();
+            fs.Close();
+        }
+        public void SetTitle(ContextMenuStrip title)
+        {
+            titles.setMenu(title, titles.index);
+        }
     }
+
 }

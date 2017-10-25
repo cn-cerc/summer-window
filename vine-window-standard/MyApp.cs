@@ -17,7 +17,8 @@ namespace vine_window_standard
         public static String FORMS = "form";
         public static String SERVICES = "services";
         internal static string APP_NAME = "地藤标准版";
-        public static bool debug = false;
+        public static bool debug = true;
+        public string token = "";
 
         public string AppVersion { get; private set; } = "0.0.0.0";
 
@@ -46,6 +47,16 @@ namespace vine_window_standard
         internal String getCurrentVersion()
         {
             return currentVersion;
+        }
+
+        internal String getToken()
+        {
+            return token;
+        }
+
+        internal void setToken(String token)
+        {
+            this.token = token;
         }
     }
 }
