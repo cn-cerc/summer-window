@@ -17,7 +17,7 @@ namespace vine_window_standard
         public static String FORMS = "forms";
         public static String SERVICES = "services";
         internal static string APP_NAME = "地藤标准版";
-        public static bool debug = true;
+        public static bool debug = false;
         public string token = "";
 
         public string AppVersion { get; private set; } = "0.0.0.0";

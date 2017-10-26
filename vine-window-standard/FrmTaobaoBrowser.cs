@@ -25,6 +25,7 @@ namespace vine_window_standard
             this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
             this.webBrowser1.ScriptErrorsSuppressed = true;
             this.webBrowser1.Navigate("https://www.taobao.com");
+            this.lbMessage.Text = "";
         }
         private void fixWindowSize()
         {
@@ -56,6 +57,7 @@ namespace vine_window_standard
 
         private void btnReadTaobao_Click(object sender, EventArgs e)
         {
+            lbMessage.Text = "正在读取";
             StringBuilder sb = getTaobaoContext(this.webBrowser1.DocumentStream);
             ThreadStart thread = () =>
             {
@@ -74,7 +76,6 @@ namespace vine_window_standard
                 this.Invoke(httpResp, client, resp);
             };
             new Thread(thread).Start();
-
         }
 
         public void httpOnResponse(WebClient client, string resp)
@@ -85,9 +86,9 @@ namespace vine_window_standard
                 bool result = (bool)json["result"];
                 string message = (string)json["message"];
                 if (!result)
-                    MessageBox.Show(string.Format("读取失败 {0}", message), "提示", MessageBoxButtons.OKCancel);
+                    lbMessage.Text = message;
                 else
-                    MessageBox.Show("读取成功 ", "提示", MessageBoxButtons.OKCancel);
+                    lbMessage.Text = "读取成功 ";
             }
             catch (Exception e)
             {
@@ -150,6 +151,17 @@ namespace vine_window_standard
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             tbUrl.Text = this.webBrowser1.Url.ToString();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this.webBrowser1.Refresh();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            if (this.webBrowser1.CanGoBack)
+                this.webBrowser1.GoBack();
         }
     }
 }
