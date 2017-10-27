@@ -61,7 +61,7 @@ namespace vine_window_standard
             StringBuilder sb = getTaobaoContext(this.webBrowser1.DocumentStream);
             ThreadStart thread = () =>
             {
-                string formCode = String.Format("FrmTaobaoOrder?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
+                string formCode = String.Format("FrmTaobaoOrder.append?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
                 string url = MyApp.getInstance().getFormUrl(formCode);
                 WebClient client = new WebClient();
 
