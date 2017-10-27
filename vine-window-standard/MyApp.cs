@@ -9,7 +9,7 @@ namespace vine_window_standard
 {
     class MyApp
     {
-        private static string currentVersion = "1.0.0.0";
+        private static string currentVersion = "1.0.0.1";
         public static string AppCode = "vine-windows-standard";
         private static MyApp instance;
         public static String HOME_URL = "https://m.knowall.cn";
