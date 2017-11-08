@@ -24,35 +24,7 @@ namespace vine_window_standard
         public FrmElectronicBrowser()
         {
             InitializeComponent();
-            fixWindowSize();
-
             createTabPage();
-        }
-        private void fixWindowSize()
-        {
-            int iActulaWidth = Screen.PrimaryScreen.Bounds.Width;
-            this.MinimumSize = new Size(1000, 800);
-            switch (iActulaWidth)
-            {
-                case 1360:
-                case 1366:
-                    this.MaximumSize = new Size(iActulaWidth, Screen.PrimaryScreen.WorkingArea.Height);
-                    this.Top = 0;
-                    this.Left = 0;
-                    this.Width = iActulaWidth;
-                    this.Height = Screen.PrimaryScreen.WorkingArea.Height;
-                    break;
-                default:
-                    this.MaximumSize = new Size(1366, Screen.PrimaryScreen.WorkingArea.Height);
-                    this.Top = 0;
-                    this.Width = 1366;
-                    this.Left = (Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 2;
-                    if (Screen.PrimaryScreen.WorkingArea.Height > 800)
-                        this.Height = 800;
-                    else
-                        this.Height = Screen.PrimaryScreen.WorkingArea.Height;
-                    break;
-            }
         }
 
         private void createTabPage()
@@ -97,11 +69,20 @@ namespace vine_window_standard
         private void btRead_Click(object sender, EventArgs e)
         {
             string browserUrl = items[tabControl1.SelectedIndex].getBrowser().Document.Url.ToString();
-            if (tabControl1.SelectedIndex == 0)
+            if (tabControl1.SelectedIndex == 1)
             {
-                //淘宝
+                //天猫
                 items[0].lbMessage.Text = "正在读取";
-                List<string> urls = getUrlList(items[1].getBrowser());
+                //List<string> urls = getUrlList(items[1].getBrowser());
+                WebBrowser wb = items[1].getBrowser();
+                StreamReader sr = new StreamReader(wb.DocumentStream, Encoding.GetEncoding(("gbk")));
+                TmailDecode decode = new TmailDecode();
+                string context = decode.getContect(sr);
+                decode.writeToFile("d:\\tmail.txt", context);
+                string spm = decode.getSpm(wb.Document.Url.ToString());
+                List<string> urls = decode.getUrlList(context, spm);
+                sr.Close();
+
                 WebBrowser wbtmail = new WebBrowser();
                 wbtmail.ScriptErrorsSuppressed = true;
                 wbtmail.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(wbtmail_DocumentCompleted);
@@ -117,9 +98,9 @@ namespace vine_window_standard
                 items[0].lbMessage.Text = "读取完成";
                 //POST
             }
-            else if (tabControl1.SelectedIndex == 1)
+            else if (tabControl1.SelectedIndex == 0)
             {
-                //天猫
+                //
                 WebBrowser wbtaobao = new WebBrowser();
                 wbtaobao.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(wbtaobao_DocumentCompleted);
                 wbtaobao.Navigate(browserUrl);
@@ -157,45 +138,6 @@ namespace vine_window_standard
                 string sbs = sb.ToString();
                 loading = false;
             }
-        }
-
-        public List<string> getUrlList(WebBrowser tmBroowser)
-        {
-            List<string> urlList = new List<string>();
-            string defUrl = tmBroowser.Document.Url.ToString();
-            int first = defUrl.IndexOf("spm=");
-            string spm = defUrl.Substring(first, defUrl.Length - first);
-            StringBuilder sb = new StringBuilder();
-            Boolean start = false;
-            StreamReader sr = new StreamReader(tmBroowser.DocumentStream, Encoding.GetEncoding(("gbk")));
-            string line;
-            while ((line = sr.ReadLine()) != null)
-            {
-                String str = line.Trim();
-                if (str.StartsWith("var data = JSON.parse("))
-                {
-                    start = true;
-                }
-                if (start)
-                {
-                    if (str.StartsWith("</script>"))
-                    {
-                        break;
-                    }
-                    sb.Append(line.Trim());
-                }
-            }
-            sr.Close();
-            string stb = sb.ToString();
-            int sta = stb.IndexOf("mainBizOrderIds");
-            int end = stb.IndexOf("rateGift");
-            stb = stb.Substring(sta+20, end- sta - 25);
-            string[] sArray = stb.Split(new char[1] { '-' });
-            foreach (string e in sArray)
-            {
-                urlList.Add(string.Format("https://trade.tmall.com/detail/orderDetail.htm?{0}&bizOrderId={1}", spm, e));
-            }
-            return urlList;
         }
 
         private void wbtaobao_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)

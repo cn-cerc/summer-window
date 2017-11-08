@@ -113,6 +113,7 @@
     <Compile Include="SetMenuList.cs" />
     <Compile Include="TabPageContorl.cs" />
     <Compile Include="TitleControl.cs" />
+    <Compile Include="TmailDecode.cs" />
     <EmbeddedResource Include="FrmElectronicBrowser.resx">
       <DependentUpon>FrmElectronicBrowser.cs</DependentUpon>
     </EmbeddedResource>
