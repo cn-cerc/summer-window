@@ -72,11 +72,11 @@ namespace vine_window_standard
             if (tabControl1.SelectedIndex == 1)
             {
                 //天猫
-                items[0].lbMessage.Text = "正在读取";
+                items[1].lbMessage.Text = "正在读取";
                 //List<string> urls = getUrlList(items[1].getBrowser());
                 WebBrowser wb = items[1].getBrowser();
                 StreamReader sr = new StreamReader(wb.DocumentStream, Encoding.GetEncoding(("gbk")));
-                TmailDecode decode = new TmailDecode();
+                TmallDecode decode = new TmallDecode();
                 string context = decode.getContect(sr);
                 decode.writeToFile("d:\\tmail.txt", context);
                 string spm = decode.getSpm(wb.Document.Url.ToString());
@@ -85,18 +85,18 @@ namespace vine_window_standard
 
                 WebBrowser wbtmail = new WebBrowser();
                 wbtmail.ScriptErrorsSuppressed = true;
-                wbtmail.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(wbtmail_DocumentCompleted);
+                wbtmail.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(wbtmall_DocumentCompleted);
                 for (int i = 0; i < urls.Count; i++)
                 {
                     loading = true;
+                    //POST
                     wbtmail.Navigate(urls[i]);
                     while (loading)
                     {
                         Application.DoEvents(); // 等待本次加载完毕才执行下次循环. 
                     }
                 }
-                items[0].lbMessage.Text = "读取完成";
-                //POST
+                items[1].lbMessage.Text = "读取完成";
             }
             else if (tabControl1.SelectedIndex == 0)
             {
@@ -107,35 +107,30 @@ namespace vine_window_standard
             }
         }
 
-        private void wbtmail_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        private void wbtmall_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             WebBrowser wb = (WebBrowser)sender;
             //判断加载完毕
             if (e.Url == wb.Document.Url)
             {
-                Console.WriteLine(wb.Document.Url);
-                StringBuilder sb = new StringBuilder();
-                Boolean start = false;
-                StreamReader sr = new StreamReader(wb.DocumentStream, Encoding.GetEncoding(("gbk")));
-                string line;
-                while ((line = sr.ReadLine()) != null)
+                StringBuilder sb = getTmallContext(wb.DocumentStream);
+                ThreadStart thread = () =>
                 {
-                    String str = line.Trim();
-                    if (str.StartsWith("var detailData"))
-                    {
-                        start = true;
-                    }
-                    if (start)
-                    {
-                        if (str.StartsWith("</script>"))
-                        {
-                            break;
-                        }
-                        sb.Append(line);
-                    }
-                }
-                sr.Close();
-                string sbs = sb.ToString();
+                    string formCode = String.Format("FrmTaobaoOrder.append?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
+                    string url = MyApp.getInstance().getFormUrl(formCode);
+                    WebClient client = new WebClient();
+
+                    client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                    System.Collections.Specialized.NameValueCollection VarPost = new System.Collections.Specialized.NameValueCollection();
+                    VarPost.Add("htmlText", Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(sb.ToString())));
+                    byte[] responseData = client.UploadValues(url, "POST", VarPost);
+                    string resp = Encoding.UTF8.GetString(responseData);
+
+                    //
+                    HttpOnResponse httpResp = TmallhttpOnResponse;
+                    this.Invoke(httpResp, client, resp);
+                };
+                new Thread(thread).Start();
                 loading = false;
             }
         }
@@ -144,7 +139,7 @@ namespace vine_window_standard
         {
             WebBrowser wb = (WebBrowser)sender;
             //正在读取
-            items[0].lbMessage.Text = "正在读取";
+            items[1].lbMessage.Text = "正在读取";
             StringBuilder sb = getTaobaoContext(wb.DocumentStream);
             ThreadStart thread = () =>
             {
@@ -182,6 +177,23 @@ namespace vine_window_standard
                 System.Console.WriteLine(e.Message);
             }
         }
+        public void TmallhttpOnResponse(WebClient client, string resp)
+        {
+            try
+            {
+                var json = JObject.Parse(resp);
+                bool result = (bool)json["result"];
+                string message = (string)json["message"];
+                if (!result)
+                    items[1].lbMessage.Text = message;
+                else
+                    items[1].lbMessage.Text = "读取成功 ";
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+            }
+        }
 
         private StringBuilder getTaobaoContext(Stream stream)
         {
@@ -199,6 +211,31 @@ namespace vine_window_standard
                 if (start)
                 {
                     if (str.StartsWith("<div id=\"complaintEmsDiv\""))
+                    {
+                        break;
+                    }
+                    sb.Append(line);
+                }
+            }
+            sr.Close();
+            return sb;
+        }
+        private StringBuilder getTmallContext(Stream stream)
+        {
+            StringBuilder sb = new StringBuilder();
+            Boolean start = false;
+            StreamReader sr = new StreamReader(stream, Encoding.GetEncoding(("gbk")));
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                String str = line.Trim();
+                if (str.StartsWith("var detailData"))
+                {
+                    start = true;
+                }
+                if (start)
+                {
+                    if (str.StartsWith("</script>"))
                     {
                         break;
                     }
