@@ -28,7 +28,8 @@ namespace vine_window_standard
             }
             else if (classCode == "CallTaobaoBrowser")
             {
-                CallTaobaoBrowser obj = new CallTaobaoBrowser();
+                //CallTaobaoBrowser obj = new CallTaobaoBrowser();
+                CallElectronicBrowser obj = new CallElectronicBrowser();
                 obj.execute(owner, json, result);
             }
             else if (classCode == "GetVersionName")
