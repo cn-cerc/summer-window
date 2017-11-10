@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 public class TmallDecode
 {
@@ -13,13 +15,16 @@ public class TmallDecode
     public string getSpm(String url)
     {
         string defUrl = url;
+        string spm = "";
         int first = defUrl.IndexOf("spm=");
         int last = defUrl.Length;
-        if (defUrl.IndexOf("&") > 0)
+        if (defUrl.IndexOf("&") > -1)
         {
             last = defUrl.IndexOf("&");
         }
-        return defUrl.Substring(first, last - first);
+        if (first > -1 && last - first > -1)
+            spm = defUrl.Substring(first, last - first);
+        return spm;
     }
 
     public List<string> getUrlList(string stb, string spm)
@@ -36,7 +41,42 @@ public class TmallDecode
         }
         foreach (string e in ordList)
         {
-            urlList.Add(string.Format("https://trade.tmall.com/detail/orderDetail.htm?spm={0}&bizOrderId={1}", spm, e));
+            urlList.Add(string.Format("https://trade.tmall.com/detail/orderDetail.htm?{0}&bizOrderId={1}", spm, e));
+        }
+        return urlList;
+    }
+
+    public List<string> getUrlList(WebBrowser wb, string spm)
+    {
+        List<string> urlList = new List<string>();
+        List<string> ordList = new List<string>();
+        //WebBrowser wb = items[1].getBrowser();
+        HtmlElement script = wb.Document.CreateElement("script");
+        script.SetAttribute("type", "text/javascript");
+        script.SetAttribute("text", "function _func(){return document.getElementById('sold_container').outerHTML}");
+        wb.Document.Body.AppendChild(script);
+
+        object sr = wb.Document.InvokeScript("_func");
+        if (sr != null)
+        {
+            Regex reg = new Regex(@"tradeID=[0-9]*&");
+            foreach (var item in reg.Matches(sr.ToString()))
+            {
+                string OrderId = item.ToString();
+                if (OrderId.Length > 7)
+                    OrderId = OrderId.Substring(8, OrderId.Length - 9);
+                if (OrderId != ""  && ordList.IndexOf(OrderId) == -1)
+                {
+                    ordList.Add(OrderId);
+                }
+            }
+            if (ordList.Count > 0)
+            {
+                foreach (string ordId in ordList)
+                {
+                    urlList.Add(string.Format("https://trade.tmall.com/detail/orderDetail.htm?{0}&bizOrderId={1}", spm, ordId));
+                }
+            }
         }
         return urlList;
     }
@@ -63,7 +103,8 @@ public class TmallDecode
             }
         }
         string json = sb.ToString();
-        json = json.Substring(json.IndexOf("{"), json.Length - json.IndexOf("{") - 3);
+        if (json != "")
+            json = json.Substring(json.IndexOf("{"), json.Length - json.IndexOf("{") - 3);
         return json;
     }
 

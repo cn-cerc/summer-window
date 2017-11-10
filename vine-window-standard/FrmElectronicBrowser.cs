@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +25,7 @@ namespace vine_window_standard
         public FrmElectronicBrowser()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             createTabPage();
         }
 
@@ -37,12 +39,12 @@ namespace vine_window_standard
                 items[i].AddButton(panel1, i);
                 this.tabControl1.Controls.Add(items[i].getPage());
                 items[i].getBrowser().Navigate(items[i].getUrl());
-                items[i].getBrowser().NewWindow += this.webBrowser1_NewWindow;
+                items[i].getBrowser().NewWindow += new System.ComponentModel.CancelEventHandler(this.webBrowser1_NewWindow);
                 items[i].getBrowser().DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(webBrowser1_DocumentCompleted);
                 items[i].getbtRead().Click += new System.EventHandler(this.btRead_Click);
                 items[i].btPage.Click += new System.EventHandler(this.btPage_Click);
             }
-            tabControl1.SelectedIndex = 1;
+            tabControl1.SelectedIndex = 0;
         }
 
         private void AddItems(string url, string Title)
@@ -57,7 +59,12 @@ namespace vine_window_standard
             e.Cancel = true;
             WebBrowser wb = (WebBrowser)sender;
             string url = wb.Document.ActiveElement.GetAttribute("href");
-            wb.Navigate(url);
+            if (url == "about:blank")
+                e.Cancel = true;
+            else if (url == "")
+                e.Cancel = true;
+            else
+                wb.Navigate(url);
         }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -73,22 +80,24 @@ namespace vine_window_standard
             {
                 //天猫
                 items[1].lbMessage.Text = "正在读取";
-                //List<string> urls = getUrlList(items[1].getBrowser());
                 WebBrowser wb = items[1].getBrowser();
                 StreamReader sr = new StreamReader(wb.DocumentStream, Encoding.GetEncoding(("gbk")));
                 TmallDecode decode = new TmallDecode();
                 string context = decode.getContect(sr);
-                decode.writeToFile("d:\\tmail.txt", context);
+                //decode.writeToFile("d:\\tmail.txt", context);
                 string spm = decode.getSpm(wb.Document.Url.ToString());
-                List<string> urls = decode.getUrlList(context, spm);
+                //List<string> urls = decode.getUrlList(context, spm);
+                List<string> urls = decode.getUrlList(wb, spm);
                 sr.Close();
 
                 WebBrowser wbtmail = new WebBrowser();
                 wbtmail.ScriptErrorsSuppressed = true;
                 wbtmail.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(wbtmall_DocumentCompleted);
+                wbtmail.NewWindow += new System.ComponentModel.CancelEventHandler(this.wbtmall_NewWindow);
                 for (int i = 0; i < urls.Count; i++)
                 {
                     loading = true;
+                    //Console.WriteLine(urls[i]);
                     //POST
                     wbtmail.Navigate(urls[i]);
                     while (loading)
@@ -100,11 +109,22 @@ namespace vine_window_standard
             }
             else if (tabControl1.SelectedIndex == 0)
             {
-                //
                 WebBrowser wbtaobao = new WebBrowser();
                 wbtaobao.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(wbtaobao_DocumentCompleted);
                 wbtaobao.Navigate(browserUrl);
             }
+        }
+
+        private void wbtmall_NewWindow(object sender, CancelEventArgs e)
+        {            
+            WebBrowser wb = (WebBrowser)sender;
+            string url = wb.Document.ActiveElement.GetAttribute("href");
+            if (url == "about:blank")
+                e.Cancel = true;
+            else if (url == "")
+                e.Cancel = true;
+            else
+                wb.Navigate(url);
         }
 
         private void wbtmall_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -113,24 +133,36 @@ namespace vine_window_standard
             //判断加载完毕
             if (e.Url == wb.Document.Url)
             {
-                StringBuilder sb = getTmallContext(wb.DocumentStream);
-                ThreadStart thread = () =>
+                try
                 {
-                    string formCode = String.Format("FrmTaobaoOrder.append?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
-                    string url = MyApp.getInstance().getFormUrl(formCode);
-                    WebClient client = new WebClient();
+                    StringBuilder sb = getTmallContext(wb.DocumentStream);
+                    string decument = sb.ToString();
+                    if (decument != "")
+                    {
+                        decument = decument.Substring(decument.IndexOf("{"), decument.Length - decument.IndexOf("{"));
+                        ThreadStart thread = () =>
+                        {
+                            string formCode = String.Format("FrmElectronicOrder.appendTmall?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
+                            string url = MyApp.getInstance().getFormUrl(formCode);
+                            WebClient client = new WebClient();
 
-                    client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-                    System.Collections.Specialized.NameValueCollection VarPost = new System.Collections.Specialized.NameValueCollection();
-                    VarPost.Add("htmlText", Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(sb.ToString())));
-                    byte[] responseData = client.UploadValues(url, "POST", VarPost);
-                    string resp = Encoding.UTF8.GetString(responseData);
+                            client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+                            System.Collections.Specialized.NameValueCollection VarPost = new System.Collections.Specialized.NameValueCollection();
+                            VarPost.Add("htmlText", Encoding.UTF8.GetString(Encoding.UTF8.GetBytes(decument)));
+                            byte[] responseData = client.UploadValues(url, "POST", VarPost);
+                            string resp = Encoding.UTF8.GetString(responseData);
 
-                    //
-                    HttpOnResponse httpResp = TmallhttpOnResponse;
-                    this.Invoke(httpResp, client, resp);
-                };
-                new Thread(thread).Start();
+                            //
+                            HttpOnResponse httpResp = TmallhttpOnResponse;
+                            this.Invoke(httpResp, client, resp);
+                        };
+                        new Thread(thread).Start();
+                    }
+                }
+                catch (System.Security.SecurityException ee)
+                {
+                    MessageBox.Show(e.ToString());
+                }
                 loading = false;
             }
         }
@@ -143,7 +175,7 @@ namespace vine_window_standard
             StringBuilder sb = getTaobaoContext(wb.DocumentStream);
             ThreadStart thread = () =>
             {
-                string formCode = String.Format("FrmTaobaoOrder.append?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
+                string formCode = String.Format("FrmElectronicOrder.appendTaobao?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
                 string url = MyApp.getInstance().getFormUrl(formCode);
                 WebClient client = new WebClient();
 
@@ -153,7 +185,6 @@ namespace vine_window_standard
                 byte[] responseData = client.UploadValues(url, "POST", VarPost);
                 string resp = Encoding.UTF8.GetString(responseData);
 
-                //
                 HttpOnResponse httpResp = httpOnResponse;
                 this.Invoke(httpResp, client, resp);
             };
