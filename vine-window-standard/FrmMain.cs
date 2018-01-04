@@ -28,6 +28,7 @@ namespace vine_window_standard
         private extern static bool ReleaseCapture();
         [DllImport("user32.dll")]
         private extern static int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private delegate void HttpOnResponse(WebClient client, String resp);
 
         internal void loadUrl(string url)
         {
@@ -166,6 +167,7 @@ namespace vine_window_standard
             pageControl.browser.NewWindow += this.webBrowser1_NewWindow;
             pageControl.browser.DocumentCompleted += this.webBrowser1_DocumentCompleted;
             pageControl.browser.Url = new Uri(url);
+            
         }
 
         private void closePageClick(object sender, EventArgs e)
@@ -336,6 +338,30 @@ namespace vine_window_standard
         {
             titles.setMenu(title, titles.index);
         }
-    }
+        public void heartbeatCheck(bool status, int time)
+        {
+            this.heartbeat.Interval = time * 60000;
+            this.heartbeat.Enabled = status;
+        }
+        
+        private void heartbeat_Tick(object sender, EventArgs e)
+        {
+            ThreadStart thread = () =>
+            {
+                string formCode = String.Format("WebDefault.heartbeatCheck?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", MyApp.getInstance().getToken());
+                string url = MyApp.getInstance().getFormUrl(formCode);
+                var client = new WebClient();
+                client.Encoding = System.Text.Encoding.GetEncoding("utf-8");
+                string resp = client.DownloadString(url);
 
+                HttpOnResponse httpResp = httpOnResponse;
+                this.Invoke(httpResp, client, resp);
+            };
+            new Thread(thread).Start();
+        }
+        private void httpOnResponse(WebClient client, string resp)
+        {
+            ;
+        }
+    }
 }

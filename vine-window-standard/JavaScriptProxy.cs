@@ -36,6 +36,15 @@ namespace vine_window_standard
             {
                 result.Add("data", MyApp.getInstance().getCurrentVersion());
             }
+            else if (classCode == "HeartbeatCheck")
+            {
+                HeartBeatCheck hbc = new HeartBeatCheck();
+                hbc.execute(owner, json, result);
+            }
+            else if (classCode == "GetClientID")
+            {
+                result.Add("data", Computer.getClientID());
+            }
             else
             {
                 result.GetValue("result").Replace(false);

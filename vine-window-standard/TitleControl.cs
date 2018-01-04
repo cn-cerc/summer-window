@@ -67,15 +67,18 @@ namespace vine_window_standard
             label.Click += GoClick;
 
             //关闭按钮
-            /*
             Label button = new Label();
-            button.Parent = item;
-            button.Text = "X";
-            button.Width = 10;
-            button.Dock = DockStyle.Right;
+            button.BackColor = Color.Transparent;
+            button.Parent = label;
+            button.Top = 11;
+            button.Left = 130;
+            button.Width = 8;
+            button.Height = 8;
             button.Tag = item;
             button.Click += CloseClick;
-            */
+            button.Image = vine_window_standard.Properties.Resources.Close_8_8;
+            button.MouseMove += CloseMouseHover;
+            button.MouseLeave += CloseMouseLeave;
 
             return item;
         }
@@ -172,5 +175,18 @@ namespace vine_window_standard
             item.ItemClicked += ItemClick;
             this.titles[index] = item;
         }
+
+        private void CloseMouseHover(object sender, MouseEventArgs e)
+        {
+            Label label = (Label)sender;
+            label.BackColor = Color.LavenderBlush;
+        }
+
+        private void CloseMouseLeave(object sender, EventArgs e)
+        {
+            Label label = (Label)sender;
+            label.BackColor = Color.Transparent;
+        }
+
     }
 }

@@ -105,6 +105,7 @@
     <Compile Include="FrmTaobaoBrowser.Designer.cs">
       <DependentUpon>FrmTaobaoBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="HeartBeatCheck.cs" />
     <Compile Include="JavaScriptProxy.cs" />
     <Compile Include="MyApp.cs" />
     <Compile Include="PageControl.cs" />
@@ -136,7 +137,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Properties\app.manifest" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -168,6 +171,7 @@
   <ItemGroup>
     <Content Include="bitbug_favicon.ico" />
     <Content Include="Newtonsoft.Json.dll" />
+    <None Include="Resources\Close_8_8.png" />
     <None Include="Resources\按钮1_2x.png" />
     <None Include="Resources\背景_2x.png" />
     <None Include="Resources\首页-2%402x.png" />
