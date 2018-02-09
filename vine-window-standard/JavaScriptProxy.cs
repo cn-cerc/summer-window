@@ -45,6 +45,10 @@ namespace vine_window_standard
             {
                 result.Add("data", Computer.getClientID());
             }
+            else if (classCode == "cleanCache")
+            {
+                ;
+            }
             else
             {
                 result.GetValue("result").Replace(false);
