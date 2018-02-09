@@ -63,6 +63,16 @@ namespace vine_window_standard.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap Close_8_8 {
+            get {
+                object obj = ResourceManager.GetObject("Close_8_8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap 按钮1_2x {
             get {
                 object obj = ResourceManager.GetObject("按钮1_2x", resourceCulture);

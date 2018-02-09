@@ -51,6 +51,7 @@
             this.mnuSetup = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.heartbeat = new System.Windows.Forms.Timer(this.components);
             this.plHead.SuspendLayout();
             this.plTitle.SuspendLayout();
             this.btnPage.SuspendLayout();
@@ -118,6 +119,7 @@
             this.ilMenu.Images.SetKeyName(2, "右删除@2x.png");
             this.ilMenu.Images.SetKeyName(3, "lightning.png");
             this.ilMenu.Images.SetKeyName(4, "返回@2x.png");
+            this.ilMenu.Images.SetKeyName(5, "Close_8_8.png");
             // 
             // btnPage
             // 
@@ -278,6 +280,10 @@
             this.退出ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             // 
+            // heartbeat
+            // 
+            this.heartbeat.Tick += new System.EventHandler(this.heartbeat_Tick);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -322,6 +328,7 @@
         private System.Windows.Forms.ContextMenuStrip mnuSetup;
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
+        private System.Windows.Forms.Timer heartbeat;
     }
 }
 
