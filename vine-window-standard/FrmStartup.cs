@@ -22,7 +22,7 @@ namespace vine_window_standard
 
     public partial class FrmStartup : Form
     {
-        private static Int32 ieMinVersion = 11001;
+        private static Int32 ieMinVersion = 9999;//11001;
         private bool appUpdateReset = false;
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
