@@ -145,7 +145,10 @@ namespace vine_window_standard
             if (mnuTitle.Items.Count > 1)
                 mnuTitle.Items[1].Visible = titles.Index > 0;
             mnuTitle.Show(control, new Point(4, control.Height - 5));
-            titles.setTitle(pageControl.Index, pageControl.browser.DocumentTitle);
+            if (pageControl.browser.DocumentTitle != pageControl.browser.Url.ToString())
+                titles.setTitle(pageControl.Index, pageControl.browser.DocumentTitle);
+            else
+                titles.setTitle(pageControl.Index, "打印报表");
         }
 
         private void newPageClick(object sender, EventArgs e)
@@ -203,7 +206,10 @@ namespace vine_window_standard
         {
             WebBrowser browser = (WebBrowser)sender;
             var index = pageControl.Items.IndexOf(browser);
-            titles.setTitle(index, browser.DocumentTitle);
+            if (browser.DocumentTitle != browser.Url.ToString())
+                titles.setTitle(index, browser.DocumentTitle);
+            else
+                titles.setTitle(index, "打印报表");
         }
 
         private void plTitle_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -301,6 +307,12 @@ namespace vine_window_standard
                         Application.Exit();
                         break;
                     }
+                case 2: //刷新
+                    {
+                        WebBrowser wb = pageControl.Items[pageControl.Index];
+                        wb.Refresh();
+                        break;
+                    }
                 default:
                     {
                         break;
@@ -362,6 +374,20 @@ namespace vine_window_standard
         private void httpOnResponse(WebClient client, string resp)
         {
             ;
+        }
+
+        public void RefreshHost(string sid, string host)
+        {
+            int index = titles.Index;
+            WebBrowser wb = pageControl.Items[index];
+            string newUrl = host + wb.Url.AbsolutePath + String.Format("?CLIENTID={0}&device={1}&sid={2}", Computer.getClientID(), "pc", sid);
+            createWindow(newUrl);
+
+            titles.Remove(index);
+            pageControl.Delete(index);
+
+            Control last = titles.getItem(titles.Count - 1);
+            btnNew.Left = last.Left + last.Width + 10;
         }
     }
 }
