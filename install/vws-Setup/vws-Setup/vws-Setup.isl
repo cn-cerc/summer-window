@@ -226,7 +226,7 @@
 		<col key="yes" def="s72">Property</col>
 		<col key="yes" def="s72">Signature_</col>
 		<row><td>DOTNETVERSION45FULL</td><td>DotNet45Full</td></row>
-		<row><td>IE11FOUND</td><td>sigMsHtml110</td></row>
+		<row><td>IE9FOUND</td><td>sigMsHtml90</td></row>
 	</table>
 
 	<table name="BBControl">
@@ -342,8 +342,8 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{017518BE-B340-4FD7-BB18-7EEDD8EAF85D}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>Newtonsoft.Json.dll</td><td>{D078067C-F7E4-4E10-A98B-B2EA3337660D}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>vine_window_standard.exe</td><td>{AE412E6E-DC09-4696-9573-3998AD30E96F}</td><td>INSTALLDIR</td><td>2</td><td/><td>vine_window_standard.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Newtonsoft.Json.dll</td><td>{DB0F4B94-C356-406E-9530-18A97CDCDB8F}</td><td>INSTALLDIR</td><td>2</td><td/><td>newtonsoft.json.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>vine_window_standard.exe</td><td>{C817F4B9-39BA-4F1B-8626-CF7FE7406E03}</td><td>INSTALLDIR</td><td>2</td><td/><td>vine_window_standard.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1218,7 +1218,7 @@
 		<col key="yes" def="S72">Parent</col>
 		<col key="yes" def="S255">Path</col>
 		<col def="I2">Depth</col>
-		<row><td>sigMsHtml110</td><td></td><td>[SystemFolder]</td><td>0</td></row>
+		<row><td>sigMsHtml90</td><td></td><td>[SystemFolder]</td><td>0</td></row>
 	</table>
 
 	<table name="DuplicateFile">
@@ -1920,8 +1920,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>D:\myvine\summer-client\install\vws-Setup\Release\Newtonsoft.Json.dll</td><td>1</td><td/></row>
-		<row><td>vine_window_standard.exe</td><td>vine_window_standard.exe</td><td>VINE-W~1.EXE|vine-window-standard.exe</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Users\Administrator\Desktop\新建文件夹 (3)\vine-window-standard.exe</td><td>1</td><td/></row>
+		<row><td>newtonsoft.json.dll</td><td>Newtonsoft.Json.dll</td><td>NEWTON~1.DLL|Newtonsoft.Json.dll</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Users\Administrator\Desktop\新建文件夹 (3)\Newtonsoft.Json.dll</td><td>1</td><td/></row>
+		<row><td>vine_window_standard.exe</td><td>vine_window_standard.exe</td><td>VINE-W~2.EXE|vine-window-standard.exe</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Users\Administrator\Desktop\新建文件夹 (3)\vine-window-standard.exe</td><td>1</td><td/></row>
 		<row><td>vine_window_standard.exe.con</td><td>ISX_DEFAULTCOMPONENT</td><td>VINE-W~1.CON|vine-window-standard.exe.config</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Users\Administrator\Desktop\新建文件夹 (3)\vine-window-standard.exe.config</td><td>1</td><td/></row>
 	</table>
 
@@ -2066,8 +2066,8 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_3A4B0A58_E9CE_4543_B1C3_1BA315B5DFFE_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_A63F0708_B1A7_43B9_8621_CA0DA545CDBC_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>vine_window_standard.exe</td><td/><td/><td>_2474419E_5A98_4414_AEA5_5BE54BB45F28_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Newtonsoft.Json.dll</td><td/><td/><td>_AFE04EFA_25CC_413E_B0B9_A06A119FD5CD_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>vine_window_standard.exe</td><td/><td/><td>_6BDDA74C_4483_461C_BC5E_FE6AE865937D_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2657,13 +2657,15 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>2052</td><td>深圳市华软资讯科技有限公司</td><td>0</td><td/><td>-584724024</td></row>
+		<row><td>COMPANY_NAME</td><td>2052</td><td>深圳市华软资讯科技有限公司</td><td>0</td><td/><td>1235642960</td></row>
 		<row><td>DN_AlwaysInstall</td><td>2052</td><td>始终安装</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>2052</td><td>系统颜色设置不足以运行 [ProductName]。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1428499381</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>2052</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1428499381</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE11FOUND</td><td>1033</td><td>Internet Explorer 11 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1428501429</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE11FOUND</td><td>2052</td><td>Internet Explorer 11 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1428501429</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE9FOUND</td><td>1033</td><td>Internet Explorer 9 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1235653200</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IE9FOUND</td><td>2052</td><td>Internet Explorer 9 or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>1235653200</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>2052</td><td>操作系统不足以运行 [ProductName]。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>2052</td><td>处理器不足以运行 [ProductName]。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>2052</td><td>RAM 量不足以运行 [ProductName]。</td><td>0</td><td/><td>1428525973</td></row>
@@ -3477,6 +3479,8 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>2052</td><td>地藤</td><td>0</td><td/><td>-1121600885</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td/><td>0</td><td/><td>-584769080</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>2052</td><td>地藤</td><td>0</td><td/><td>-584754744</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td/><td>0</td><td/><td>1235663472</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>2052</td><td>地藤</td><td>0</td><td/><td>1235618448</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>2052</td><td>从以下服务器列表中选择要连接的数据库服务器。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>2052</td><td>从以下的编录名称列表中，选择您希望将其作为目标的数据库编录。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>2052</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>1428525973</td></row>
@@ -3765,8 +3769,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>2052</td><td>对于运行 [ProductName] 处理器不足。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>2052</td><td>对于运行 [ProductName] 内存量不足。</td><td>0</td><td/><td>1428525973</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>2052</td><td>对于运行 [ProductName] 屏幕分辨率不足。</td><td>0</td><td/><td>1428525973</td></row>
-		<row><td>ID_STRING1</td><td>2052</td><td>http://www.深圳市华软资讯科技有限公司.com</td><td>0</td><td/><td>-584724024</td></row>
-		<row><td>ID_STRING2</td><td>2052</td><td>深圳市华软资讯科技有限公司</td><td>0</td><td/><td>-584724024</td></row>
+		<row><td>ID_STRING1</td><td>2052</td><td>http://www.mimrc.com</td><td>0</td><td/><td>1235616560</td></row>
+		<row><td>ID_STRING2</td><td>2052</td><td>深圳市华软资讯科技有限公司</td><td>0</td><td/><td>1235642960</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>LAUNCH~1.EXE|Launch vine-window-standard.exe</td><td>0</td><td/><td>1428542421</td></row>
 		<row><td>ID_STRING3</td><td>2052</td><td>LAUNCH~1.EXE|Launch vine-window-standard.exe</td><td>0</td><td/><td>1428542421</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>地藤Pro</td><td>0</td><td/><td>-1121633685</td></row>
@@ -3775,6 +3779,8 @@
 		<row><td>ID_STRING5</td><td>2052</td><td>地藤</td><td>0</td><td/><td>-1121621365</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>地藤</td><td>0</td><td/><td>-584752696</td></row>
 		<row><td>ID_STRING6</td><td>2052</td><td>地藤</td><td>0</td><td/><td>-584752696</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>地藤</td><td>0</td><td/><td>1235622544</td></row>
+		<row><td>ID_STRING7</td><td>2052</td><td>地藤</td><td>0</td><td/><td>1235622544</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>2052</td><td>系统将不安装此功能。</td><td>0</td><td/><td>1428525973</td></row>
 	</table>
 
@@ -3890,8 +3896,10 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\bitbug_favicon.ico</td><td>0</td></row>
 		<row><td>vine_window_standa_24D38C3E7427452F868C39533D310D2E.exe</td><td/><td>D:\Users\Administrator\Desktop\新建文件夹 (3)\vine-window-standard.exe</td><td>0</td></row>
+		<row><td>vine_window_standa_260DBDACBC1845589500EAD2B6E91044.exe</td><td/><td>D:\Users\Administrator\Desktop\新建文件夹 (3)\vine-window-standard.exe</td><td>0</td></row>
 		<row><td>vine_window_standa_3A97F69B60D64F1E8AD9130345FAABEB.exe</td><td/><td>D:\myvine\summer-client\install\vws-Setup\Release\vine-window-standard.exe</td><td>0</td></row>
 		<row><td>vine_window_standa_4687562CD436445180AC56DA5AFC454B.exe</td><td/><td>D:\Users\Administrator\Desktop\新建文件夹 (3)\vine-window-standard.exe</td><td>0</td></row>
+		<row><td>vine_window_standa_5CE040765EA74FAC9B35E484BD8BBCFA.exe</td><td/><td>D:\Users\Administrator\Desktop\新建文件夹 (3)\vine-window-standard.exe</td><td>0</td></row>
 		<row><td>vine_window_standa_ABEFA8EFF56F47169BF0C1037DEDD82B.exe</td><td/><td>D:\myvine\summer-client\install\vws-Setup\Release\vine-window-standard.exe</td><td>0</td></row>
 	</table>
 
@@ -4026,7 +4034,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{2BBA4910-E9B5-47FE-BA77-C1FB7E7CB082}</td></row>
 		<row><td>ISUSSignature</td><td>{AFBC2089-FB8B-48D9-8C49-47E68E53E32C}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUI,viewTextMessages,viewSystemSearch,viewCustomActions,viewAppFiles,viewObjects,viewRelease,viewISToday,viewLearnMore,viewUpgradePaths</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewProject,viewUI,viewTextMessages,viewSystemSearch,viewCustomActions,viewAppFiles,viewObjects,viewRelease,viewISToday,viewLearnMore,viewUpgradePaths,viewUpdateService</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4086,7 +4094,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
 		<row><td>DOTNETVERSION45FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL##</td></row>
-		<row><td>IE11FOUND</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_IE11FOUND##</td></row>
+		<row><td>IE9FOUND</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_IE9FOUND##</td></row>
 	</table>
 
 	<table name="ListBox">
@@ -4401,9 +4409,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{A57AC761-F702-4237-A9CF-D19F70741BC9}</td><td/></row>
+		<row><td>ProductCode</td><td>{365DE97A-218E-418A-AF7E-D9A718A135D6}</td><td/></row>
 		<row><td>ProductName</td><td>地藤</td><td/></row>
-		<row><td>ProductVersion</td><td>1.0.0.1</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0.0.5</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4415,7 +4423,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>RestartManagerOption</td><td>CloseRestart</td><td/></row>
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;IE11FOUND;ISACTIONPROP1</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION45FULL;IE9FOUND;ISACTIONPROP1</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{37D9071D-9CC8-4C65-8A5B-5CA4990A7448}</td><td/></row>
@@ -4479,7 +4487,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>FileKey1</td><td>vine_window_standard.exe</td><td/><td>product_name</td><td>2</td></row>
 		<row><td>vine_window_standard.exe</td><td>vine_window_standard.exe</td><td/><td>product_name</td><td>2</td></row>
 	</table>
 
@@ -4566,8 +4573,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>vine_window_standard.exe</td><td>product_name</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>vine_window_standard.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>vine_window_standa_4687562CD436445180AC56DA5AFC454B.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>vine_window_standard.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>vine_window_standard.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>vine_window_standa_24D38C3E7427452F868C39533D310D2E.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>vine_window_standard.exe</td><td>product_name</td><td>##IDS_SHORTCUT_DISPLAY_NAME3##</td><td>vine_window_standard.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>vine_window_standa_5CE040765EA74FAC9B35E484BD8BBCFA.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>vine_window_standard.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME3##</td><td>vine_window_standard.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>vine_window_standa_260DBDACBC1845589500EAD2B6E91044.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
@@ -4580,7 +4587,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="I4">MinDate</col>
 		<col def="I4">MaxDate</col>
 		<col def="S255">Languages</col>
-		<row><td>sigMsHtml110</td><td>mshtml.dll</td><td>11.0.0</td><td/><td/><td/><td/><td/><td/></row>
+		<row><td>sigMsHtml90</td><td>mshtml.dll</td><td>9.0.0</td><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="TextStyle">
@@ -4691,7 +4698,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">ActionProperty</col>
 		<col def="S72">ISDisplayName</col>
 		<row><td>{00000000-0000-0000-0000-000000000000}</td><td>***ALL_VERSIONS***</td><td></td><td></td><td>2</td><td/><td>ISFOUNDNEWERPRODUCTVERSION</td><td>ISPreventDowngrade</td></row>
-		<row><td>{37D9071D-9CC8-4C65-8A5B-5CA4990A7448}</td><td>1.0.0.0</td><td>1.0.0.0</td><td>2052</td><td>768</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry1</td></row>
+		<row><td>{37D9071D-9CC8-4C65-8A5B-5CA4990A7448}</td><td>1.0.0.0</td><td>1.0.0.4</td><td>2052</td><td>768</td><td/><td>ISACTIONPROP1</td><td>NewUpgradeEntry1</td></row>
 	</table>
 
 	<table name="Verb">
