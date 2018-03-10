@@ -112,6 +112,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetMenuList.cs" />
+    <Compile Include="StartVine.cs" />
     <Compile Include="TabPageContorl.cs" />
     <Compile Include="TitleControl.cs" />
     <Compile Include="TmallDecode.cs" />

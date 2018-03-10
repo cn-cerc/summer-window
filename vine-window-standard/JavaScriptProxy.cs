@@ -49,6 +49,17 @@ namespace vine_window_standard
             {
                 ;
             }
+            else if (classCode == "openIE")
+            {
+                string url = (String)json.GetValue("url");
+                if (url != "")
+                    System.Diagnostics.Process.Start(url);
+            }
+            else if (classCode == "startVine")
+            {
+                StartVine sv = new StartVine();
+                sv.execute(owner, json, result);
+            }
             else
             {
                 result.GetValue("result").Replace(false);
