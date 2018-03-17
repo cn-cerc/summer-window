@@ -106,6 +106,7 @@
       <DependentUpon>FrmTaobaoBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="HeartBeatCheck.cs" />
+    <Compile Include="HotKey.cs" />
     <Compile Include="JavaScriptProxy.cs" />
     <Compile Include="MyApp.cs" />
     <Compile Include="PageControl.cs" />

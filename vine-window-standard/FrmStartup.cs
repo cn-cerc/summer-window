@@ -50,6 +50,10 @@ namespace vine_window_standard
 
                 this.FormBorderStyle = FormBorderStyle.None;
                 txtUrl.Text = String.Format("http://{0:G}", Computer.getIPAddress());
+                if (MyApp.debug)
+                {
+                    this.AcceptButton = btnStart;
+                }
 
                 if (Screen.PrimaryScreen.Bounds.Width < 1360)
                 {

@@ -51,8 +51,8 @@
             this.mnuSetup = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.heartbeat = new System.Windows.Forms.Timer(this.components);
             this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.heartbeat = new System.Windows.Forms.Timer(this.components);
             this.plHead.SuspendLayout();
             this.plTitle.SuspendLayout();
             this.btnPage.SuspendLayout();
@@ -267,30 +267,30 @@
             this.退出ToolStripMenuItem,
             this.刷新ToolStripMenuItem});
             this.mnuSetup.Name = "mnuSetup";
-            this.mnuSetup.Size = new System.Drawing.Size(153, 92);
+            this.mnuSetup.Size = new System.Drawing.Size(101, 70);
             this.mnuSetup.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnuSetup_ItemClicked);
             // 
             // 设置ToolStripMenuItem
             // 
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.设置ToolStripMenuItem.Text = "设置";
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.退出ToolStripMenuItem.Text = "退出";
-            // 
-            // heartbeat
-            // 
-            this.heartbeat.Tick += new System.EventHandler(this.heartbeat_Tick);
             // 
             // 刷新ToolStripMenuItem
             // 
             this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
-            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.刷新ToolStripMenuItem.Text = "刷新";
+            // 
+            // heartbeat
+            // 
+            this.heartbeat.Tick += new System.EventHandler(this.heartbeat_Tick);
             // 
             // FrmMain
             // 
@@ -303,6 +303,8 @@
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "地藤标准版";
+            this.Activated += new System.EventHandler(this.FrmMain_Activated);
+            this.Leave += new System.EventHandler(this.FrmMain_Leave);
             this.plHead.ResumeLayout(false);
             this.plTitle.ResumeLayout(false);
             this.btnPage.ResumeLayout(false);
