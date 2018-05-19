@@ -29,6 +29,8 @@ namespace vine_window_standard
         [DllImport("user32.dll")]
         private extern static int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         private delegate void HttpOnResponse(WebClient client, String resp);
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
         internal void loadUrl(string url)
         {
@@ -310,7 +312,7 @@ namespace vine_window_standard
                 case 2: //刷新
                     {
                         WebBrowser wb = pageControl.Items[pageControl.Index];
-                        wb.Refresh();
+                        wb.Document.ExecCommand("Refresh", false, null);
                         break;
                     }
                 default:
@@ -350,6 +352,7 @@ namespace vine_window_standard
         {
             titles.setMenu(title, titles.index);
         }
+
         public void heartbeatCheck(bool status, int time)
         {
             this.heartbeat.Interval = time * 60000;
@@ -371,6 +374,7 @@ namespace vine_window_standard
             };
             new Thread(thread).Start();
         }
+
         private void httpOnResponse(WebClient client, string resp)
         {
             ;
@@ -388,6 +392,42 @@ namespace vine_window_standard
 
             Control last = titles.getItem(titles.Count - 1);
             btnNew.Left = last.Left + last.Width + 10;
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_HOTKEY = 0x0312;//按快捷键  
+            switch (m.Msg)
+            {
+                case WM_HOTKEY:
+                    switch (m.WParam.ToInt32())
+                    {
+                        case 100:    //按下的是F5
+                            {
+                                //模拟按下Alt键
+                                keybd_event(HotKey.vbKeyAlt, 0, 0, 0);
+                                //模拟按下F5键
+                                keybd_event(HotKey.vbKeyF5, 0, 0, 0);
+                                //松开按键Alt
+                                keybd_event(HotKey.vbKeyAlt, 0, 2, 0);
+                                //松开按键F5
+                                keybd_event(HotKey.vbKeyF5, 0, 2, 0);
+                            }
+                            break;
+                    }
+                    break;
+            }
+            base.WndProc(ref m);
+        }
+
+        private void FrmMain_Activated(object sender, EventArgs e)
+        {
+            HotKey.RegisterHotKey(Handle, 100, 0, Keys.F5);
+        }
+
+        private void FrmMain_Leave(object sender, EventArgs e)
+        {
+            HotKey.UnregisterHotKey(Handle, 100);
         }
     }
 }
