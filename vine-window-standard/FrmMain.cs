@@ -179,13 +179,14 @@ namespace vine_window_standard
         {
             Control item = (Control)((Control)sender).Tag;
             int index = titles.IndexOf(item);
-            titles.Remove(index);
             pageControl.Delete(index);
+            titles.Remove(index);
             pageControl.Index = index - 1;
             titles.Index = index - 1;
 
             Control last = titles.getItem(titles.Count - 1);
             btnNew.Left = last.Left + last.Width + 10;
+            registerTitle();
         }
 
         private void btnSystemButtonClick(object sender, EventArgs e)
@@ -428,6 +429,18 @@ namespace vine_window_standard
         private void FrmMain_Leave(object sender, EventArgs e)
         {
             HotKey.UnregisterHotKey(Handle, 100);
+        }
+
+        private void registerTitle()
+        {
+            for (int i = 0; i < pageControl.Items.Count; i++)
+            {
+                WebBrowser browser = (WebBrowser)pageControl.Items[i];
+                if (browser.DocumentTitle != browser.Url.ToString())
+                    titles.setTitle(i, browser.DocumentTitle);
+                else
+                    titles.setTitle(i, "打印报表");
+            }
         }
     }
 }

@@ -136,7 +136,12 @@ namespace vine_window_standard
                                 {
                                     Label label = (Label)obj;
                                     label.ImageIndex = 0;
-                                    label.ForeColor = Color.Black;
+                                    label.ForeColor = Color.White;
+                                    foreach(var obj1 in label.Controls)
+                                    {
+                                        Label label1 = (Label)obj1;
+                                        label.ForeColor = Color.White;
+                                    }
                                 }
                             }
                         }
@@ -148,7 +153,12 @@ namespace vine_window_standard
                         {
                             Label label = (Label)obj;
                             label.ImageIndex = 1;
-                            label.ForeColor = Color.Black;                            
+                            label.ForeColor = Color.Black;
+                            foreach (var obj1 in label.Controls)
+                            {
+                                Label label1 = (Label)obj1;
+                                label.ForeColor = Color.Black;
+                            }
                         }
                     }
                     index = value;

@@ -12,7 +12,7 @@ namespace vine_window_standard
         private static string currentVersion = "1.0.0.6";
         public static string AppCode = "vine-windows-standard";
         private static MyApp instance;
-        public static String HOME_URL = "https://m.knowall.cn";
+        public static String HOME_URL = "https://www.diteng.site";
        // public static String HOME_URL = "http://192.168.31.247";
         public static String FORMS = "forms";
         public static String SERVICES = "services";

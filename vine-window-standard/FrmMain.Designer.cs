@@ -151,8 +151,9 @@
             // 
             this.ilTitle.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilTitle.ImageStream")));
             this.ilTitle.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilTitle.Images.SetKeyName(0, "没选择@2x.png");
+            this.ilTitle.Images.SetKeyName(0, "没选择@1.png");
             this.ilTitle.Images.SetKeyName(1, "选择@2x.png");
+            this.ilTitle.Images.SetKeyName(2, "没选择@2x.png");
             // 
             // plSystem
             // 
