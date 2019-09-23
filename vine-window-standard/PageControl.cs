@@ -13,6 +13,8 @@ namespace vine_window_standard
         private Control parent;
         private List<WebBrowser> items = new List<WebBrowser>();
         private int index = -1;
+        public bool isHide = false;
+        private List<bool> itemVis = new List<bool>();
 
         public PageControl(Form owner, Control parent)
         {
@@ -61,15 +63,19 @@ namespace vine_window_standard
 
         internal void AddItem(WebBrowser browser)
         {
-            foreach (WebBrowser item in items)
-                item.Visible = false;
+            if (isHide)
+                browser.Visible = false;
+            else
+                foreach (WebBrowser item in items)
+                    item.Visible = false;
             items.Add(browser);
+            itemVis.Add(isHide);
 
-            browser.IsWebBrowserContextMenuEnabled = false;
+            //browser.IsWebBrowserContextMenuEnabled = false;
             browser.ObjectForScripting = owner;
             browser.ScriptErrorsSuppressed = true;
-
-            this.Index = items.Count - 1;
+            if (!isHide)
+                this.Index = items.Count - 1;
         }
 
         internal void addItem()

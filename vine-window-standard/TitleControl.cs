@@ -20,6 +20,9 @@ namespace vine_window_standard
         private List<ContextMenuStrip> titles = new List<ContextMenuStrip>();
         public ToolStripItemClickedEventHandler ItemClick;
         public int OwenIndex = 0;
+        public bool isHide = false;
+        public double scale;
+        public MouseEventHandler MouseClick;
 
         public TitleControl(Control parent, Label firstTitle)
         {
@@ -34,7 +37,7 @@ namespace vine_window_standard
 
         internal void AddItem(Control item)
         {
-            item.BackColor = backColor;
+            item.BackColor = Color.Transparent;
             item.Click += GoClick;
             items.Add(item);
             Index = items.Count - 1;
@@ -42,44 +45,61 @@ namespace vine_window_standard
 
         internal Control AddItem()
         {
-            Control last = items[items.Count - 1];
+            //Control last = items[items.Count - 1];
+            Control last = getLastItem();
 
             Control item = new Panel();
-            item.BackColor = Color.FromArgb(0, 0, 0, 0);
+            //item.BackColor = Color.FromArgb(0, 0, 0, 0);
+            item.BackColor = Color.Transparent;
             item.Parent = this.parent;
             item.Visible = true;
             item.Top = last.Top;
             item.Left = last.Left + last.Width;
             item.Height = last.Height;
-            item.Width = last.Width;
-            item.BackColor = this.BackColor;
+            if (!isHide)
+                item.Width = last.Width;
+            else
+                item.Width = 0;
+            //item.BackColor = this.BackColor;
+            item.Visible = !isHide;
             AddItem(item);
 
-            Label label = new Label();
-            label.ImageList = firstTitle.ImageList;
-            label.ImageIndex = 1;
-            label.ForeColor = Color.Black;
-            label.Parent = item;
-            label.Dock = DockStyle.Fill;
-            label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            label.Text = String.Format("Sheet{0:G}", items.Count);
-            label.Visible = true;
-            label.Click += GoClick;
+            if (!isHide)
+            {
+                Label label = new Label();
+                //label.ImageList = firstTitle.ImageList;
+                //label.ImageIndex = 1;
+                label.Image = global::vine_window_standard.Properties.Resources.title_light;
+                label.ForeColor = Color.Black;
+                label.Parent = item;
+                label.Dock = DockStyle.Fill;
+                label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                //label.Text = String.Format("Sheet{0:G}", items.Count);
+                label.Visible = true;
+                label.Click += GoClick;
+                label.Visible = !isHide;
+                label.Font = firstTitle.Font;
+                label.MouseClick += MouseClick;
+                label.Tag = item;
 
-            //关闭按钮
-            Label button = new Label();
-            button.BackColor = Color.Transparent;
-            button.Parent = label;
-            button.Top = 11;
-            button.Left = 130;
-            button.Width = 8;
-            button.Height = 8;
-            button.Tag = item;
-            button.Click += CloseClick;
-            button.Image = vine_window_standard.Properties.Resources.Close_8_8;
-            button.MouseMove += CloseMouseHover;
-            button.MouseLeave += CloseMouseLeave;
-
+                //关闭按钮
+                Label button = new Label();
+                button.BackColor = Color.Transparent;
+                button.Parent = label;
+                button.Top = 13;
+                button.Left = 135;
+                if (!isHide)
+                    button.Width = 9;
+                else
+                    button.Width = 0;
+                button.Height = 9;
+                button.Tag = item;
+                button.Click += CloseClick;
+                button.Image = vine_window_standard.Properties.Resources.Close_1;
+                button.MouseMove += CloseMouseHover;
+                button.MouseLeave += CloseMouseLeave;
+                button.Visible = !isHide;
+            }
             return item;
         }
 
@@ -135,13 +155,13 @@ namespace vine_window_standard
                                 if(obj is Label)
                                 {
                                     Label label = (Label)obj;
-                                    label.ImageIndex = 0;
-                                    label.ForeColor = Color.White;
-                                    foreach(var obj1 in label.Controls)
-                                    {
-                                        Label label1 = (Label)obj1;
-                                        label.ForeColor = Color.White;
-                                    }
+                                    label.Image = global::vine_window_standard.Properties.Resources.title_normal;
+                                    //label.ForeColor = Color.White;
+                                    //foreach(var obj1 in label.Controls)
+                                    //{
+                                    //    Label label1 = (Label)obj1;
+                                    //    label.ForeColor = Color.White;
+                                    //}
                                 }
                             }
                         }
@@ -152,13 +172,13 @@ namespace vine_window_standard
                         if (obj is Label)
                         {
                             Label label = (Label)obj;
-                            label.ImageIndex = 1;
-                            label.ForeColor = Color.Black;
-                            foreach (var obj1 in label.Controls)
-                            {
-                                Label label1 = (Label)obj1;
-                                label.ForeColor = Color.Black;
-                            }
+                            label.Image = global::vine_window_standard.Properties.Resources.title_light;
+                            //label.ForeColor = Color.Black;
+                            //foreach (var obj1 in label.Controls)
+                            //{
+                            //    Label label1 = (Label)obj1;
+                            //    label.ForeColor = Color.Black;
+                            //}
                         }
                     }
                     index = value;
@@ -168,7 +188,7 @@ namespace vine_window_standard
 
         internal void AddTitle(ContextMenuStrip item)
         {
-            item.ItemClicked += ItemClick;
+            //item.ItemClicked += ItemClick;
             titles.Add(item);
         }
 
@@ -189,14 +209,52 @@ namespace vine_window_standard
         private void CloseMouseHover(object sender, MouseEventArgs e)
         {
             Label label = (Label)sender;
-            label.BackColor = Color.LavenderBlush;
+            //label.BackColor = Color.LavenderBlush;
         }
 
         private void CloseMouseLeave(object sender, EventArgs e)
         {
             Label label = (Label)sender;
-            label.BackColor = Color.Transparent;
+            //label.BackColor = Color.Transparent;
         }
 
+        public void setWidch(int newWidch)
+        {
+            for (int i = 0; i < items.Count; i++)
+            { 
+                Control item = items[i];
+                item.Left = i * newWidch + 45;
+                item.Width = newWidch;
+                foreach (var obj in items[i].Controls)
+                {
+                    if (obj is Label)
+                    {
+                        Label label = (Label)obj;
+                        label.Width = newWidch;
+                        label.Paint += lblFirstTitle_Paint;
+                    }
+                }
+            }
+        }
+
+        private void lblFirstTitle_Paint(object sender, PaintEventArgs e)
+        {
+            Label lb = (Label)sender;
+            if (lb.Width <= 130)
+                e.Graphics.DrawLine(Pens.Black, new Point(lb.Width-1, 8), new Point(lb.Width-1, 25));
+        }
+
+        private Control getLastItem()
+        {
+            Control item = items[items.Count - 1];
+            if (!item.Visible)
+            for (int i = items.Count-1; i >=0; i--)
+            {
+                item = items[i];
+                if ((item.Visible) && (item.Width >0))
+                    break;
+            }
+            return item;
+        }
     }
 }

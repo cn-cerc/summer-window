@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,41 @@ namespace vine_window_standard
             {
                 StartVine sv = new StartVine();
                 sv.execute(owner, json, result);
+            }
+            else if (classCode == "fastPrint")
+            {
+                owner.isFastPrint = true;
+                string url = (String)json.GetValue("url");
+                string printer = (String)json.GetValue("printer");
+                if (url != "")
+                {
+                    if (!owner.Print(printer, MyApp.getInstance().getFormUrl(url)))
+                        result.GetValue("result").Replace(false);
+                }
+            }
+            else if (classCode == "printList")
+            {
+                owner.isFastPrint = true;
+                string urls = (String)json.GetValue("url");
+                string printer = (String)json.GetValue("printer");
+                if (urls != "")
+                {
+                    if (!owner.PrintList(printer, urls))
+                        result.GetValue("result").Replace(false);
+                }
+            }
+            else if (classCode == "getPrinter")
+            {
+                PrintDocument prtdoc = new PrintDocument();
+                string NameList = "";
+                foreach (string strprinter in PrinterSettings.InstalledPrinters)
+                {
+                    if (NameList == "")
+                        NameList = strprinter;
+                    else
+                        NameList = NameList + "," + strprinter;
+                }
+                result.Add("data", NameList);
             }
             else
             {

@@ -65,6 +65,7 @@
       <HintPath>.\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
@@ -78,9 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookMark.cs" />
     <Compile Include="CallTaobaoBrowser.cs" />
     <Compile Include="CallElectronicBrowser.cs" />
     <Compile Include="Computer.cs" />
+    <Compile Include="ConfigHelper.cs" />
+    <Compile Include="Externs.cs" />
     <Compile Include="FrmElectronicBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +96,12 @@
     </Compile>
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmManage.Designer.cs">
+      <DependentUpon>FrmManage.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmStartup.cs">
       <SubType>Form</SubType>
@@ -107,9 +117,19 @@
     </Compile>
     <Compile Include="HeartBeatCheck.cs" />
     <Compile Include="HotKey.cs" />
+    <Compile Include="HttpDldFile.cs" />
+    <Compile Include="HttpUitls.cs" />
     <Compile Include="JavaScriptProxy.cs" />
+    <Compile Include="LocalPrinter.cs" />
     <Compile Include="MyApp.cs" />
+    <Compile Include="MyWebBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PageControl.cs" />
+    <Compile Include="PanelEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PrimaryScreen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetMenuList.cs" />
@@ -117,11 +137,39 @@
     <Compile Include="TabPageContorl.cs" />
     <Compile Include="TitleControl.cs" />
     <Compile Include="TmallDecode.cs" />
+    <Compile Include="UCBtnExt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCBtnExt.Designer.cs">
+      <DependentUpon>UCBtnExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCBtnImg.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCBtnImg.Designer.cs">
+      <DependentUpon>UCBtnImg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCBtnLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCBtnLabel.Designer.cs">
+      <DependentUpon>UCBtnLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCControlBase.Designer.cs">
+      <DependentUpon>UCControlBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XmlHelper.cs" />
     <EmbeddedResource Include="FrmElectronicBrowser.resx">
       <DependentUpon>FrmElectronicBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmManage.resx">
+      <DependentUpon>FrmManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmStartup.resx">
       <DependentUpon>FrmStartup.cs</DependentUpon>
@@ -139,6 +187,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UCBtnExt.resx">
+      <DependentUpon>UCBtnExt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCBtnImg.resx">
+      <DependentUpon>UCBtnImg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCBtnLabel.resx">
+      <DependentUpon>UCBtnLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -173,7 +230,24 @@
   <ItemGroup>
     <Content Include="bitbug_favicon.ico" />
     <Content Include="Newtonsoft.Json.dll" />
-    <None Include="Resources\Close_8_8.png" />
+    <None Include="Resources\BookMark.png" />
+    <None Include="Resources\Close_1.png" />
+    <None Include="Resources\Close-1.png" />
+    <None Include="Resources\CROSS.png" />
+    <None Include="Resources\Close_12_12.png" />
+    <None Include="Resources\diteng02.gif" />
+    <None Include="Resources\Narrow.png" />
+    <None Include="Resources\Close.png" />
+    <None Include="Resources\Minimize.png" />
+    <None Include="Resources\Full.png" />
+    <None Include="Resources\Top_03.png" />
+    <None Include="Resources\title_normal.png" />
+    <None Include="Resources\title_light.png" />
+    <None Include="Resources\left.png" />
+    <None Include="Resources\Top_02.png" />
+    <None Include="Resources\Top_01.png" />
+    <None Include="Resources\diteng.gif" />
+    <None Include="Resources\lightning.png" />
     <None Include="Resources\按钮1_2x.png" />
     <None Include="Resources\背景_2x.png" />
     <None Include="Resources\首页-2%402x.png" />

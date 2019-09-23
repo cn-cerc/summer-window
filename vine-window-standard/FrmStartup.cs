@@ -15,6 +15,7 @@ using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Diagnostics;
 
 namespace vine_window_standard
 {
@@ -26,6 +27,7 @@ namespace vine_window_standard
         private bool appUpdateReset = false;
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
+
         MyApp myApp = MyApp.getInstance();
 
         [DllImport("user32.dll")]
@@ -41,42 +43,38 @@ namespace vine_window_standard
             try
             {
                 //让WebBrowser以ie9模式运行，用于支持html5
-                fixWebBrowserVersion("vine-window-standard.vshost.exe", ieMinVersion);
-                String appName = System.IO.Path.GetFileName(Application.ExecutablePath).ToLower();
+                //fixWebBrowserVersion("vine-window-standard.vshost.exe", ieMinVersion);
+                string appName = System.IO.Path.GetFileName(Application.ExecutablePath).ToLower();
                 fixWebBrowserVersion(appName, ieMinVersion);
 
                 txtUrl.Visible = MyApp.debug;
                 btnStart.Visible = MyApp.debug;
 
                 this.FormBorderStyle = FormBorderStyle.None;
-                txtUrl.Text = String.Format("http://{0:G}", Computer.getIPAddress());
+                txtUrl.Text = String.Format("http://{0:G}:8080", Computer.getIPAddress());
+                //txtUrl.Text = "https://c1.diteng.site";
+                Size size = new Size();
+                size = PrimaryScreen.DESKTOP;
                 if (MyApp.debug)
                 {
                     this.AcceptButton = btnStart;
                 }
 
-                if (Screen.PrimaryScreen.Bounds.Width < 1360)
+                if (size.Width < 1360)
                 {
                     MessageBoxButtons messButton = MessageBoxButtons.OK;
-                    DialogResult dr = MessageBox.Show("您的屏幕分辨率低于1360，地藤无法正常运行!", "环境检测", messButton);
-                    System.Environment.Exit(0);
-                    return;
-                }
-                if (checkAdobeReader() == false)
-                {
-                    MessageBoxButtons messButton = MessageBoxButtons.OK;
-                    DialogResult dr = MessageBox.Show("尚未安裝Adobe Acrobat Reader软件, 请质询客服协助安装", " 环境检测", messButton);
-                    System.Environment.Exit(0);
-                    return;
+                    DialogResult dr = MessageBox.Show("您的屏幕分辨率低于1360，无法获得理想的体验！", "环境检测", messButton);
+                    //System.Environment.Exit(0);
+                    //return;
                 }
 
                 timer1.Enabled = !MyApp.debug;
             }
             catch (System.Security.SecurityException ee)
             {
-                MessageBoxButtons messButton = MessageBoxButtons.OK;
-                DialogResult dr = MessageBox.Show("您当前没有操作注册表的权限，地藤无法正常运行!", "环境检测", messButton);
-                System.Environment.Exit(0);
+                //MessageBoxButtons messButton = MessageBoxButtons.OK;
+                //DialogResult dr = MessageBox.Show("您当前没有操作注册表的权限，地藤无法正常运行!", "环境检测", messButton);
+                //System.Environment.Exit(0);
             }
         }
 
@@ -84,13 +82,16 @@ namespace vine_window_standard
         {
             String section = "Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
             RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
-            RegistryKey hkie = hklm.OpenSubKey(section, true);
+            RegistryKey hkie = hklm.OpenSubKey(section, false);
 
             Object val = hkie.GetValue(appName);
             Int32 curVer = val != null ? (Int32)val : 0;
-            if (curVer <= ieMinVer)
+            if (curVer < ieMinVer)
             {
-                hkie.SetValue(appName, ieMinVer);
+                MessageBoxButtons messButton = MessageBoxButtons.OK;
+                DialogResult dr = MessageBox.Show("您的当前IE版本不符合要求，无法获得理想的体验，请咨询客服协助安装!", " 环境检测", messButton);
+                //System.Environment.Exit(0);
+                //return;
             }
             hkie.Close();
             hklm.Close();
@@ -138,6 +139,7 @@ namespace vine_window_standard
                 {
                     btnCancel.Text = "退出";
                 }
+                //UID = (int)json["UID"];
                 llDialog.Left = (this.Width - llDialog.Width) / 2;
                 llDialog.Visible = true; ;
             }
@@ -177,8 +179,8 @@ namespace vine_window_standard
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            //打开指定的浏览器
             string url = String.Format("install.update?appCode={0:G}&curVersion={1:G}", MyApp.AppCode, myApp.getCurrentVersion());
+            //打开指定的浏览器
             System.Diagnostics.Process.Start(MyApp.getInstance().getFormUrl(url));
         }
 
