@@ -58,7 +58,6 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.plHead = new System.Windows.Forms.Panel();
             this.plSystem = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnMax = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -292,26 +291,14 @@
             this.plSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.plSystem.BackColor = System.Drawing.Color.WhiteSmoke;
             this.plSystem.BackgroundImage = global::vine_window_standard.Properties.Resources.Top_03;
-            this.plSystem.Controls.Add(this.label1);
             this.plSystem.Controls.Add(this.btnMax);
             this.plSystem.Controls.Add(this.btnMin);
             this.plSystem.Controls.Add(this.btnExit);
-            this.plSystem.Location = new System.Drawing.Point(920, 0);
+            this.plSystem.Location = new System.Drawing.Point(916, 0);
             this.plSystem.Margin = new System.Windows.Forms.Padding(0);
             this.plSystem.Name = "plSystem";
-            this.plSystem.Size = new System.Drawing.Size(87, 71);
+            this.plSystem.Size = new System.Drawing.Size(91, 34);
             this.plSystem.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Image = global::vine_window_standard.Properties.Resources.diteng02;
-            this.label1.Location = new System.Drawing.Point(3, 24);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 47);
-            this.label1.TabIndex = 9;
             // 
             // btnMax
             // 
@@ -325,7 +312,7 @@
             this.btnMax.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMax.ImageIndex = 1;
-            this.btnMax.Location = new System.Drawing.Point(27, -1);
+            this.btnMax.Location = new System.Drawing.Point(31, 3);
             this.btnMax.Name = "btnMax";
             this.btnMax.Size = new System.Drawing.Size(24, 24);
             this.btnMax.TabIndex = 7;
@@ -343,7 +330,7 @@
             this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMin.ImageIndex = 3;
-            this.btnMin.Location = new System.Drawing.Point(-3, -1);
+            this.btnMin.Location = new System.Drawing.Point(1, 3);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(24, 24);
             this.btnMin.TabIndex = 6;
@@ -361,9 +348,9 @@
             this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.ImageIndex = 0;
-            this.btnExit.Location = new System.Drawing.Point(59, 0);
+            this.btnExit.Location = new System.Drawing.Point(63, 3);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(24, 24);
+            this.btnExit.Size = new System.Drawing.Size(24, 23);
             this.btnExit.TabIndex = 5;
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnSystemButtonClick);
@@ -405,9 +392,9 @@
             this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBack.ForeColor = System.Drawing.Color.Transparent;
             this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
-            this.btnBack.Location = new System.Drawing.Point(5, 5);
+            this.btnBack.Location = new System.Drawing.Point(6, 9);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(27, 32);
+            this.btnBack.Size = new System.Drawing.Size(22, 22);
             this.btnBack.TabIndex = 5;
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
@@ -416,10 +403,11 @@
             // 
             this.btnPage.BackColor = System.Drawing.Color.Transparent;
             this.btnPage.Controls.Add(this.lblFirstTitle);
+            this.btnPage.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnPage.ForeColor = System.Drawing.Color.Transparent;
             this.btnPage.Location = new System.Drawing.Point(45, 5);
             this.btnPage.Name = "btnPage";
-            this.btnPage.Size = new System.Drawing.Size(160, 37);
+            this.btnPage.Size = new System.Drawing.Size(130, 38);
             this.btnPage.TabIndex = 4;
             // 
             // lblFirstTitle
@@ -427,12 +415,12 @@
             this.lblFirstTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblFirstTitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFirstTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblFirstTitle.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblFirstTitle.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblFirstTitle.ForeColor = System.Drawing.Color.Black;
-            this.lblFirstTitle.Image = global::vine_window_standard.Properties.Resources.title_light;
+            this.lblFirstTitle.Image = ((System.Drawing.Image)(resources.GetObject("lblFirstTitle.Image")));
             this.lblFirstTitle.Location = new System.Drawing.Point(0, 0);
             this.lblFirstTitle.Name = "lblFirstTitle";
-            this.lblFirstTitle.Size = new System.Drawing.Size(160, 37);
+            this.lblFirstTitle.Size = new System.Drawing.Size(130, 38);
             this.lblFirstTitle.TabIndex = 2;
             this.lblFirstTitle.Text = "label1";
             this.lblFirstTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -606,7 +594,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private PanelEx panelEx1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ImageList ilLB;
         private System.Windows.Forms.ImageList ilTop;
         private System.Windows.Forms.Button btnNew;

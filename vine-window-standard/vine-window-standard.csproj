@@ -60,6 +60,9 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Newtonsoft.Json.dll</HintPath>
@@ -162,6 +165,7 @@
       <DependentUpon>UCControlBase.cs</DependentUpon>
     </Compile>
     <Compile Include="XmlHelper.cs" />
+    <Compile Include="ZipHelper.cs" />
     <EmbeddedResource Include="FrmElectronicBrowser.resx">
       <DependentUpon>FrmElectronicBrowser.cs</DependentUpon>
     </EmbeddedResource>

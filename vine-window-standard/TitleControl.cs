@@ -86,8 +86,11 @@ namespace vine_window_standard
                 Label button = new Label();
                 button.BackColor = Color.Transparent;
                 button.Parent = label;
-                button.Top = 13;
-                button.Left = 135;
+                button.Top = 15;
+                if (label.Width > 18)
+                    button.Left = label.Left + label.Width - 15;
+                else
+                    button.Left = 18;
                 if (!isHide)
                     button.Width = 9;
                 else
@@ -156,12 +159,7 @@ namespace vine_window_standard
                                 {
                                     Label label = (Label)obj;
                                     label.Image = global::vine_window_standard.Properties.Resources.title_normal;
-                                    //label.ForeColor = Color.White;
-                                    //foreach(var obj1 in label.Controls)
-                                    //{
-                                    //    Label label1 = (Label)obj1;
-                                    //    label.ForeColor = Color.White;
-                                    //}
+                                    label.ForeColor = System.Drawing.Color.WhiteSmoke;
                                 }
                             }
                         }
@@ -173,6 +171,7 @@ namespace vine_window_standard
                         {
                             Label label = (Label)obj;
                             label.Image = global::vine_window_standard.Properties.Resources.title_light;
+                            label.ForeColor = System.Drawing.Color.Black;
                             //label.ForeColor = Color.Black;
                             //foreach (var obj1 in label.Controls)
                             //{
@@ -240,7 +239,7 @@ namespace vine_window_standard
         private void lblFirstTitle_Paint(object sender, PaintEventArgs e)
         {
             Label lb = (Label)sender;
-            if (lb.Width <= 130)
+            if (lb.Width <= 112)
                 e.Graphics.DrawLine(Pens.Black, new Point(lb.Width-1, 8), new Point(lb.Width-1, 25));
         }
 

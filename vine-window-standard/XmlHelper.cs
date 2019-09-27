@@ -17,7 +17,9 @@ namespace vine_window_standard
         //保存的XML的地址
         string XMLPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\bsii.xml";
         string XMLPathZ = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Zoom.xml";
-
+        //执行档路径
+        string mypath = System.Environment.CurrentDirectory;
+        string XMLUpdate = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Update.xml";
         public XmlHelper()
         {
             if (!Directory.Exists(subPath))
@@ -29,6 +31,8 @@ namespace vine_window_standard
                 CreateBRXML(XMLPath);
             if (!File.Exists(XMLPathZ))
                 CreateZoomXML(XMLPathZ);
+            if (!File.Exists(XMLUpdate))
+                CreateUpdateXML(XMLUpdate);
         }
 
         public void CreateBRXML(string filePath)
@@ -70,6 +74,28 @@ namespace vine_window_standard
             XmlElement root3 = xmlDoc.CreateElement("IsMaxForm");
             root3.SetAttribute("IsMax", "0");
             xnXwsp.AppendChild(root3);
+            xmlDoc.Save(XMLPath);
+        }
+
+        public void CreateUpdateXML(string filePath)
+        {
+            //保存的XML的地址
+            string XMLPath = filePath;
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlNode node;
+            node = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", null);
+            xmlDoc.AppendChild(node);
+
+            //创建根节点
+            XmlNode root = xmlDoc.CreateNode(XmlNodeType.Element, "vine-windows-standard", null);
+            xmlDoc.AppendChild(root);
+            XmlNode xnXwsp = xmlDoc.SelectSingleNode("vine-windows-standard");
+
+            XmlElement root1 = xmlDoc.CreateElement("path");
+            root1.SetAttribute("install", "0");
+            root1.SetAttribute("folder", "");
+            root1.InnerText = mypath;
+            xnXwsp.AppendChild(root1);
             xmlDoc.Save(XMLPath);
         }
 
@@ -249,7 +275,7 @@ namespace vine_window_standard
             XmlNode root = xmlDoc.SelectSingleNode("vine-windows-standard/IsMaxForm");
             if (root == null)
             {
-                XmlElement root2 = xmlDoc.CreateElement("Zoom");
+                XmlElement root2 = xmlDoc.CreateElement("IsMaxForm");
                 root2.SetAttribute("IsMax", IsMax);
                 xmlDoc.AppendChild(root2);
 
@@ -264,7 +290,6 @@ namespace vine_window_standard
         }
         public string ReadIsMaxForm()
         {
-            List<BookMark> BookReamrkList = new List<BookMark>();
             XmlDocument xmlDoc = new XmlDocument();
             string IsMax = "0";
             //如果文件存在      
@@ -339,6 +364,32 @@ namespace vine_window_standard
             sr.Close();
             stream.Close();
             return xmlString;
+        }
+
+        public void updatePath(string install,string folder)
+        {
+            //更新执行档目录
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(XMLUpdate);
+
+            XmlNode root = xmlDoc.SelectSingleNode("vine-windows-standard/path");
+            if (root == null)
+            {
+                XmlElement root2 = xmlDoc.CreateElement("path");
+                root2.SetAttribute("install", install);
+                root2.SetAttribute("folder", folder);
+                root2.InnerText = mypath;
+                xmlDoc.AppendChild(root2);
+
+            }
+            else
+            {
+                XmlElement xe = (XmlElement)root;
+                xe.SetAttribute("install", install);
+                xe.SetAttribute("folder", folder);
+            }
+
+            xmlDoc.Save(XMLUpdate);
         }
     }
 }

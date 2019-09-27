@@ -1,0 +1,10 @@
+C:\D\myvine\summer-client\UpSoft\UpSoft\UpSoft\bin\Debug\UpSoft.exe.config
+C:\D\myvine\summer-client\UpSoft\UpSoft\bin\Debug\UpSoft.exe.config
+C:\D\myvine\summer-client\UpSoft\UpSoft\bin\Debug\UpSoft.exe
+C:\D\myvine\summer-client\UpSoft\UpSoft\bin\Debug\UpSoft.pdb
+C:\D\myvine\summer-client\UpSoft\UpSoft\obj\Debug\UpSoft.FrmUpSoft.resources
+C:\D\myvine\summer-client\UpSoft\UpSoft\obj\Debug\UpSoft.Properties.Resources.resources
+C:\D\myvine\summer-client\UpSoft\UpSoft\obj\Debug\UpSoft.csproj.GenerateResource.Cache
+C:\D\myvine\summer-client\UpSoft\UpSoft\obj\Debug\UpSoft.exe
+C:\D\myvine\summer-client\UpSoft\UpSoft\obj\Debug\UpSoft.pdb
+C:\D\myvine\summer-client\UpSoft\UpSoft\obj\Debug\UpSoft.csprojResolveAssemblyReference.cache

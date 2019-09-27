@@ -43,7 +43,7 @@ namespace vine_window_standard
         string printing = "";
         //
         int printBrowser = 0;
-        int defaultTabWidth = 160;
+        int defaultTabWidth = 130;
         int tabWidth = 0;
         int MaxLeft = 192;
 
@@ -670,6 +670,7 @@ namespace vine_window_standard
         /// <returns></returns>
         public bool Print(string Printer, string strUrl)
         {
+            //https://c1.diteng.site/forms/TFrmTranBC.exportPdf?reportNum=1&tbNo=BC180919116&reportRptHead=%E7%8B%BC%E7%8E%8B%E6%B8%94%E5%85%B7&tb=BC
             isFastPrint = false;
             bool result = false;
             string keyName = @"Software\Microsoft\Internet Explorer\PageSetup\";
@@ -691,20 +692,21 @@ namespace vine_window_standard
                     //Externs.SetDefaultPrinter("EPSON L355 Series");
                     //int Newindex = pageControl.Count;
                     //createWindow(strUrl, true);
-                    printList.Clear();
+                    //printList.Clear();
                     //
-                    WebBrowser browser = new WebBrowser();
-                    browser.DocumentCompleted += this.wb1_DocumentCompleted2;
-                    //browser.Url = new Uri(strUrl);
-                    browser.Tag = 0;
-                    browser.Navigate(strUrl);
-                    printList.Add(browser);
-                    
+                    //WebBrowser browser = new WebBrowser();
+                    //browser.DocumentCompleted += this.wb1_DocumentCompleted2;
+                    ////browser.Url = new Uri(strUrl);
+                    //browser.Tag = 0;
+                    //browser.Navigate(strUrl);
+                    //printList.Add(browser);
+                    //if (printList.Count > 20)
+                    cleanPrintList();
                     //
                     WebBrowser browser2 = new WebBrowser();
                     browser2.DocumentCompleted += this.wb1_DocumentCompleted2;
                     //browser.Url = new Uri(strUrl);
-                    browser2.Tag = 1;
+                    browser2.Tag = printList.Count;
                     browser2.Navigate(strUrl);
                     printList.Add(browser2);
                     if (!timer1.Enabled)
@@ -715,6 +717,18 @@ namespace vine_window_standard
             return result;
         }
 
+        private void cleanPrintList()
+        {
+            for(int i = 0; i< printList.Count - 1; )
+            {
+                if ((int)printList[i].Tag == -1)
+                {
+                    printList.Remove(printList[i]);
+                }
+                else
+                    i--;
+            }
+        }
         private void wb1_DocumentCompleted2(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             WebBrowser browser = (WebBrowser)sender;
@@ -731,12 +745,13 @@ namespace vine_window_standard
                 //Console.WriteLine("线程1" + printList[i].Url.ToString());
                 string strurl = printList[i].Url.ToString();
                 printting = false;
-                if ((int)printList[i].Tag == 1)
+                //if ((int)printList[i].Tag == 1)
                 {
                     try
                     {
-                        ((IWebBrowser2)printList[0].ActiveXInstance).ExecWB(OLECMDID.OLECMDID_PRINT,
+                        ((IWebBrowser2)printList[i].ActiveXInstance).ExecWB(OLECMDID.OLECMDID_PRINT,
                             OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, null, IntPtr.Zero);
+                        printList[i].Tag = -1;
                     }
                     catch (Exception ex)
                     {
@@ -751,10 +766,10 @@ namespace vine_window_standard
             printting = true;
             Func<WebBrowser, WebBrowser> mySum1 = DoWork;
             string url = wb.Url.ToString();
-            if ((!urlList.Contains(url.Substring(0, url.IndexOf("?") + 1))) && ((int)wb.Tag != 0))
-                wb.Tag = 1;
-            if (urlList.Count == 0)
-                wb.Tag = -1;
+            //if ((!urlList.Contains(url.Substring(0, url.IndexOf("?") + 1))) && ((int)wb.Tag != 0))
+            //    wb.Tag = 1;
+            //if (urlList.Count == 0)
+            //    wb.Tag = -1;
 
             IAsyncResult result1 = mySum1.BeginInvoke(wb, callback, "第一个");
 
@@ -797,23 +812,14 @@ namespace vine_window_standard
                         Externs.SetDefaultPrinter(Printer);
                     //Externs.SetDefaultPrinter("EPSON L355 Series");
                     //int Newindex = pageControl.Count;
-                    printList.Clear();
+                    //printList.Clear();
+                    cleanPrintList();
                     string[] urlArray = strUrls.Split('|');
-                    int i = 0;
+                    int i = printList.Count;
                     printting = false;
                     foreach (string url in urlArray)
                     {
                         printting = true;
-                        if (printList.Count ==0)
-                        { 
-                            WebBrowser browser0 = new WebBrowser();
-                            browser0.DocumentCompleted += this.wb1_DocumentCompleted;
-                            //browser.Url = new Uri(MyApp.getInstance().getFormUrl(url));
-                            browser0.Navigate(new Uri(MyApp.getInstance().getFormUrl(url)));
-                            browser0.Tag = -1;
-                            printList.Add(browser0);
-                            i++;
-                        }
                         WebBrowser browser = new WebBrowser();
                         browser.DocumentCompleted += this.wb1_DocumentCompleted;
                         //browser.Url = new Uri(MyApp.getInstance().getFormUrl(url));
@@ -857,8 +863,8 @@ namespace vine_window_standard
             WebBrowser browser = (WebBrowser)sender;
             if ((e.Url == browser.Url) && (!browser.IsBusy))
             {
-                if ((printList.Count-1) == (int)browser.Tag)
-                    doPrintList(0);
+                //if ((printList.Count-1) == (int)browser.Tag)
+                    doPrintList((int)browser.Tag);
                 //timerPrint.Enabled = true;
             }
         }
@@ -873,11 +879,13 @@ namespace vine_window_standard
             AsyncCallback callback = c => {
                 //Console.WriteLine("线程1" + printList[i].Url.ToString());
                 printting = true;
-               // Console.WriteLine("printting==>true");
-               if ((int)printList[i].Tag != -1) {
+                // Console.WriteLine("printting==>true");
+                //if ((int)printList[i].Tag != -1) 
+                {
                     try { 
                         ((IWebBrowser2)printList[i].ActiveXInstance).ExecWB(OLECMDID.OLECMDID_PRINT,
                                     OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, null, IntPtr.Zero);
+                        printList[i].Tag = -1;
                     }
                     catch (Exception ex) {
                         //Console.WriteLine(ex.Message);
@@ -885,28 +893,15 @@ namespace vine_window_standard
                     timer1.Enabled = true;
                 }
                 printting = false;
-                //Console.WriteLine("printting==>false");
             };
 
             WebBrowser wb = printList[i];
             wb.Focus();
-            //wb.ShowPrintDialog();
-            //wb.Print();
             printting = true;
-            //((IWebBrowser2)wb.ActiveXInstance).ExecWB(OLECMDID.OLECMDID_PRINT,
-            //            OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, null, IntPtr.Zero);
             Func<WebBrowser, WebBrowser> mySum1 = DoWork2;
             IAsyncResult result1 = mySum1.BeginInvoke(wb, callback, "第一个");
 
             mySum1.EndInvoke(result1);
-
-            if (i < printList.Count-1)
-            {
-                Application.DoEvents();
-                Thread.Sleep(1300);
-                i++;
-                doPrintList(i);
-            }
         }
 
         public static WebBrowser DoWork2(WebBrowser Browser)
@@ -916,6 +911,7 @@ namespace vine_window_standard
 
         public void widthCalculate(bool forAdd = true)
         {
+            //调整页签标题宽度
             if (forAdd)
             {
                 if (this.Width < (titles.Count) * (tabWidth) + 133 || tabWidth < defaultTabWidth)
@@ -957,6 +953,7 @@ namespace vine_window_standard
 
         public void SetBookRemark()
         {
+            //显示书签栏
             float dpiX;
             Graphics graphics = this.CreateGraphics();
             dpiX = graphics.DpiX;
@@ -1001,19 +998,31 @@ namespace vine_window_standard
 
         private void butbk_Click(object sender, EventArgs e)
         {
+            //书签点击事件
             Button bt1 = (Button)sender;
             BookMark br1 = BookReamrkList[(int)bt1.Tag];
+            string bookUrl = br1.BookUrl;
+            int strform = bookUrl.IndexOf("forms");
+            if (strform > 0)
+            {
+                string head = bookUrl.Substring(0, strform-1);
+                if (head != MyApp.HOME_URL) { 
+                    string name = bookUrl.Substring(strform, bookUrl.Length - strform);
+                    bookUrl = String.Format("{0:G}/{1:G}", MyApp.HOME_URL, name);
+                }
+            }
             if (pageControl.Index ==0)
-                createWindow(br1.BookUrl);
+                createWindow(bookUrl);
             else
             { 
                 WebBrowser wb = pageControl.Items[pageControl.Index];
-                wb.Navigate(br1.BookUrl);
+                wb.Navigate(bookUrl);
             }
         }
 
         private void delTool_Click(object sender, EventArgs e)
         {
+            //删除书签
             Button bt1 = (Button)((sender as ToolStripMenuItem).Owner as ContextMenuStrip).SourceControl;
             int id = (int)bt1.Tag;
             BookMark br1 = BookReamrkList[id];
@@ -1059,6 +1068,7 @@ namespace vine_window_standard
 
         private void btnMange_Click(object sender, EventArgs e)
         {
+            //管理
             if (MyApp.getInstance().getToken() == "")
             {
                 MessageBoxButtons messButton = MessageBoxButtons.OK;
@@ -1095,18 +1105,26 @@ namespace vine_window_standard
             }
         }
 
-        public void OpenPDF() {
-            WebBrowser browser0 = new WebBrowser();
-            browser0.Navigate(new Uri(MyApp.getInstance().getFormUrl("TFrmTranBE.openMoneyBox")));
-            createWindow(MyApp.getInstance().getFormUrl("TFrmTranBE.openMoneyBox"));
-        }
-
         private void mouseClick(object sender, MouseEventArgs e)
         {
             //鼠标滚轮按下关闭页签
             if (e.Button == System.Windows.Forms.MouseButtons.Middle)
             {
                 closePageClick(sender, e);
+            }
+        }
+
+        public void openPDFRead(string strUrl)
+        {
+            //预加载PDF阅读器，提高其他页面打印速度
+            try
+            { 
+                WebBrowser browser = new WebBrowser();
+                browser.Navigate(MyApp.getInstance().getFormUrl(strUrl));
+            }
+             catch (Exception ex)
+            {
+                //Console.WriteLine(ex.Message);
             }
         }
     }

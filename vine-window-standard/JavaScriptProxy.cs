@@ -96,6 +96,11 @@ namespace vine_window_standard
                 }
                 result.Add("data", NameList);
             }
+            else if (classCode == "openPDFRead")
+            {
+                string url = (String)json.GetValue("url");
+                owner.openPDFRead(url);
+            }
             else
             {
                 result.GetValue("result").Replace(false);

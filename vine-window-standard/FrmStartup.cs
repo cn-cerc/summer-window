@@ -27,6 +27,8 @@ namespace vine_window_standard
         private bool appUpdateReset = false;
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
+        private bool appIncUpdate = false;
+        private int updateUID = 0;
 
         MyApp myApp = MyApp.getInstance();
 
@@ -51,7 +53,9 @@ namespace vine_window_standard
                 btnStart.Visible = MyApp.debug;
 
                 this.FormBorderStyle = FormBorderStyle.None;
+                //txtUrl.Text = String.Format("http://{0:G}", Computer.getIPAddress());
                 txtUrl.Text = String.Format("http://{0:G}:8080", Computer.getIPAddress());
+                //MyApp.HOME_URL = txtUrl.Text;
                 //txtUrl.Text = "https://c1.diteng.site";
                 Size size = new Size();
                 size = PrimaryScreen.DESKTOP;
@@ -68,6 +72,7 @@ namespace vine_window_standard
                     //return;
                 }
 
+                //timer1.Enabled = true;
                 timer1.Enabled = !MyApp.debug;
             }
             catch (System.Security.SecurityException ee)
@@ -103,7 +108,7 @@ namespace vine_window_standard
 
             ThreadStart thread = () =>
             {
-                string formCode = String.Format("install.client?appCode={0:G}&curVersion={1:G}", MyApp.AppCode, myApp.getCurrentVersion());
+                string formCode = String.Format("install.client?appCode={0:G}&curVersion={1:G}&UpdateCode={2:G}", MyApp.AppCode, myApp.getCurrentVersion(), MyApp.UpdateCode);
                 string url = MyApp.getInstance().getFormUrl(formCode);
                 var client = new WebClient();
                 client.Encoding = System.Text.Encoding.GetEncoding("utf-8");
@@ -113,6 +118,7 @@ namespace vine_window_standard
                 this.Invoke(httpResp, client, resp);
             };
             new Thread(thread).Start();
+            
         }
 
         public void httpOnResponse(WebClient client, string resp)
@@ -139,9 +145,14 @@ namespace vine_window_standard
                 {
                     btnCancel.Text = "退出";
                 }
-                //UID = (int)json["UID"];
+                appIncUpdate = (bool)json["appIncUpdate"];
+                if (appIncUpdate)
+                {
+                    btnOk.Text = "自动更新";
+                }
+                updateUID = (int)json["updateUID"];
                 llDialog.Left = (this.Width - llDialog.Width) / 2;
-                llDialog.Visible = true; ;
+                llDialog.Visible = true; 
             }
             catch (Exception e1)
             {
@@ -179,9 +190,44 @@ namespace vine_window_standard
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            string url = String.Format("install.update?appCode={0:G}&curVersion={1:G}", MyApp.AppCode, myApp.getCurrentVersion());
-            //打开指定的浏览器
-            System.Diagnostics.Process.Start(MyApp.getInstance().getFormUrl(url));
+            if (appIncUpdate && (updateUID != 0))
+            {
+                try
+                {
+                    lblReadme.Text += "正在执行更新，这可能需要几分钟，请稍候！" + "\n";
+                    lblReadme.Text += "正在下载更新文件..." + "\n";
+                    //获取版本UID
+                    //1.自动下载增量更新
+                    HttpDldFile hdf = new HttpDldFile();
+                    //install.download? uid
+                    //DownloadFile("https://www.diteng.site/forms/install.download?uid=99", "vine-windows-standard-1.0.1.2.exe");
+                    string url = "install.download?uid=" + updateUID.ToString();
+                    string fileName = MyApp.AppCode + "-" + myApp.getCurrentVersion() + ".zip";
+                    hdf.DownloadFile(MyApp.getInstance().getFormUrl(url), fileName);
+                    //2.解压
+                    //解压目录unZipDir，压缩包subPath1
+                    lblReadme.Text += "正在解压更新文件..." + "\n";
+                    string unZipDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Update\\" + MyApp.AppCode + "-" + myApp.getCurrentVersion();
+                    string subPath1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Update\\" + fileName;
+                    ZipHelper.UnZip(subPath1, unZipDir);
+                    XmlHelper xh = new XmlHelper();
+                    xh.updatePath("1", unZipDir);
+                    //3.启动更新exe
+                    Process.Start("UpSoft.exe");
+                    Application.Exit();
+                }catch
+                {
+                    ;
+                }
+
+            }
+            else
+            {
+                string url = String.Format("install.update?appCode={0:G}&curVersion={1:G}", MyApp.AppCode, myApp.getCurrentVersion());
+                //打开指定的浏览器
+                System.Diagnostics.Process.Start(MyApp.getInstance().getFormUrl(url));
+                //Application.Exit();
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

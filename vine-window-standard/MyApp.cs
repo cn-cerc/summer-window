@@ -9,7 +9,7 @@ namespace vine_window_standard
 {
     class MyApp
     {
-        private static string currentVersion = "1.0.1.2";
+        private static string currentVersion = "1.0.1.3";
         public static string AppCode = "vine-windows-standard";
         private static MyApp instance;
         public static String HOME_URL = "https://www.diteng.site";
@@ -19,6 +19,7 @@ namespace vine_window_standard
         internal static string APP_NAME = "地藤管家";
         public static bool debug = false;
         public string token = "";
+        public static string UpdateCode = "vine-windows-standard-update";
 
         public string AppVersion { get; private set; } = "0.0.0.0";
 
