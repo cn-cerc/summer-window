@@ -66,14 +66,14 @@ namespace vine_window_standard
             btImage.Width = (int)(24 * scale);
             btImage.Top = (int)(6 * scale);
             btImage.Left = MaxLeft;
-            MaxLeft = MaxLeft + btImage.Width- (int)(2 * scale);
+            MaxLeft = MaxLeft + btImage.Width - (int)(2 * scale);
             btImage.BackColor = System.Drawing.Color.Transparent;
             btImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btImage.Image = global::vine_window_standard.Properties.Resources.BookMark;
             btImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btImage.BackColor = System.Drawing.Color.Transparent;
             btImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            
+
             btPage = new Button();
             btPage.Parent = parent;
             btPage.Height = (int)(24 * scale);
@@ -82,12 +82,15 @@ namespace vine_window_standard
             btPage.Left = MaxLeft;
             if (title.Length >= 6)
             {
-                btPage.Text = getStr(title, 12, "");
+                //btPage.Text = getStr(title, 12, "");
+                btPage.Text = title;
                 btPage.Width = (int)(85 * scale) + 1;
             }
             else
+            {
                 btPage.Text = title;
-            btPage.Width = (int)((btPage.Text.Length * 10 +25) * scale) + 1;
+                btPage.Width = (int)((btPage.Text.Length * 10 + 25) * scale) + 1;
+            }
             MaxLeft = MaxLeft + btPage.Width;
             btPage.Tag = Index;
             btPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

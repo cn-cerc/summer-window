@@ -77,6 +77,7 @@ namespace vine_window_standard
                 owner.isFastPrint = true;
                 string urls = (String)json.GetValue("url");
                 string printer = (String)json.GetValue("printer");
+                Externs.SetDefaultPrinter(printer);
                 if (urls != "")
                 {
                     if (!owner.PrintList(printer, urls))

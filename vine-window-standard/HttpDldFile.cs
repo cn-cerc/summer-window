@@ -126,5 +126,102 @@ namespace vine_window_standard
                 throw;
             }
         }
+
+        public bool DownloadPdf(string strUrl, string fileName)
+        {
+            bool flag = false;
+            //目标路径
+            string subPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Report" ;
+            if (!Directory.Exists(subPath))
+            {
+                Directory.CreateDirectory(subPath);
+            }
+            //subPath = subPath + "\\" + fileName;
+            if (!File.Exists(fileName))
+                File.Delete(fileName);
+            try
+            { 
+                byte[] bs = Encoding.UTF8.GetBytes(strUrl);
+                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(strUrl);
+                req.Method = "POST";
+                req.ContentType = "application/pdf";
+                req.ContentLength = bs.Length;
+
+                // 返回的流数据信息
+                using (Stream reqStream = req.GetRequestStream())
+                {
+                    reqStream.Write(bs, 0, bs.Length);
+                }
+
+                using (WebResponse wr = req.GetResponse())
+                {
+                    Stream str = wr.GetResponseStream();
+                    using (FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                    {
+                        int size = 2048;
+                        byte[] data = new byte[2048];
+                        while (true)
+                        {
+                            size = str.Read(data, 0, data.Length);
+                            if (size > 0)
+                            {
+                                fileStream.Write(data, 0, size);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+                flag = true;
+            }
+            catch (Exception)
+            {
+                flag = false;       //返回false下载失败
+            }
+            return flag;
+        }        
+        
+        //删除文件夹
+        public bool DeleteDir(string file)
+        {
+            try
+            {
+                //去除文件夹和子文件的只读属性
+                //去除文件夹的只读属性
+                System.IO.DirectoryInfo fileInfo = new DirectoryInfo(file);
+                fileInfo.Attributes = FileAttributes.Normal & FileAttributes.Directory;
+
+                //去除文件的只读属性
+                System.IO.File.SetAttributes(file, System.IO.FileAttributes.Normal);
+
+                //判断文件夹是否还存在
+                if (Directory.Exists(file))
+                {
+                    foreach (string f in Directory.GetFileSystemEntries(file))
+                    {
+                        if (File.Exists(f))
+                        {
+                            //如果有子文件删除文件
+                            File.Delete(f);
+                            Console.WriteLine(f);
+                        }
+                        else
+                        {
+                            //循环递归删除子文件夹
+                            DeleteDir(f);
+                        }
+                    }
+                    //删除空文件夹
+                    Directory.Delete(file);
+                }
+                return true;
+            }
+            catch (Exception ex) // 异常处理
+            {
+                return false;
+            }
+        }
     }
 }

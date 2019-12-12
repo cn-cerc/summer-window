@@ -42,7 +42,6 @@ namespace vine_window_standard
         private bool isChangeFactor = false;
         string printing = "";
         //
-        int printBrowser = 0;
         int defaultTabWidth = 130;
         int tabWidth = 0;
         int MaxLeft = 192;
@@ -68,7 +67,7 @@ namespace vine_window_standard
 
             //初始化
             //lblFirstTitle.ImageList = ilTitle;
-            lblFirstTitle.Image = global::vine_window_standard.Properties.Resources.title_light;
+            lblFirstTitle.Image = vine_window_standard.Properties.Resources.title_light;
             //plTitle.BackColor = Color.FromArgb(255, 56, 154, 218);
             plSystem.BackColor = plTitle.BackColor;
             plBookmark.BackColor = plTitle.BackColor;
@@ -105,6 +104,9 @@ namespace vine_window_standard
              Factor = int.Parse(xh.ReadZoom());
 
             tabWidth = defaultTabWidth;
+
+            HttpDldFile hd = new HttpDldFile();
+            hd.DeleteDir(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Report");
         }
 
         private void fixWindowSize()
@@ -154,6 +156,7 @@ namespace vine_window_standard
                 //ConfigHelper.UpdateAppConfig("IsmaxForm", "0");
                 widthCalculate(true);
                 btnMax.BackgroundImage = vine_window_standard.Properties.Resources.Full;
+                MarkList();
             }
             else
             {
@@ -167,6 +170,7 @@ namespace vine_window_standard
                 //ConfigHelper.UpdateAppConfig("IsmaxForm", "1");
                 widthCalculate(true);
                 btnMax.BackgroundImage = vine_window_standard.Properties.Resources.Narrow;
+                MarkList();
             }
         }
 
@@ -216,8 +220,15 @@ namespace vine_window_standard
 
         private void newPageClick(object sender, EventArgs e)
         {
-            pageControl.Index = 0;
-            titles.Index = 0;
+            if (pageControl.Index == 0)
+            {
+                WebBrowser wb = pageControl.Items[pageControl.Index];
+                wb.Navigate(String.Format("{0:G}?CLIENTID={1:G}", MyApp.getInstance().getFormUrl("WebDefault"), Computer.getClientID()));
+            }
+            else { 
+                pageControl.Index = 0;
+                titles.Index = 0;
+            }
             //createWindow(String.Format("{0:G}?CLIENTID={1:G}", MyApp.getInstance().getFormUrl("WebDefault"), Computer.getClientID()));
         }
 
@@ -379,7 +390,7 @@ namespace vine_window_standard
         {
             var control = (Button)sender;
             mnuSetup.Items[0].Visible = false; //暂关闭
-            mnuSetup.Show(control, new Point(-control.Width - 56, control.Height + 1));
+            mnuSetup.Show(control, new Point(control.Width-39, control.Height + 1));
         }
 
         private void mnuSetup_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -469,6 +480,8 @@ namespace vine_window_standard
                             //br1.btImage.ImageIndex = 3;
                             //br1.btImage.ImageList = this.ilTop;
                             MaxLeft = MaxLeft + br1.btImage.Width + br1.btPage.Width;
+                            if (br1.btImage.Left > plBookmark.Width - plSystem.Width)
+                                addMarkList(br1.Title, (int)br1.btPage.Tag);
                             //SetBookRemark();
                         }
                         break;
@@ -660,7 +673,6 @@ namespace vine_window_standard
         List<ManualResetEvent> manualEvents = new List<ManualResetEvent>();
         List<WebBrowser> printList = new List<WebBrowser>();
         List<String> urlList = new List<String>();
-        Boolean printting = false;
 
         /// <summary>
         /// 打印一次
@@ -670,7 +682,7 @@ namespace vine_window_standard
         /// <returns></returns>
         public bool Print(string Printer, string strUrl)
         {
-            //https://c1.diteng.site/forms/TFrmTranBC.exportPdf?reportNum=1&tbNo=BC180919116&reportRptHead=%E7%8B%BC%E7%8E%8B%E6%B8%94%E5%85%B7&tb=BC
+            ////https://c1.diteng.site/forms/TFrmTranBC.exportPdf?reportNum=1&tbNo=BC180919116&reportRptHead=%E7%8B%BC%E7%8E%8B%E6%B8%94%E5%85%B7&tb=BC
             isFastPrint = false;
             bool result = false;
             string keyName = @"Software\Microsoft\Internet Explorer\PageSetup\";
@@ -689,29 +701,39 @@ namespace vine_window_standard
                     //设置默认打印机
                     if (Printer != "")
                         Externs.SetDefaultPrinter(Printer);
-                    //Externs.SetDefaultPrinter("EPSON L355 Series");
-                    //int Newindex = pageControl.Count;
-                    //createWindow(strUrl, true);
-                    //printList.Clear();
-                    //
-                    //WebBrowser browser = new WebBrowser();
-                    //browser.DocumentCompleted += this.wb1_DocumentCompleted2;
-                    ////browser.Url = new Uri(strUrl);
-                    //browser.Tag = 0;
-                    //browser.Navigate(strUrl);
-                    //printList.Add(browser);
-                    //if (printList.Count > 20)
-                    cleanPrintList();
-                    //
-                    WebBrowser browser2 = new WebBrowser();
-                    browser2.DocumentCompleted += this.wb1_DocumentCompleted2;
-                    //browser.Url = new Uri(strUrl);
-                    browser2.Tag = printList.Count;
-                    browser2.Navigate(strUrl);
-                    printList.Add(browser2);
-                    if (!timer1.Enabled)
-                        timer1.Start();
-                    result = true;
+                    Console.WriteLine("接收打印信息 " + DateTime.Now.ToString());
+                    //下载pdf文件并打印
+                    string subPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Report";
+
+                    strUrl = String.Format("{0:G}&sid={1:G}", strUrl, MyApp.getInstance().getToken());
+
+                    Random random = new Random();
+                    HttpDldFile hdf = new HttpDldFile();
+                    string fileName = string.Format("{0}.pdf", DateTime.Now.ToString("yyyyMMddHHmmss")+ random.Next());
+                    subPath = subPath + "\\" + fileName;
+                    Console.WriteLine("开始下载 " + DateTime.Now.ToString());
+                    if (hdf.DownloadPdf(strUrl, subPath))
+                    {
+
+                        Console.WriteLine("下载成功 " + DateTime.Now.ToString());
+                        if (!timer1.Enabled)
+                            timer1.Start();
+
+                        AxAcroPDFLib.AxAcroPDF axAcroPDF = new AxAcroPDFLib.AxAcroPDF();
+                        ((System.ComponentModel.ISupportInitialize)(axAcroPDF)).BeginInit();
+                        axAcroPDF.Location = new System.Drawing.Point(0, 24);
+                        axAcroPDF.Size = new System.Drawing.Size(292, 242);
+                        axAcroPDF.Dock = DockStyle.Fill;
+                        axAcroPDF.Visible = false;
+                        Controls.Add(axAcroPDF);
+                        ((System.ComponentModel.ISupportInitialize)(axAcroPDF)).EndInit();
+                        axAcroPDF.LoadFile(subPath);
+                        //Thread.Sleep(500);
+                        Console.WriteLine("发送打印 " + DateTime.Now.ToString());
+                        //axAcroPDF.printWithDialog();
+                        axAcroPDF.printAll();
+                        result = true;
+                    }
                 }
             }
             return result;
@@ -728,60 +750,6 @@ namespace vine_window_standard
                 else
                     i--;
             }
-        }
-        private void wb1_DocumentCompleted2(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            WebBrowser browser = (WebBrowser)sender;
-            if ((e.Url == browser.Url) && (!browser.IsBusy))
-            {
-                //if ((int)browser.Tag != 0)
-                    doPrint((int)browser.Tag);
-            }
-        }
-
-        private void doPrint(int i)
-        {
-            AsyncCallback callback = c => {
-                //Console.WriteLine("线程1" + printList[i].Url.ToString());
-                string strurl = printList[i].Url.ToString();
-                printting = false;
-                //if ((int)printList[i].Tag == 1)
-                {
-                    try
-                    {
-                        ((IWebBrowser2)printList[i].ActiveXInstance).ExecWB(OLECMDID.OLECMDID_PRINT,
-                            OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, null, IntPtr.Zero);
-                        printList[i].Tag = -1;
-                    }
-                    catch (Exception ex)
-                    {
-                        //Console.WriteLine(ex.Message);
-                    }
-                }
-
-                urlList.Add(strurl.Substring(0, strurl.IndexOf("?") + 1));
-            };
-
-            WebBrowser wb = printList[i];
-            printting = true;
-            Func<WebBrowser, WebBrowser> mySum1 = DoWork;
-            string url = wb.Url.ToString();
-            //if ((!urlList.Contains(url.Substring(0, url.IndexOf("?") + 1))) && ((int)wb.Tag != 0))
-            //    wb.Tag = 1;
-            //if (urlList.Count == 0)
-            //    wb.Tag = -1;
-
-            IAsyncResult result1 = mySum1.BeginInvoke(wb, callback, "第一个");
-
-            mySum1.EndInvoke(result1);
-        }
-        public static WebBrowser DoWork(WebBrowser browser)
-        {
-            if ((int)browser.Tag == -1)
-            {
-                //Thread.Sleep(2000);
-            }
-            return browser;
         }
 
         /// <summary>
@@ -810,103 +778,40 @@ namespace vine_window_standard
                     //设置默认打印机
                     if (Printer != "")
                         Externs.SetDefaultPrinter(Printer);
-                    //Externs.SetDefaultPrinter("EPSON L355 Series");
-                    //int Newindex = pageControl.Count;
-                    //printList.Clear();
-                    cleanPrintList();
+                    
+                    string subPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Report";
+                    string fileParh = "";
+                    string strUrl = "";
                     string[] urlArray = strUrls.Split('|');
                     int i = printList.Count;
-                    printting = false;
-                    foreach (string url in urlArray)
+                    Random random = new Random();
+                    foreach (string Url in urlArray)
                     {
-                        printting = true;
-                        WebBrowser browser = new WebBrowser();
-                        browser.DocumentCompleted += this.wb1_DocumentCompleted;
-                        //browser.Url = new Uri(MyApp.getInstance().getFormUrl(url));
-                        browser.Navigate(new Uri(MyApp.getInstance().getFormUrl(url)));
-                        browser.Tag = i;
-                        printList.Add(browser);
-                        i++;
+                        strUrl = MyApp.getInstance().getFormUrl(String.Format("{0:G}&sid={1:G}", Url, MyApp.getInstance().getToken()));
+
+                        HttpDldFile hdf = new HttpDldFile();
+                        string fileName = string.Format("{0}.pdf", DateTime.Now.ToString("yyyyMMddHHmmss")+ random.Next());
+                        fileParh = subPath + "\\" + fileName;
+                        if (hdf.DownloadPdf(strUrl, fileParh))
+                        {
+                            if (!timer1.Enabled)
+                                timer1.Start();
+
+                            AxAcroPDFLib.AxAcroPDF axAcroPDF = new AxAcroPDFLib.AxAcroPDF();
+                            axAcroPDF.Location = new System.Drawing.Point(0, 24);
+                            axAcroPDF.Size = new System.Drawing.Size(292, 242);
+                            axAcroPDF.Dock = DockStyle.Fill;
+                            Controls.Add(axAcroPDF);
+                            axAcroPDF.setShowToolbar(false);
+                            axAcroPDF.LoadFile(fileParh);
+                            //Thread.Sleep(500);
+                            axAcroPDF.printAll();
+                            result = true;
+                        }
                     }
-                    if (!timer1.Enabled)
-                        timer1.Start();
-                    while (printting)
-                        Application.DoEvents();
-                    result = true;
                 }
             }
             return result;
-        }
-
-        private void createWindow(String url, bool isHide)
-        {
-            titles.isHide = isHide;
-            int owenIndex = titles.Index;
-            Control button = titles.AddItem();
-            ContextMenuStrip newtitle = new ContextMenuStrip();
-            TitleInit(newtitle);
-            titles.AddTitle(newtitle);
-            titles.setTitle(titles.Index, "打印报表");
-            titles.OwenIndex = owenIndex;
-            button.Click += goPageClick;
-            //btnNew.Left = button.Left + button.Width + 10;
-            pageControl.isHide = isHide;
-            pageControl.addItem();
-            printBrowser = pageControl.Count - 1;
-            pageControl.Items[printBrowser].NewWindow += this.webBrowser1_NewWindow;
-            pageControl.Items[printBrowser].DocumentCompleted += this.wb1_DocumentCompleted;
-            pageControl.Items[printBrowser].Url = new Uri(url);
-        }
-
-        private void wb1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            WebBrowser browser = (WebBrowser)sender;
-            if ((e.Url == browser.Url) && (!browser.IsBusy))
-            {
-                //if ((printList.Count-1) == (int)browser.Tag)
-                    doPrintList((int)browser.Tag);
-                //timerPrint.Enabled = true;
-            }
-        }
-
-        List<ManualResetEvent> PmanualEvents = new List<ManualResetEvent>();
-
-        [DllImport("user32.dll")]
-        static extern IntPtr GetActiveWindow();
-
-        private void doPrintList(int i)
-        {
-            AsyncCallback callback = c => {
-                //Console.WriteLine("线程1" + printList[i].Url.ToString());
-                printting = true;
-                // Console.WriteLine("printting==>true");
-                //if ((int)printList[i].Tag != -1) 
-                {
-                    try { 
-                        ((IWebBrowser2)printList[i].ActiveXInstance).ExecWB(OLECMDID.OLECMDID_PRINT,
-                                    OLECMDEXECOPT.OLECMDEXECOPT_DONTPROMPTUSER, null, IntPtr.Zero);
-                        printList[i].Tag = -1;
-                    }
-                    catch (Exception ex) {
-                        //Console.WriteLine(ex.Message);
-                    }
-                    timer1.Enabled = true;
-                }
-                printting = false;
-            };
-
-            WebBrowser wb = printList[i];
-            wb.Focus();
-            printting = true;
-            Func<WebBrowser, WebBrowser> mySum1 = DoWork2;
-            IAsyncResult result1 = mySum1.BeginInvoke(wb, callback, "第一个");
-
-            mySum1.EndInvoke(result1);
-        }
-
-        public static WebBrowser DoWork2(WebBrowser Browser)
-        {
-            return Browser;
         }
 
         public void widthCalculate(bool forAdd = true)
@@ -971,6 +876,8 @@ namespace vine_window_standard
                 btnSetup.Parent = plBookmark;
                 btnMange.Parent = plBookmark;
                 btnMange1.Parent = plBookmark;
+                if (lbMore.Visible)
+                    lbMore.Visible = false;
                 //plSystem.Parent = plBookmark;
                 //plBookmark.Visible = true;
                 //plBookmark.Height = 30;
@@ -985,6 +892,8 @@ namespace vine_window_standard
                     br1.btPage.ContextMenuStrip = brmum;
                     //br1.btImage.ImageIndex = 3;
                     //br1.btImage.ImageList = this.ilTop;
+                    if (LastLeft > plBookmark.Width - plSystem.Width)
+                        addMarkList(br1.Title, i);
                     LastLeft = LastLeft + br1.btImage.Width + br1.btPage.Width;
                 }
                 MaxLeft = LastLeft;
@@ -1091,12 +1000,13 @@ namespace vine_window_standard
         private void timer1_Tick(object sender, EventArgs e)
         {
             IntPtr maindHwnd = FindWindow(null, "打印");
+            IntPtr maindHwnd2 = FindWindow(null, "Acrobat Reader"); 
             IntPtr selectedWindow = GetForegroundWindow();
-            if (maindHwnd != IntPtr.Zero)
+            if ((maindHwnd != IntPtr.Zero) || (maindHwnd2 != IntPtr.Zero))
             {
-                if (maindHwnd == selectedWindow) { 
+                if ((maindHwnd == selectedWindow) || (maindHwnd2 == selectedWindow)) {
                     //SetParent(this.Handle, maindHwnd);
-                    if (timeEnter != 0) { 
+                    if (timeEnter != 0) {
                         SendKeys.SendWait("{ENTER}");
                         timeEnter = 0;
                     }
@@ -1126,6 +1036,201 @@ namespace vine_window_standard
             {
                 //Console.WriteLine(ex.Message);
             }
+        }
+
+        private void newTool_Click(object sender, EventArgs e)
+        {
+            //新标签页打开书签
+            Button bt1 = (Button)((sender as ToolStripMenuItem).Owner as ContextMenuStrip).SourceControl;
+            BookMark br1 = BookReamrkList[(int)bt1.Tag];
+            string bookUrl = br1.BookUrl;
+            int strform = bookUrl.IndexOf("forms");
+            if (strform > 0)
+            {
+                string head = bookUrl.Substring(0, strform - 1);
+                if (head != MyApp.HOME_URL)
+                {
+                    string name = bookUrl.Substring(strform, bookUrl.Length - strform);
+                    bookUrl = String.Format("{0:G}/{1:G}", MyApp.HOME_URL, name);
+                }
+            }
+            createWindow(bookUrl);
+        }
+
+        private void lbMore_Click(object sender, EventArgs e)
+        {
+            var control = (Label)sender;
+            munBook.Show(control, new Point(control.Width - 20, control.Height + 1));
+        }
+
+        private void addMarkList(string name, int it)
+        {
+            if (!lbMore.Visible)
+                lbMore.Visible = true;
+            ToolStripItem item = new ToolStripMenuItem();
+            item.Name = name;
+            item.Text = name;
+            item.Tag = it;
+            item.Click += new EventHandler(munBook_ItemClick);
+            item.MouseDown += new MouseEventHandler(item_MouseDown);
+            munBook.Items.Add(item);
+        }
+
+        private bool isRightMouse = false;
+        private void munBook_ItemClick(object sender, EventArgs e)
+        {
+            if (!isRightMouse) { 
+                ToolStripItem item = (ToolStripItem)sender;
+                //书签点击事件
+                BookMark br1 = BookReamrkList[(int)item.Tag];
+                string bookUrl = br1.BookUrl;
+                int strform = bookUrl.IndexOf("forms");
+                if (strform > 0)
+                {
+                    string head = bookUrl.Substring(0, strform - 1);
+                    if (head != MyApp.HOME_URL)
+                    {
+                        string name = bookUrl.Substring(strform, bookUrl.Length - strform);
+                        bookUrl = String.Format("{0:G}/{1:G}", MyApp.HOME_URL, name);
+                    }
+                }
+                if (pageControl.Index == 0)
+                    createWindow(bookUrl);
+                else
+                {
+                    WebBrowser wb = pageControl.Items[pageControl.Index];
+                    wb.Navigate(bookUrl);
+                }
+            }
+        }
+
+        private void item_MouseDown(object sender, MouseEventArgs e)
+        {
+            isRightMouse = false;
+            //书签右键
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                isRightMouse = true;
+                ToolStripItem item = (ToolStripItem)sender;
+                ContextMenuStrip bt1 = (sender as ToolStripMenuItem).Owner as ContextMenuStrip;
+                int it = bt1.Items.IndexOf(item);
+                numMore.Tag = item.Tag;
+                //var control = (Label)sender;
+                //munBook.Show(control, new Point(control.Width - 20, control.Height + 1));e.Location.Y + 1 + 
+                numMore.Show(bt1, new Point(e.Location.X + 1, 20 * it));
+            }
+        }
+
+        private void NewPagetool_Click(object sender, EventArgs e)
+        {
+            //新标签页打开书签
+            ContextMenuStrip bt1 = (sender as ToolStripMenuItem).Owner as ContextMenuStrip;
+            BookMark br1 = BookReamrkList[(int)bt1.Tag];
+            string bookUrl = br1.BookUrl;
+            int strform = bookUrl.IndexOf("forms");
+            if (strform > 0)
+            {
+                string head = bookUrl.Substring(0, strform - 1);
+                if (head != MyApp.HOME_URL)
+                {
+                    string name = bookUrl.Substring(strform, bookUrl.Length - strform);
+                    bookUrl = String.Format("{0:G}/{1:G}", MyApp.HOME_URL, name);
+                }
+            }
+            createWindow(bookUrl);
+            isRightMouse = false;
+            munBook.Close();
+        }
+
+        private void delItemTool_Click(object sender, EventArgs e)
+        {
+            //删除书签
+            ContextMenuStrip bt1 = (sender as ToolStripMenuItem).Owner as ContextMenuStrip;
+            int id = (int)bt1.Tag;
+            BookMark br1 = BookReamrkList[id];
+            int pLeft = br1.btImage.Left;
+            XmlHelper xh = new XmlHelper();
+            xh.DelectNode(br1.BookUrl, br1.Title);
+            BookReamrkList.Remove(br1);
+            br1.btPage.Dispose();
+            br1.btImage.Dispose();
+            for (int i = 0; i < BookReamrkList.Count; i++)
+            {
+                BookMark br2 = BookReamrkList[i];
+                if (i >= id)
+                {
+                    br2.btImage.Left = pLeft;
+                    pLeft = pLeft + br2.btImage.Width;
+                    br2.btPage.Left = pLeft;
+                    br2.btPage.Tag = i;
+                    pLeft = pLeft + br2.btPage.Width;
+                }
+                else
+                {
+                    br2.btPage.Tag = i;
+                }
+            }
+            MaxLeft = pLeft;
+            munBook.Items.Remove(sender as ToolStripMenuItem);
+            if (munBook.Items.Count <= 1)
+                lbMore.Visible = false;
+            isRightMouse = false;
+            munBook.Close();
+        }
+
+        private void munBook_Closing(object sender, ToolStripDropDownClosingEventArgs e)
+        {
+            if (e.CloseReason == ToolStripDropDownCloseReason.AppFocusChange)
+            {
+                if (isRightMouse)
+                    e.Cancel = true;
+            }
+            if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
+            {
+                if (isRightMouse)
+                    e.Cancel = true;
+            }
+        }
+
+        private void numMore_MouseEnter(object sender, EventArgs e)
+        {
+            isRightMouse = true;
+        }
+
+        private void numMore_MouseLeave(object sender, EventArgs e)
+        {
+            isRightMouse = false;
+            numMore.Close();
+        }
+
+        private void MarkList()
+        {
+            munBook.Items.Clear();
+            munBook.Items.Add(toolStripSeparator3);
+            foreach (Control c in plBookmark.Controls)
+            {
+                if (c is Button)
+                {
+                    if (c.Left > plBookmark.Width - plSystem.Width)
+                        addMarkList(c.Text, (int)c.Tag);
+                }
+            }
+            lbMore.Visible = munBook.Items.Count > 1;
+        }
+
+        private void numMore_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            isRightMouse = false;
+            if (e.CloseReason == ToolStripDropDownCloseReason.ItemClicked)
+            {
+                munBook.Close();
+            }
+        }
+
+        private void munBook_MouseLeave(object sender, EventArgs e)
+        {
+            if (!isRightMouse)
+                munBook.Close();
         }
     }
 }

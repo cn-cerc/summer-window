@@ -49,15 +49,22 @@
             this.timerPrint = new System.Windows.Forms.Timer(this.components);
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.brmum = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.newTool = new System.Windows.Forms.ToolStripMenuItem();
             this.delTool = new System.Windows.Forms.ToolStripMenuItem();
             this.ilLB = new System.Windows.Forms.ImageList(this.components);
             this.ilTop = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.munBook = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.numMore = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.NewPagetool = new System.Windows.Forms.ToolStripMenuItem();
+            this.delItemTool = new System.Windows.Forms.ToolStripMenuItem();
             this.panelEx1 = new vine_window_standard.PanelEx();
             this.plBody = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.plHead = new System.Windows.Forms.Panel();
             this.plSystem = new System.Windows.Forms.Panel();
+            this.lbMore = new System.Windows.Forms.Label();
             this.btnMax = new System.Windows.Forms.Button();
             this.btnMin = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
@@ -76,6 +83,8 @@
             this.mnuTitle.SuspendLayout();
             this.mnuSetup.SuspendLayout();
             this.brmum.SuspendLayout();
+            this.munBook.SuspendLayout();
+            this.numMore.SuspendLayout();
             this.panelEx1.SuspendLayout();
             this.plBody.SuspendLayout();
             this.plHead.SuspendLayout();
@@ -207,14 +216,23 @@
             // brmum
             // 
             this.brmum.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newTool,
             this.delTool});
             this.brmum.Name = "brmum";
-            this.brmum.Size = new System.Drawing.Size(101, 26);
+            this.brmum.ShowImageMargin = false;
+            this.brmum.Size = new System.Drawing.Size(148, 48);
+            // 
+            // newTool
+            // 
+            this.newTool.Name = "newTool";
+            this.newTool.Size = new System.Drawing.Size(147, 22);
+            this.newTool.Text = "在新标签页中打开";
+            this.newTool.Click += new System.EventHandler(this.newTool_Click);
             // 
             // delTool
             // 
             this.delTool.Name = "delTool";
-            this.delTool.Size = new System.Drawing.Size(100, 22);
+            this.delTool.Size = new System.Drawing.Size(147, 22);
             this.delTool.Text = "删除";
             this.delTool.Click += new System.EventHandler(this.delTool_Click);
             // 
@@ -240,6 +258,47 @@
             // 
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // munBook
+            // 
+            this.munBook.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparator3});
+            this.munBook.Name = "munBook";
+            this.munBook.ShowImageMargin = false;
+            this.munBook.Size = new System.Drawing.Size(36, 10);
+            this.munBook.Closing += new System.Windows.Forms.ToolStripDropDownClosingEventHandler(this.munBook_Closing);
+            this.munBook.MouseLeave += new System.EventHandler(this.munBook_MouseLeave);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(32, 6);
+            // 
+            // numMore
+            // 
+            this.numMore.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NewPagetool,
+            this.delItemTool});
+            this.numMore.Name = "brmum";
+            this.numMore.ShowImageMargin = false;
+            this.numMore.Size = new System.Drawing.Size(148, 48);
+            this.numMore.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.numMore_Closed);
+            this.numMore.MouseEnter += new System.EventHandler(this.numMore_MouseEnter);
+            this.numMore.MouseLeave += new System.EventHandler(this.numMore_MouseLeave);
+            // 
+            // NewPagetool
+            // 
+            this.NewPagetool.Name = "NewPagetool";
+            this.NewPagetool.Size = new System.Drawing.Size(147, 22);
+            this.NewPagetool.Text = "在新标签页中打开";
+            this.NewPagetool.Click += new System.EventHandler(this.NewPagetool_Click);
+            // 
+            // delItemTool
+            // 
+            this.delItemTool.Name = "delItemTool";
+            this.delItemTool.Size = new System.Drawing.Size(147, 22);
+            this.delItemTool.Text = "删除";
+            this.delItemTool.Click += new System.EventHandler(this.delItemTool_Click);
             // 
             // panelEx1
             // 
@@ -291,14 +350,28 @@
             this.plSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.plSystem.BackColor = System.Drawing.Color.WhiteSmoke;
             this.plSystem.BackgroundImage = global::vine_window_standard.Properties.Resources.Top_03;
+            this.plSystem.Controls.Add(this.lbMore);
             this.plSystem.Controls.Add(this.btnMax);
             this.plSystem.Controls.Add(this.btnMin);
             this.plSystem.Controls.Add(this.btnExit);
-            this.plSystem.Location = new System.Drawing.Point(916, 0);
+            this.plSystem.Location = new System.Drawing.Point(893, 0);
             this.plSystem.Margin = new System.Windows.Forms.Padding(0);
             this.plSystem.Name = "plSystem";
-            this.plSystem.Size = new System.Drawing.Size(91, 34);
+            this.plSystem.Size = new System.Drawing.Size(114, 34);
             this.plSystem.TabIndex = 3;
+            // 
+            // lbMore
+            // 
+            this.lbMore.BackColor = System.Drawing.Color.Transparent;
+            this.lbMore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lbMore.Image = global::vine_window_standard.Properties.Resources.Arrow;
+            this.lbMore.Location = new System.Drawing.Point(0, 0);
+            this.lbMore.Margin = new System.Windows.Forms.Padding(0);
+            this.lbMore.Name = "lbMore";
+            this.lbMore.Size = new System.Drawing.Size(21, 30);
+            this.lbMore.TabIndex = 20;
+            this.lbMore.Visible = false;
+            this.lbMore.Click += new System.EventHandler(this.lbMore_Click);
             // 
             // btnMax
             // 
@@ -312,7 +385,7 @@
             this.btnMax.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnMax.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMax.ImageIndex = 1;
-            this.btnMax.Location = new System.Drawing.Point(31, 3);
+            this.btnMax.Location = new System.Drawing.Point(54, 3);
             this.btnMax.Name = "btnMax";
             this.btnMax.Size = new System.Drawing.Size(24, 24);
             this.btnMax.TabIndex = 7;
@@ -330,7 +403,7 @@
             this.btnMin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnMin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMin.ImageIndex = 3;
-            this.btnMin.Location = new System.Drawing.Point(1, 3);
+            this.btnMin.Location = new System.Drawing.Point(24, 3);
             this.btnMin.Name = "btnMin";
             this.btnMin.Size = new System.Drawing.Size(24, 24);
             this.btnMin.TabIndex = 6;
@@ -348,7 +421,7 @@
             this.btnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.ImageIndex = 0;
-            this.btnExit.Location = new System.Drawing.Point(63, 3);
+            this.btnExit.Location = new System.Drawing.Point(86, 3);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(24, 23);
             this.btnExit.TabIndex = 5;
@@ -547,6 +620,8 @@
             this.mnuTitle.ResumeLayout(false);
             this.mnuSetup.ResumeLayout(false);
             this.brmum.ResumeLayout(false);
+            this.munBook.ResumeLayout(false);
+            this.numMore.ResumeLayout(false);
             this.panelEx1.ResumeLayout(false);
             this.plBody.ResumeLayout(false);
             this.plHead.ResumeLayout(false);
@@ -603,6 +678,13 @@
         private System.Windows.Forms.Label btnSetup1;
         private System.Windows.Forms.Label btnNew1;
         private System.Windows.Forms.Label btnMange1;
+        private System.Windows.Forms.ToolStripMenuItem newTool;
+        private System.Windows.Forms.Label lbMore;
+        private System.Windows.Forms.ContextMenuStrip munBook;
+        private System.Windows.Forms.ContextMenuStrip numMore;
+        private System.Windows.Forms.ToolStripMenuItem NewPagetool;
+        private System.Windows.Forms.ToolStripMenuItem delItemTool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 

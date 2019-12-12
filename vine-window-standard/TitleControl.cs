@@ -21,7 +21,6 @@ namespace vine_window_standard
         public ToolStripItemClickedEventHandler ItemClick;
         public int OwenIndex = 0;
         public bool isHide = false;
-        public double scale;
         public MouseEventHandler MouseClick;
 
         public TitleControl(Control parent, Label firstTitle)

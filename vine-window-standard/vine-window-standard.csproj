@@ -234,6 +234,7 @@
   <ItemGroup>
     <Content Include="bitbug_favicon.ico" />
     <Content Include="Newtonsoft.Json.dll" />
+    <None Include="Resources\Arrow.png" />
     <None Include="Resources\BookMark.png" />
     <None Include="Resources\Close_1.png" />
     <None Include="Resources\Close-1.png" />
@@ -257,6 +258,25 @@
     <None Include="Resources\首页-2%402x.png" />
     <None Include="Resources\goHome.png" />
     <None Include="Resources\startup_800_460.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -77,6 +77,7 @@ namespace vine_window_standard
             }
             catch (System.Security.SecurityException ee)
             {
+                MessageBox.Show(ee.Message);
                 //MessageBoxButtons messButton = MessageBoxButtons.OK;
                 //DialogResult dr = MessageBox.Show("您当前没有操作注册表的权限，地藤无法正常运行!", "环境检测", messButton);
                 //System.Environment.Exit(0);
@@ -85,21 +86,27 @@ namespace vine_window_standard
 
         private static void fixWebBrowserVersion(String appName, Int32 ieMinVer)
         {
-            String section = "Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
-            RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
-            RegistryKey hkie = hklm.OpenSubKey(section, false);
+            try { 
+                String section = "Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION";
+                RegistryKey hklm = Microsoft.Win32.Registry.LocalMachine;
+                RegistryKey hkie = hklm.OpenSubKey(section, false);
 
-            Object val = hkie.GetValue(appName);
-            Int32 curVer = val != null ? (Int32)val : 0;
-            if (curVer < ieMinVer)
-            {
-                MessageBoxButtons messButton = MessageBoxButtons.OK;
-                DialogResult dr = MessageBox.Show("您的当前IE版本不符合要求，无法获得理想的体验，请咨询客服协助安装!", " 环境检测", messButton);
-                //System.Environment.Exit(0);
-                //return;
+                Object val = hkie.GetValue(appName);
+                Int32 curVer = val != null ? (Int32)val : 0;
+                if (curVer < ieMinVer)
+                {
+                    MessageBoxButtons messButton = MessageBoxButtons.OK;
+                    DialogResult dr = MessageBox.Show("您的当前IE版本不符合要求，无法获得理想的体验，请咨询客服协助安装!", " 环境检测", messButton);
+                    //System.Environment.Exit(0);
+                    //return;
+                }
+                hkie.Close();
+                hklm.Close();
             }
-            hkie.Close();
-            hklm.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
