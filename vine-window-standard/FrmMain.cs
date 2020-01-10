@@ -681,7 +681,6 @@ namespace vine_window_standard
         /// <param name="Printer"></param>
         /// <param name="strUrl"></param>
         /// <returns></returns>
-        [Obsolete]
         public bool Print(string Printer, string strUrl)
         {
             ////https://c1.diteng.site/forms/TFrmTranBC.exportPdf?reportNum=1&tbNo=BC180919116&reportRptHead=%E7%8B%BC%E7%8E%8B%E6%B8%94%E5%85%B7&tb=BC
@@ -700,9 +699,6 @@ namespace vine_window_standard
                     key.SetValue("margin_right", 0);  //设置右页边距为0
                     key.SetValue("margin_top", 0);   //设置上页边距为0
 
-                    ////设置默认打印机
-                    //if (Printer != "")
-                    //    Externs.SetDefaultPrinter(Printer);
                     Console.WriteLine("接收打印信息 " + DateTime.Now.ToString());
                     //下载pdf文件并打印
                     string subPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Report";
