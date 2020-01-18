@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
-using Spire.Pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -699,6 +698,9 @@ namespace vine_window_standard
                     key.SetValue("margin_right", 0);  //设置右页边距为0
                     key.SetValue("margin_top", 0);   //设置上页边距为0
 
+                    //设置默认打印机
+                    if (Printer != "")
+                        Externs.SetDefaultPrinter(Printer);
                     Console.WriteLine("接收打印信息 " + DateTime.Now.ToString());
                     //下载pdf文件并打印
                     string subPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\vine-windows-standard\\Report";
@@ -712,15 +714,24 @@ namespace vine_window_standard
                     Console.WriteLine("开始下载 " + DateTime.Now.ToString());
                     if (hdf.DownloadPdf(strUrl, subPath))
                     {
+
                         Console.WriteLine("下载成功 " + DateTime.Now.ToString());
                         if (!timer1.Enabled)
                             timer1.Start();
-                        var doc = new PdfDocument();
-                        doc.LoadFromFile(subPath);
-                        PrintDocument printDoc = doc.PrintDocument;
-                        printDoc.PrinterSettings.PrinterName = Printer;
-                        printDoc.PrintController = new StandardPrintController();
-                        printDoc.Print();
+
+                        AxAcroPDFLib.AxAcroPDF axAcroPDF = new AxAcroPDFLib.AxAcroPDF();
+                        ((System.ComponentModel.ISupportInitialize)(axAcroPDF)).BeginInit();
+                        axAcroPDF.Location = new System.Drawing.Point(0, 24);
+                        axAcroPDF.Size = new System.Drawing.Size(292, 242);
+                        axAcroPDF.Dock = DockStyle.Fill;
+                        axAcroPDF.Visible = false;
+                        Controls.Add(axAcroPDF);
+                        ((System.ComponentModel.ISupportInitialize)(axAcroPDF)).EndInit();
+                        axAcroPDF.LoadFile(subPath);
+                        //Thread.Sleep(500);
+                        Console.WriteLine("发送打印 " + DateTime.Now.ToString());
+                        //axAcroPDF.printWithDialog();
+                        axAcroPDF.printAll();
                         result = true;
                     }
                 }
@@ -785,12 +796,16 @@ namespace vine_window_standard
                         {
                             if (!timer1.Enabled)
                                 timer1.Start();
-                            var doc = new PdfDocument();
-                            doc.LoadFromFile(fileParh);
-                            PrintDocument printDoc = doc.PrintDocument;
-                            printDoc.PrinterSettings.PrinterName = Printer;
-                            printDoc.PrintController = new StandardPrintController();
-                            printDoc.Print();
+
+                            AxAcroPDFLib.AxAcroPDF axAcroPDF = new AxAcroPDFLib.AxAcroPDF();
+                            axAcroPDF.Location = new System.Drawing.Point(0, 24);
+                            axAcroPDF.Size = new System.Drawing.Size(292, 242);
+                            axAcroPDF.Dock = DockStyle.Fill;
+                            Controls.Add(axAcroPDF);
+                            axAcroPDF.setShowToolbar(false);
+                            axAcroPDF.LoadFile(fileParh);
+                            //Thread.Sleep(500);
+                            axAcroPDF.printAll();
                             result = true;
                         }
                     }
