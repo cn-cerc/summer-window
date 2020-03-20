@@ -206,7 +206,6 @@
     <EmbeddedResource Include="UCBtnLabel.resx">
       <DependentUpon>UCBtnLabel.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
