@@ -4,17 +4,12 @@ using Spire.Pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
-using System.IO;
-using System.Linq;
-using System.Management;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static vine_window_standard.MyWebBrowser;
 
@@ -716,6 +711,8 @@ namespace vine_window_standard
                         if (!timer1.Enabled)
                             timer1.Start();
                         var doc = new PdfDocument();
+                        doc.Pages.Add();
+                        doc.Pages.RemoveAt(0);
                         doc.LoadFromFile(subPath);
                         PrintDocument printDoc = doc.PrintDocument;
                         printDoc.PrinterSettings.PrinterName = Printer;
@@ -786,6 +783,8 @@ namespace vine_window_standard
                             if (!timer1.Enabled)
                                 timer1.Start();
                             var doc = new PdfDocument();
+                            doc.Pages.Add();
+                            doc.Pages.RemoveAt(0);
                             doc.LoadFromFile(fileParh);
                             PrintDocument printDoc = doc.PrintDocument;
                             printDoc.PrinterSettings.PrinterName = Printer;
